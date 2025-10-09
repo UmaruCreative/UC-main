@@ -1,0 +1,1 @@
+import{g as o,S as t}from"./ScrollTrigger.CKx49QUS.js";o.registerPlugin(t);o.utils.toArray(".animate-on-scroll").forEach((r,a)=>{o.fromTo(r,{opacity:0,y:50},{opacity:1,y:0,duration:.8,ease:"power2.out",scrollTrigger:{trigger:r,start:"top 80%",toggleActions:"play none none none"}})});
