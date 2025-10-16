@@ -1,0 +1,183 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import LoadingSpinner from '../../../components/LoadingSpinner.astro';
+import ServiceHero from '../../../components/ServiceHero.astro';
+import WhyItWorks from '../../../components/WhyItWorks.astro';
+import ServiceCTA from '../../../components/ServiceCTA.astro';
+import NewFooter from '../../../components/NewFooter.astro';
+---
+
+<Layout title="Google My Business Optimization | Umaru Creative" description="Professional Google My Business profile optimization to help local customers find your business easily and build trust through your online presence.">
+  <LoadingSpinner />
+  <Header />
+  <ServiceHero 
+    title="Get Found by Local Customers"
+    subtitle="Optimize your Google My Business profile to appear in local searches, build trust, and attract more customers to your business."
+    ctaPrimary="Get Started"
+    ctaSecondary="Ask a Question"
+    ctaPrimaryLink="#contact"
+    ctaSecondaryLink="#contact"
+  />
+  
+  <section class="py-20 md:py-32 animate-on-scroll">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="max-w-3xl mx-auto">
+        <span class="inline-block px-3 py-1 bg-accent-100 text-primary-800 rounded-full text-sm font-alexandria mb-4">
+          Benefits
+        </span>
+        
+        <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-8">
+          Why Google My Business Matters
+        </h2>
+        
+        <div class="space-y-8">
+          <div class="bg-white p-8 rounded-xl shadow-sm bloom-card">
+            <h3 class="font-alexandria font-bold text-xl mb-4">Local Search Visibility</h3>
+            <p class="text-primary-700">
+              When people search for businesses like yours in your area, a well-optimized Google My Business profile helps you appear in the local map pack and search results, making it easier for customers to find you.
+            </p>
+          </div>
+          
+          <div class="bg-white p-8 rounded-xl shadow-sm bloom-card">
+            <h3 class="font-alexandria font-bold text-xl mb-4">Build Trust and Credibility</h3>
+            <p class="text-primary-700">
+              Complete business information, customer reviews, and regular updates show potential customers that you're a legitimate, active business they can trust.
+            </p>
+          </div>
+          
+          <div class="bg-white p-8 rounded-xl shadow-sm bloom-card">
+            <h3 class="font-alexandria font-bold text-xl mb-4">Direct Customer Interaction</h3>
+            <p class="text-primary-700">
+              Customers can call, get directions, view your hours, and even message you directly from your Google listing, making it easier for them to connect with your business.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="py-20 md:py-32 bg-accent-50 animate-on-scroll">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="max-w-3xl mx-auto">
+        <span class="inline-block px-3 py-1 bg-white text-primary-800 rounded-full text-sm font-alexandria mb-4">
+          What's Included
+        </span>
+        
+        <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-8">
+          Complete Profile Optimization
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-white p-6 rounded-xl shadow-sm bloom-card">
+            <h3 class="font-alexandria font-bold text-lg mb-3">Profile Setup & Verification</h3>
+            <p class="text-primary-700">Complete business information, verification process, and category optimization.</p>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm bloom-card">
+            <h3 class="font-alexandria font-bold text-lg mb-3">Photo Optimization</h3>
+            <p class="text-primary-700">High-quality photos of your business, products, and services to attract customers.</p>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm bloom-card">
+            <h3 class="font-alexandria font-bold text-lg mb-3">Review Management</h3>
+            <p class="text-primary-700">Strategy for encouraging positive reviews and responding to customer feedback.</p>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm bloom-card">
+            <h3 class="font-alexandria font-bold text-lg mb-3">Regular Updates</h3>
+            <p class="text-primary-700">Posts, offers, and updates to keep your profile active and engaging.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <WhyItWorks />
+  
+  <section id="contact" class="py-20 md:py-32 animate-on-scroll">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="inline-block px-3 py-1 bg-accent-100 text-primary-800 rounded-full text-sm font-alexandria mb-4">
+          Get Started
+        </span>
+        
+        <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-6">
+          Ready to Improve Your Local Presence?
+        </h2>
+        
+        <p class="text-lg text-primary-800 mb-10">
+          Let's optimize your Google My Business profile so local customers can find and choose your business with confidence.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/en/contact/" 
+            class="px-8 py-4 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-all duration-300 hover:shadow-lg hover:scale-105"
+          >
+            Start Optimization
+          </a>
+          <a 
+            href="mailto:hello@umarucreative.com" 
+            class="px-8 py-4 bg-accent-100 text-primary-900 rounded-md font-alexandria hover:bg-accent-200 transition-all duration-300 hover:shadow-lg hover:scale-105"
+          >
+            Ask Questions
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <ServiceCTA />
+  <NewFooter />
+</Layout>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  gsap.registerPlugin(ScrollTrigger);
+  
+  // Bloom effect for cards
+  gsap.utils.toArray('.bloom-card').forEach((card, i) => {
+    gsap.fromTo(
+      card, 
+      { 
+        opacity: 0, 
+        scale: 0.8, 
+        filter: "blur(5px)" 
+      }, 
+      {
+        opacity: 1,
+        scale: 1,
+        filter: "blur(0px)",
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        }
+      }
+    );
+  });
+  
+  // Fade in animation for sections
+  gsap.utils.toArray('.animate-on-scroll').forEach((section, i) => {
+    gsap.fromTo(
+      section, 
+      { opacity: 0, y: 50 }, 
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        }
+      }
+    );
+  });
+</script>

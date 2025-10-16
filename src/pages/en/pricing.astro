@@ -1,0 +1,615 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import LoadingSpinner from '../../components/LoadingSpinner.astro';
+import NewFooter from '../../components/NewFooter.astro';
+---
+
+<Layout title="Pricing | Umaru Creative" description="Transparent pricing for web design, video creation, and digital services. No hidden costs - just clear packages to help your business grow online." lang="en">
+  <LoadingSpinner />
+  <Header />
+  
+  <!-- Hero Section -->
+  <section class="min-h-screen flex flex-col justify-center relative overflow-hidden pt-16 animate-on-scroll">
+    <div class="absolute inset-0 z-0">
+      <img 
+        src="https://images.pexels.com/photos/531756/pexels-photo-531756.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2" 
+        alt="Blue sky with floating clouds" 
+        class="w-full h-full object-cover opacity-30"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-primary-50/80 to-white/90"></div>
+    </div>
+
+    <div class="container mx-auto px-6 md:px-12 py-20 md:py-32 relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="font-alexandria font-bold text-4xl md:text-5xl lg:text-6xl leading-tight mb-6 hero-text">
+          Pricing Made Simple
+        </h1>
+        
+        <p class="text-lg md:text-xl text-primary-800 mb-10 max-w-3xl mx-auto hero-text">
+          Affordable. Transparent. No hidden costs — just clear packages to help your business grow online.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Website Creation Packages -->
+  <section id="website-packages" class="py-20 md:py-32 animate-on-scroll">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="inline-block px-3 py-1 bg-accent-100 text-primary-800 rounded-full text-sm font-alexandria mb-4">
+            Website Creation
+          </span>
+          <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-4">
+            Website Creation Packages
+          </h2>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+          <!-- Landing Page -->
+          <div class="bg-white rounded-xl shadow-sm p-8 pricing-card hover:shadow-lg transition-all duration-300 relative">
+            <div class="text-center mb-6">
+              <h3 class="font-alexandria font-bold text-2xl mb-2">Landing Page</h3>
+              <p class="text-primary-700 mb-4">Compact one-page design</p>
+              <div class="border-t border-primary-100 my-4"></div>
+              <div class="text-4xl font-bold text-primary-800 mb-2">starting €790</div>
+              <div class="border-t border-primary-100 my-4"></div>
+            </div>
+            
+            <div class="mb-8">
+              <button class="flex items-center justify-between w-full text-left font-alexandria font-medium text-primary-800 mb-4" onclick="toggleIncludes('landing-includes')">
+                Includes
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 transform transition-transform expand-icon" id="landing-arrow">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </button>
+              <div id="landing-includes" class="space-y-2 text-primary-700">
+                <div class="flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <span>Custom design</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <span>Contact section</span>
+                </div>
+                <div class="hidden expandable-item flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <span>~200 words SEO content</span>
+                </div>
+                <div class="hidden expandable-item flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <span>4 visuals</span>
+                </div>
+                <div class="hidden expandable-item flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <span>Basic SEO</span>
+                </div>
+                <div class="hidden expandable-item flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <span>1 revision</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="border-t border-primary-100 pt-6">
+              <a 
+                href="/en/contact/" 
+                class="block w-full text-center px-6 py-3 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-all duration-300 hover:shadow-lg"
+              >
+                Get Started
+              </a>
+            </div>
+          </div>
+
+          <!-- Enhanced Website -->
+          <div class="bg-white rounded-xl shadow-sm p-8 pricing-card hover:shadow-lg transition-all duration-300 relative">
+            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+              <span class="bg-primary-800 text-white px-4 py-1 rounded-full text-sm font-alexandria">
+                Popular
+              </span>
+            </div>
+            
+            <div class="text-center mb-6">
+              <h3 class="font-alexandria font-bold text-2xl mb-2">Enhanced Website</h3>
+              <p class="text-primary-700 mb-4">Flexible multi-page site (2–5 pages)</p>
+              <div class="border-t border-primary-100 my-4"></div>
+              <div class="text-4xl font-bold text-primary-800 mb-2">€900 – €1,390</div>
+              <div class="border-t border-primary-100 my-4"></div>
+            </div>
+            
+            <div class="mb-8">
+              <button class="flex items-center justify-between w-full text-left font-alexandria font-medium text-primary-800 mb-4" onclick="toggleIncludes('enhanced-includes')">
+                Includes
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 transform transition-transform expand-icon" id="enhanced-arrow">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </button>
+              <div id="enhanced-includes" class="space-y-2 text-primary-700">
+                <div class="flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <span>2–5 custom pages</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <span>Contact form</span>
+                </div>
+                <div class="hidden expandable-item flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <span>~700 words SEO content</span>
+                </div>
+                <div class="hidden expandable-item flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <span>Up to 12 visuals</span>
+                </div>
+                <div class="hidden expandable-item flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <span>Basic SEO + multilingual option</span>
+                </div>
+                <div class="hidden expandable-item flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <span>2 revisions</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="border-t border-primary-100 pt-6">
+              <a 
+                href="/en/contact/" 
+                class="block w-full text-center px-6 py-3 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-all duration-300 hover:shadow-lg"
+              >
+                Get Started
+              </a>
+            </div>
+          </div>
+
+          <!-- Professional Website -->
+          <div class="bg-white rounded-xl shadow-sm p-8 pricing-card hover:shadow-lg transition-all duration-300 relative">
+            <div class="text-center mb-6">
+              <h3 class="font-alexandria font-bold text-2xl mb-2">Professional / <br>E-commerce</h3>
+              <p class="text-primary-700 mb-4">Full-featured website or online shop</p>
+              <div class="border-t border-primary-100 my-4"></div>
+              <div class="text-4xl font-bold text-primary-800 mb-2">from €1,590</div>
+              <div class="border-t border-primary-100 my-4"></div>
+            </div>
+            
+            <div class="mb-8">
+              <button class="flex items-center justify-between w-full text-left font-alexandria font-medium text-primary-800 mb-4" onclick="toggleIncludes('professional-includes')">
+                Includes
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 transform transition-transform expand-icon" id="professional-arrow">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </button>
+              <div id="professional-includes" class="space-y-2 text-primary-700">
+                <div class="flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <span>Product integration & payments</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <span>Advanced SEO</span>
+                </div>
+                <div class="hidden expandable-item flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <span>Custom layouts</span>
+                </div>
+                <div class="hidden expandable-item flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-green-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  <span>Up to 3 revisions</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="border-t border-primary-100 pt-6">
+              <a 
+                href="/en/contact/" 
+                class="block w-full text-center px-6 py-3 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-all duration-300 hover:shadow-lg"
+              >
+                Get Started
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Highlight Box -->
+        <div class="bg-gradient-to-r from-primary-50/80 to-accent-50/80 backdrop-blur-sm p-8 rounded-xl border border-white/30 shadow-lg glass-highlight">
+          <div class="text-center">
+            <p class="text-primary-800 mb-4">
+              <strong>All packages can be upgraded</strong> with a 6‑month Website Care Plan for ongoing support.
+            </p>
+            <p class="text-primary-700">
+              <strong>Flexible monthly payment plans available.</strong> Please ask for details.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ongoing Website Care -->
+  <section id="website-care" class="py-20 md:py-32 bg-accent-50 animate-on-scroll">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="inline-block px-3 py-1 bg-white text-primary-800 rounded-full text-sm font-alexandria mb-4">
+            Ongoing Support
+          </span>
+          <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-4">
+            Ongoing Website Care
+          </h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Hourly Support -->
+          <div class="bg-white rounded-xl shadow-sm p-8 pricing-card hover:shadow-lg transition-all duration-300">
+            <div class="text-center mb-6">
+              <h3 class="font-alexandria font-bold text-2xl mb-4">Hourly Support</h3>
+              <div class="border-t border-primary-100 my-4"></div>
+              <div class="text-4xl font-bold text-primary-800 mb-2">€50/hour</div>
+              <div class="border-t border-primary-100 my-4"></div>
+              <p class="text-primary-700">
+                For occasional updates, design tweaks, or maintenance. Pay only for what you need.
+              </p>
+            </div>
+          </div>
+
+          <!-- Website Improvements -->
+          <div class="bg-white rounded-xl shadow-sm p-8 pricing-card hover:shadow-lg transition-all duration-300">
+            <div class="text-center mb-6">
+              <h3 class="font-alexandria font-bold text-2xl mb-4">Website Improvements</h3>
+              <div class="border-t border-primary-100 my-4"></div>
+              <div class="text-4xl font-bold text-primary-800 mb-2">From €490</div>
+              <div class="border-t border-primary-100 my-4"></div>
+              <p class="text-primary-700">
+                Already have a website? I can help enhance it — improving navigation, user experience, visual clarity, and messaging so your site communicates better and supports your business growth.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Creation -->
+  <section id="video-creation" class="py-20 md:py-32 animate-on-scroll">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="inline-block px-3 py-1 bg-accent-100 text-primary-800 rounded-full text-sm font-alexandria mb-4">
+            Video Content
+          </span>
+          <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-4">
+            Video Creation for Social Media
+          </h2>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Short & Snappy -->
+          <div class="bg-white rounded-xl shadow-sm p-8 pricing-card hover:shadow-lg transition-all duration-300">
+            <div class="text-center mb-6">
+              <h3 class="font-alexandria font-bold text-2xl mb-2">Short & Snappy</h3>
+              <p class="text-primary-700 mb-4">Less than 30 seconds</p>
+              <div class="border-t border-primary-100 my-4"></div>
+              <div class="text-4xl font-bold text-primary-800 mb-2">from €270</div>
+              <div class="border-t border-primary-100 my-4"></div>
+              <p class="text-primary-700">Perfect for ads, reels, or teasers</p>
+            </div>
+            
+            <div class="border-t border-primary-100 pt-6">
+              <a 
+                href="/en/contact/" 
+                class="block w-full text-center px-6 py-3 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-all duration-300 hover:shadow-lg"
+              >
+                Get Started
+              </a>
+            </div>
+          </div>
+
+          <!-- Engaging Story -->
+          <div class="bg-white rounded-xl shadow-sm p-8 pricing-card hover:shadow-lg transition-all duration-300">
+            <div class="text-center mb-6">
+              <h3 class="font-alexandria font-bold text-2xl mb-2">Engaging Story</h3>
+              <p class="text-primary-700 mb-4">30–60 seconds</p>
+              <div class="border-t border-primary-100 my-4"></div>
+              <div class="text-4xl font-bold text-primary-800 mb-2">from €390</div>
+              <div class="border-t border-primary-100 my-4"></div>
+              <p class="text-primary-700">Perfect for Instagram/Facebook posts or product showcases</p>
+            </div>
+            
+            <div class="border-t border-primary-100 pt-6">
+              <a 
+                href="/en/contact/" 
+                class="block w-full text-center px-6 py-3 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-all duration-300 hover:shadow-lg"
+              >
+                Get Started
+              </a>
+            </div>
+          </div>
+
+          <!-- Mini Documentary -->
+          <div class="bg-white rounded-xl shadow-sm p-8 pricing-card hover:shadow-lg transition-all duration-300">
+            <div class="text-center mb-6">
+              <h3 class="font-alexandria font-bold text-2xl mb-2">Mini Documentary</h3>
+              <p class="text-primary-700 mb-4">1–3 minutes</p>
+              <div class="border-t border-primary-100 my-4"></div>
+              <div class="text-4xl font-bold text-primary-800 mb-2">from €490</div>
+              <div class="border-t border-primary-100 my-4"></div>
+              <p class="text-primary-700">Perfect for brand storytelling, service highlights, or YouTube content</p>
+            </div>
+            
+            <div class="border-t border-primary-100 pt-6">
+              <a 
+                href="/en/contact/" 
+                class="block w-full text-center px-6 py-3 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-all duration-300 hover:shadow-lg"
+              >
+                Get Started
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Google Business Profile -->
+  <section id="google-business" class="py-20 md:py-32 bg-accent-50 animate-on-scroll">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="max-w-2xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="inline-block px-3 py-1 bg-white text-primary-800 rounded-full text-sm font-alexandria mb-4">
+            Local Presence
+          </span>
+          <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-4">
+            Google Business Profile Upgrade
+          </h2>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-sm p-8 pricing-card hover:shadow-lg transition-all duration-300">
+          <div class="text-center mb-6">
+            <h3 class="font-alexandria font-bold text-2xl mb-4">Google Business Profile Upgrade</h3>
+            <div class="border-t border-primary-100 my-4"></div>
+            <div class="text-4xl font-bold text-primary-800 mb-2">From €390</div>
+            <div class="border-t border-primary-100 my-4"></div>
+            <p class="text-primary-700">
+              Make sure local customers can find you clearly on Google Maps and Search with a fully optimized profile.
+            </p>
+          </div>
+          
+          <div class="border-t border-primary-100 pt-6">
+            <a 
+              href="/en/contact/" 
+              class="block w-full text-center px-6 py-3 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-all duration-300 hover:shadow-lg"
+            >
+              Get Started
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Invite -->
+  <section class="py-20 md:py-32 animate-on-scroll">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="max-w-4xl mx-auto text-center">
+        <span class="inline-block px-3 py-1 bg-accent-100 text-primary-800 rounded-full text-sm font-alexandria mb-4">
+          Portfolio
+        </span>
+        
+        <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-6">
+          See My Work
+        </h2>
+        
+        <p class="text-lg text-primary-800 mb-10">
+          Explore my Portfolio to see real websites, videos, and projects created for businesses like yours.
+        </p>
+        
+        <a 
+          href="/en/#portfolio" 
+          class="inline-block px-8 py-4 bg-accent-100 text-primary-900 rounded-md font-alexandria hover:bg-accent-200 transition-all duration-300 hover:shadow-lg hover:scale-105"
+        >
+          View Portfolio
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 md:py-32 relative overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img 
+        src="https://images.pexels.com/photos/531756/pexels-photo-531756.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2" 
+        alt="Blue sky background" 
+        class="w-full h-full object-cover opacity-30"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-primary-600/80 to-primary-800/80"></div>
+    </div>
+    
+    <div class="container mx-auto px-6 md:px-12 relative z-10">
+      <div class="max-w-4xl mx-auto text-center text-white">
+        <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-6">
+          Ready to Start Your Project?
+        </h2>
+        
+        <p class="text-lg mb-10 opacity-90">
+          Let's discuss your ideas and find the right plan for your business.
+        </p>
+        
+        <a 
+          href="/en/contact/" 
+          class="inline-block px-8 py-4 bg-white text-primary-800 rounded-md font-alexandria hover:bg-primary-50 transition-all duration-300 hover:shadow-lg hover:scale-105"
+        >
+          Book a Free Consultation
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <NewFooter />
+</Layout>
+
+<style>
+  .hero-text {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease-out 0.3s forwards;
+  }
+
+  .pricing-card {
+    transform: translateY(0);
+    transition: all 0.3s ease;
+  }
+
+  .pricing-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(12, 145, 241, 0.2);
+  }
+
+  .glass-highlight {
+    backdrop-filter: blur(10px);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .expand-icon {
+    transition: transform 0.3s ease;
+  }
+
+  .expandable-item {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .expandable-item.show {
+    opacity: 1;
+    max-height: 50px;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  gsap.registerPlugin(ScrollTrigger);
+  
+  // Fade in animation for sections
+  gsap.utils.toArray('.animate-on-scroll').forEach((section, i) => {
+    gsap.fromTo(
+      section, 
+      { opacity: 0, y: 50 }, 
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        }
+      }
+    );
+  });
+
+  // Pricing card animations
+  gsap.utils.toArray('.pricing-card').forEach((card, i) => {
+    gsap.fromTo(
+      card, 
+      { 
+        opacity: 0, 
+        scale: 0.9,
+        y: 30
+      }, 
+      {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 0.6,
+        delay: i * 0.1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+          toggleActions: "play none none none"
+        }
+      }
+    );
+  });
+
+  // Toggle includes functionality
+  function toggleIncludes(id) {
+    const includesDiv = document.getElementById(id);
+    const arrow = document.getElementById(id.replace('-includes', '-arrow'));
+    const expandableItems = includesDiv.querySelectorAll('.expandable-item');
+    
+    const isExpanded = includesDiv.classList.contains('expanded');
+    
+    if (!isExpanded) {
+      // Expand
+      includesDiv.classList.add('expanded');
+      arrow.style.transform = 'rotate(180deg)';
+      
+      expandableItems.forEach((item, index) => {
+        setTimeout(() => {
+          item.classList.remove('hidden');
+          item.classList.add('show');
+        }, index * 100);
+      });
+    } else {
+      // Collapse
+      includesDiv.classList.remove('expanded');
+      arrow.style.transform = 'rotate(0deg)';
+      
+      expandableItems.forEach((item) => {
+        item.classList.remove('show');
+        setTimeout(() => {
+          item.classList.add('hidden');
+        }, 300);
+      });
+    }
+  }
+
+  // Make function globally available
+  window.toggleIncludes = toggleIncludes;
+</script>

@@ -1,0 +1,20 @@
+{
+  "name": "umaru-creative",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.0.0",
+    "@astrojs/tailwind": "^5.1.0",
+    "astro": "^5.2.5",
+    "gsap": "^3.12.5",
+    "split-type": "^0.3.4",
+    "tailwindcss": "^3.4.1"
+  }
+}

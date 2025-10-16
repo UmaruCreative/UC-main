@@ -1,0 +1,35 @@
+---
+---
+
+<section class="py-16 relative overflow-hidden">
+  <!-- Replace with lakeside_path.jpg later -->
+  <div class="relative h-64 md:h-80">
+    <img 
+      src="https://images.pexels.com/photos/1770809/pexels-photo-1770809.jpeg?auto=compress&cs=tinysrgb&w=1920&h=800&dpr=2" 
+      alt="Lakeside path with birch trees and water ripples" 
+      class="w-full h-full object-cover lakeside-image"
+    />
+    <div class="absolute inset-0 bg-primary-900/20"></div>
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="text-center text-white">
+        <h3 class="font-alexandria font-bold text-2xl md:text-3xl mb-2">
+          A Journey Together
+        </h3>
+        <p class="text-lg opacity-90">
+          Every great website starts with understanding your story
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .lakeside-image {
+    animation: subtleRipple 6s ease-in-out infinite;
+  }
+
+  @keyframes subtleRipple {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+  }
+</style>

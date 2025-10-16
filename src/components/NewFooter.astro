@@ -1,0 +1,83 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="relative py-16 bg-primary-950 text-white overflow-hidden">
+  <!-- Replace with lake_forest.jpg or lake_forest.mp4 later -->
+  <div class="absolute inset-0 z-0">
+    <img 
+      src="https://images.pexels.com/photos/1770809/pexels-photo-1770809.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2" 
+      alt="Shimmering lake with coniferous forests" 
+      class="w-full h-full object-cover opacity-20 lake-forest"
+    />
+  </div>
+
+  <div class="container mx-auto px-6 md:px-12 relative z-10">
+    <div class="max-w-5xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div>
+          <h3 class="font-alexandria font-bold text-xl mb-4">Umaru Creative</h3>
+          <p class="text-primary-200 mb-4">
+            Websites crafted with care, inspired by millefeuille, lakeside walks, and small, good things.
+          </p>
+          <p class="text-primary-300">
+            Based in Finland
+          </p>
+        </div>
+        
+        <div>
+          <h3 class="font-alexandria font-bold text-xl mb-4">Contact</h3>
+          <ul class="space-y-2 text-primary-200">
+            <li>
+              <a href="mailto:umaru.creative@gmail.com" class="hover:text-white transition-colors">
+                umaru.creative@gmail.com
+              </a>
+            </li>
+            <li>+358 123 456 789</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-alexandria font-bold text-xl mb-4">Connect</h3>
+          <ul class="space-y-2 text-primary-200">
+            <li>
+              <a href="#" class="hover:text-white transition-colors">Instagram</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-white transition-colors">Twitter</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-primary-800 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-primary-300 text-sm">
+          &copy; {year} Umaru Creative | All Rights Reserved
+        </p>
+        
+        <div class="flex gap-6 mt-4 md:mt-0">
+          <a href="#" class="text-primary-300 text-sm hover:text-white transition-colors">
+            Privacy Policy
+          </a>
+          <a href="#" class="text-primary-300 text-sm hover:text-white transition-colors">
+            Terms of Service
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .lake-forest {
+    animation: subtleWave 8s ease-in-out infinite;
+  }
+
+  @keyframes subtleWave {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-5px) scale(1.01); }
+  }
+</style>

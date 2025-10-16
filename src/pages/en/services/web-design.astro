@@ -1,0 +1,173 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import LoadingSpinner from '../../../components/LoadingSpinner.astro';
+import ServiceHero from '../../../components/ServiceHero.astro';
+import PricingSection from '../../../components/PricingSection.astro';
+import FAQSection from '../../../components/FAQSection.astro';
+import TestimonialsSection from '../../../components/TestimonialsSection.astro';
+import WhyItWorks from '../../../components/WhyItWorks.astro';
+import ServiceCTA from '../../../components/ServiceCTA.astro';
+import SupportPlan from '../../../components/SupportPlan.astro';
+import NewFooter from '../../../components/NewFooter.astro';
+---
+
+<Layout title="Web Design Services | Umaru Creative" description="Professional web design services for small businesses in Finland. Custom websites that are secure, sustainable, and designed to grow with your business.">
+  <LoadingSpinner />
+  <Header />
+  <ServiceHero 
+    title="Professional Web Design That Grows With You"
+    subtitle="Affordable. Beautiful. Easy to manage. Perfect for small business owners who want results—not stress."
+    ctaPrimary="View Pricing"
+    ctaSecondary="Ask a Question"
+    ctaPrimaryLink="#pricing"
+    ctaSecondaryLink="#contact"
+  />
+  
+  <section class="py-20 md:py-32 animate-on-scroll">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="max-w-3xl mx-auto">
+        <span class="inline-block px-3 py-1 bg-accent-100 text-primary-800 rounded-full text-sm font-alexandria mb-4">
+          Services
+        </span>
+        
+        <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-8">
+          What You Get
+        </h2>
+        
+        <div class="space-y-8">
+          <div class="bg-white p-8 rounded-xl shadow-sm bloom-card">
+            <h3 class="font-alexandria font-bold text-xl mb-4">Custom Design</h3>
+            <p class="text-primary-700 mb-4">
+              Every website is designed specifically for your business. No templates, no cookie-cutter solutions. Your site will reflect your unique brand and personality.
+            </p>
+            <ul class="text-primary-700 space-y-2">
+              <li>• Brand-aligned color schemes and typography</li>
+              <li>• Custom layouts that fit your content</li>
+              <li>• Professional photography integration</li>
+              <li>• Mobile-first responsive design</li>
+            </ul>
+          </div>
+          
+          <div class="bg-white p-8 rounded-xl shadow-sm bloom-card">
+            <h3 class="font-alexandria font-bold text-xl mb-4">Easy Content Management</h3>
+            <p class="text-primary-700 mb-4">
+              Update your website content without technical knowledge. Add new photos, update your menu, or change your opening hours with simple, intuitive tools.
+            </p>
+            <ul class="text-primary-700 space-y-2">
+              <li>• User-friendly content management system</li>
+              <li>• Training and documentation included</li>
+              <li>• No coding required for updates</li>
+              <li>• Backup and security handled automatically</li>
+            </ul>
+          </div>
+          
+          <div class="bg-white p-8 rounded-xl shadow-sm bloom-card">
+            <h3 class="font-alexandria font-bold text-xl mb-4">Performance & SEO</h3>
+            <p class="text-primary-700 mb-4">
+              Fast-loading websites that rank well in search engines. Your customers will find you easily, and your site will work perfectly on all devices.
+            </p>
+            <ul class="text-primary-700 space-y-2">
+              <li>• Optimized for Google search rankings</li>
+              <li>• Lightning-fast loading speeds</li>
+              <li>• Mobile-friendly design</li>
+              <li>• Analytics and performance monitoring</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <PricingSection />
+  <WhyItWorks />
+  <TestimonialsSection />
+  <FAQSection />
+  <SupportPlan />
+  
+  <section id="contact" class="py-20 md:py-32 animate-on-scroll">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="inline-block px-3 py-1 bg-accent-100 text-primary-800 rounded-full text-sm font-alexandria mb-4">
+          Get Started
+        </span>
+        
+        <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-6">
+          Ready to Start Your Project?
+        </h2>
+        
+        <p class="text-lg text-primary-800 mb-10">
+          Let's create a website that truly represents your business and helps you connect with your customers.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/en/contact/" 
+            class="px-8 py-4 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-all duration-300 hover:shadow-lg hover:scale-105"
+          >
+            Start Your Project
+          </a>
+          <a 
+            href="mailto:hello@umarucreative.com" 
+            class="px-8 py-4 bg-accent-100 text-primary-900 rounded-md font-alexandria hover:bg-accent-200 transition-all duration-300 hover:shadow-lg hover:scale-105"
+          >
+            Ask Questions
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <ServiceCTA />
+  <NewFooter />
+</Layout>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  gsap.registerPlugin(ScrollTrigger);
+  
+  // Bloom effect for cards
+  gsap.utils.toArray('.bloom-card').forEach((card, i) => {
+    gsap.fromTo(
+      card, 
+      { 
+        opacity: 0, 
+        scale: 0.8, 
+        filter: "blur(5px)" 
+      }, 
+      {
+        opacity: 1,
+        scale: 1,
+        filter: "blur(0px)",
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        }
+      }
+    );
+  });
+  
+  // Fade in animation for sections
+  gsap.utils.toArray('.animate-on-scroll').forEach((section, i) => {
+    gsap.fromTo(
+      section, 
+      { opacity: 0, y: 50 }, 
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        }
+      }
+    );
+  });
+</script>

@@ -1,0 +1,193 @@
+---
+---
+
+<header 
+  class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-6 md:py-8"
+  id="main-header"
+>
+  <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+    <a href="/en/" class="flex items-center text-primary-900 font-alexandria font-bold text-xl md:text-2xl">
+      <img src="/Umaru-Creative-Dango-blue.png" alt="Umaru Creative Logo" class="w-10 h-10 mr-4" />
+      Umaru Creative
+    </a>
+    
+    <nav class="hidden md:flex items-center gap-8">
+      <ul class="flex gap-8 font-alexandria text-sm">
+        <li><a href="/en/#about" class="hover:text-primary-600 transition-colors">About</a></li>
+        <li><a href="/en/#why" class="hover:text-primary-600 transition-colors">Why</a></li>
+        <li><a href="/en/#how" class="hover:text-primary-600 transition-colors">Process</a></li>
+        <li><a href="/en/#who" class="hover:text-primary-600 transition-colors">Clients</a></li>
+        <li><a href="/en/pricing/" class="hover:text-primary-600 transition-colors">Pricing</a></li>
+        <li><a href="/en/articles/" class="hover:text-primary-600 transition-colors">Blog</a></li>
+        <li><a href="/en/contact/" class="px-4 py-2 bg-accent-100 text-primary-900 hover:bg-accent-200 transition-colors rounded-md">Contact</a></li>
+      </ul>
+      <div class="language-switcher relative">
+        <button
+          class="flex items-center gap-2 px-3 py-2 text-sm font-alexandria hover:text-primary-600 transition-colors"
+          aria-label="Select language"
+          onclick="toggleLanguageMenu()"
+        >
+          <span id="current-lang">EN</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+          </svg>
+        </button>
+        
+        <ul id="language-menu" class="absolute right-0 mt-2 py-2 w-40 bg-white rounded-lg shadow-lg opacity-0 invisible transition-all duration-200 z-50">
+          <li><a href="/en/" data-lang="en" class="block px-4 py-2 text-sm hover:bg-primary-50 transition-colors">English</a></li>
+          <li><a href="/fi/" data-lang="fi" class="block px-4 py-2 text-sm hover:bg-primary-50 transition-colors">Suomi</a></li>
+          <li><a href="/sv/" data-lang="sv" class="block px-4 py-2 text-sm hover:bg-primary-50 transition-colors">Svenska</a></li>
+          <li><a href="/fr/" data-lang="fr" class="block px-4 py-2 text-sm hover:bg-primary-50 transition-colors">Français</a></li>
+          <li><a href="/no/" data-lang="no" class="block px-4 py-2 text-sm hover:bg-primary-50 transition-colors">Norsk</a></li>
+        </ul>
+      </div>
+    </nav>
+    
+    <button 
+      id="mobile-menu-toggle" 
+      class="md:hidden flex flex-col justify-center items-center w-8 h-8"
+      aria-label="Toggle menu"
+    >
+      <span class="block w-6 h-0.5 bg-primary-950 mb-1.5 transition-all"></span>
+      <span class="block w-6 h-0.5 bg-primary-950 mb-1.5 transition-all"></span>
+      <span class="block w-6 h-0.5 bg-primary-950 transition-all"></span>
+    </button>
+  </div>
+  
+  <!-- Mobile menu -->
+  <div 
+    id="mobile-menu" 
+    class="fixed inset-0 bg-white z-40 flex-col items-center justify-center hidden pt-16"
+  >
+    <button 
+      id="mobile-menu-close" 
+      class="absolute top-6 right-6 text-2xl text-primary-600 hover:text-primary-800 transition-colors"
+      aria-label="Close menu"
+    >
+      ×
+    </button>
+    
+    <nav class="container mx-auto px-8">
+      <ul class="flex flex-col gap-8 font-alexandria text-center text-xl">
+        <li><a href="/en/#about" class="block py-3">About</a></li>
+        <li><a href="/en/#why" class="block py-3">Why</a></li>
+        <li><a href="/en/#how" class="block py-3">Process</a></li>
+        <li><a href="/en/#who" class="block py-3">Clients</a></li>
+        <li><a href="/en/pricing/" class="block py-3">Pricing</a></li>
+        <li><a href="/en/articles/" class="block py-3">Blog</a></li>
+        <li><a href="/en/contact/" class="block py-3 mt-4 px-6 bg-accent-100 text-primary-900 rounded-md mx-auto w-max">Contact</a></li>
+        <li class="mt-4">
+          <div class="flex justify-center gap-4">
+            <a href="/en/" class="text-sm">EN</a>
+            <a href="/fi/" class="text-sm">FI</a>
+            <a href="/sv/" class="text-sm">SV</a>
+            <a href="/fr/" class="text-sm">FR</a>
+            <a href="/no/" class="text-sm">NO</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('main-header');
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
+  
+  // Handle header background on scroll
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header?.classList.add('bg-white/95', 'backdrop-blur-sm', 'shadow-sm');
+      header?.classList.remove('py-6', 'md:py-8');
+      header?.classList.add('py-4', 'md:py-4');
+    } else {
+      header?.classList.remove('bg-white/95', 'backdrop-blur-sm', 'shadow-sm');
+      header?.classList.add('py-6', 'md:py-8');
+      header?.classList.remove('py-4', 'md:py-4');
+    }
+  });
+  
+  // Handle mobile menu toggle
+  function toggleMobileMenu() {
+    mobileMenu?.classList.toggle('hidden');
+    mobileMenu?.classList.toggle('flex');
+    document.body.classList.toggle('overflow-hidden');
+    
+    // Toggle menu button appearance
+    const spans = mobileMenuToggle?.querySelectorAll('span');
+    if (mobileMenu?.classList.contains('flex')) {
+      spans?.[0].classList.add('rotate-45', 'translate-y-2');
+      spans?.[1].classList.add('opacity-0');
+      spans?.[2].classList.add('-rotate-45', '-translate-y-2');
+    } else {
+      spans?.[0].classList.remove('rotate-45', 'translate-y-2');
+      spans?.[1].classList.remove('opacity-0');
+      spans?.[2].classList.remove('-rotate-45', '-translate-y-2');
+    }
+  }
+  
+  function closeMobileMenu() {
+    mobileMenu?.classList.add('hidden');
+    mobileMenu?.classList.remove('flex');
+    document.body.classList.remove('overflow-hidden');
+    
+    // Reset menu button appearance
+    const spans = mobileMenuToggle?.querySelectorAll('span');
+    if (spans) {
+      spans[0].classList.remove('rotate-45', 'translate-y-2');
+      spans[1].classList.remove('opacity-0');
+      spans[2].classList.remove('-rotate-45', '-translate-y-2');
+    }
+  }
+  
+  mobileMenuToggle?.addEventListener('click', toggleMobileMenu);
+  mobileMenuClose?.addEventListener('click', closeMobileMenu);
+  
+  // Close mobile menu when clicking links
+  mobileMenuLinks.forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+  
+  // Language switcher functionality
+  function toggleLanguageMenu() {
+    const menu = document.getElementById('language-menu');
+    if (menu?.classList.contains('opacity-0')) {
+      menu.classList.remove('opacity-0', 'invisible');
+      menu.classList.add('opacity-100', 'visible');
+    } else {
+      menu?.classList.add('opacity-0', 'invisible');
+      menu?.classList.remove('opacity-100', 'visible');
+    }
+  }
+  
+  // Close language menu when clicking outside
+  document.addEventListener('click', (e) => {
+    const switcher = document.querySelector('.language-switcher');
+    const menu = document.getElementById('language-menu');
+    if (!switcher?.contains(e.target)) {
+      menu?.classList.add('opacity-0', 'invisible');
+      menu?.classList.remove('opacity-100', 'visible');
+    }
+  });
+  
+  // Set current language in switcher
+  const currentPath = window.location.pathname;
+  const currentLang = document.getElementById('current-lang');
+  if (currentPath.includes('/fi/')) {
+    currentLang.textContent = 'FI';
+  } else if (currentPath.includes('/sv/')) {
+    currentLang.textContent = 'SV';
+  } else if (currentPath.includes('/fr/')) {
+    currentLang.textContent = 'FR';
+  } else if (currentPath.includes('/no/')) {
+    currentLang.textContent = 'NO';
+  } else {
+    currentLang.textContent = 'EN';
+  }
+  
+  // Make functions globally available
+  window.toggleLanguageMenu = toggleLanguageMenu;
+</script>

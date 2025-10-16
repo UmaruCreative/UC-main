@@ -1,0 +1,28 @@
+---
+---
+
+<div id="loading-spinner" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+  <div class="text-center">
+    <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-800 mb-4"></div>
+    <p class="font-alexandria text-primary-800 text-lg">Loading Umaru Creative...</p>
+  </div>
+</div>
+
+<script>
+  // Hide loading spinner after page loads
+  window.addEventListener('load', () => {
+    const spinner = document.getElementById('loading-spinner');
+    if (spinner) {
+      spinner.style.opacity = '0';
+      setTimeout(() => {
+        spinner.style.display = 'none';
+      }, 300);
+    }
+  });
+</script>
+
+<style>
+  #loading-spinner {
+    transition: opacity 0.3s ease-out;
+  }
+</style>

@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import LoadingSpinner from '../../components/LoadingSpinner.astro';
+import EnhancedHero from '../../components/EnhancedHero.astro';
+import NewAbout from '../../components/NewAbout.astro';
+import NewWhy from '../../components/NewWhy.astro';
+import LakesideBanner from '../../components/LakesideBanner.astro';
+import NewHowIWork from '../../components/NewHowIWork.astro';
+import NewWhoIWorkWith from '../../components/NewWhoIWorkWith.astro';
+import MyCreations from '../../components/MyCreations.astro';
+import PastryBanner from '../../components/PastryBanner.astro';
+import AboutFounder from '../../components/AboutFounder.astro';
+import DiscoverServices from '../../components/DiscoverServices.astro';
+import BlogSection from '../../components/BlogSection.astro';
+import NewContact from '../../components/NewContact.astro';
+import NewFooter from '../../components/NewFooter.astro';
+---
+
+<Layout title="Umaru Creative | Professional Web Design That Grows With You" lang="en">
+  <LoadingSpinner />
+  <Header />
+  <EnhancedHero />
+  <NewAbout />
+  <NewWhy />
+  <LakesideBanner />
+  <NewHowIWork />
+  <NewWhoIWorkWith />
+  <MyCreations />
+  <PastryBanner />
+  <AboutFounder />
+  <DiscoverServices />
+  <BlogSection />
+  <NewContact />
+  <NewFooter />
+</Layout>
+
+<style>
+  .bloom-card {
+    opacity: 0;
+    transform: scale(0.8);
+    filter: blur(5px);
+  }
+
+  .bloom-card.bloomed {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+    transition: all 0.8s ease-out;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  gsap.registerPlugin(ScrollTrigger);
+  
+  // Bloom effect for cards
+  gsap.utils.toArray('.bloom-card').forEach((card, i) => {
+    gsap.fromTo(
+      card, 
+      { 
+        opacity: 0, 
+        scale: 0.8, 
+        filter: "blur(5px)" 
+      }, 
+      {
+        opacity: 1,
+        scale: 1,
+        filter: "blur(0px)",
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        }
+      }
+    );
+  });
+  
+  // Fade in animation for sections
+  gsap.utils.toArray('.animate-on-scroll').forEach((section, i) => {
+    gsap.fromTo(
+      section, 
+      { opacity: 0, y: 50 }, 
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        }
+      }
+    );
+  });
+</script>

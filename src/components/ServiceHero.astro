@@ -1,0 +1,79 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  ctaPrimary: string;
+  ctaSecondary: string;
+  ctaPrimaryLink?: string;
+  ctaSecondaryLink?: string;
+}
+
+const { 
+  title, 
+  subtitle, 
+  ctaPrimary, 
+  ctaSecondary, 
+  ctaPrimaryLink = "#pricing",
+  ctaSecondaryLink = "#contact"
+} = Astro.props;
+---
+
+<section class="min-h-screen flex flex-col justify-center relative overflow-hidden pt-16 animate-on-scroll">
+  <!-- Replace with clouds_background.png or clouds_background.mp4 later -->
+  <div class="absolute inset-0 z-0">
+    <img 
+      src="https://images.pexels.com/photos/531756/pexels-photo-531756.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2" 
+      alt="Blue sky with floating clouds" 
+      class="w-full h-full object-cover opacity-30"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-primary-50/80 to-white/90"></div>
+  </div>
+
+  <div class="container mx-auto px-6 md:px-12 py-20 md:py-32 relative z-10">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="font-alexandria font-bold text-4xl md:text-5xl lg:text-6xl leading-tight mb-6 hero-text">
+        {title}
+      </h1>
+      
+      <p class="text-lg md:text-xl text-primary-800 mb-10 max-w-3xl mx-auto hero-text">
+        {subtitle}
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center hero-buttons">
+        <a 
+          href={ctaPrimaryLink} 
+          class="px-8 py-4 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-all duration-300 hover:shadow-lg hover:scale-105"
+        >
+          {ctaPrimary}
+        </a>
+        <a 
+          href={ctaSecondaryLink} 
+          class="px-8 py-4 bg-accent-100 text-primary-900 rounded-md font-alexandria hover:bg-accent-200 transition-all duration-300 hover:shadow-lg hover:scale-105"
+        >
+          {ctaSecondary}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-text {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease-out 0.3s forwards;
+  }
+
+  .hero-buttons {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease-out 0.6s forwards;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
