@@ -1,10 +1,10 @@
 ---
 title: "Google’s AI Search Shift: What It Means for Your Website Traffic"
 description: "Google’s AI-powered search is changing how users find information — and it’s hitting organic and paid clicks hard. Here’s what it means for brands."
-pubDate: 2025-11-11
+pubDate: 2025-11-12
 author: "Umaru Creative"
 lang: "en"
-image: "/images/No-AIO-Seerinteractive.png"
+image: "/images/AEO-chocolat-bar-google.png"
 tags: ["AI Search","SEO","Digital Strategy"]
 category: ["Digital Marketing","SEO"]
 translations:
@@ -56,6 +56,29 @@ It’s a bold business move: redefine the flow of attention, then sell access ba
 
 ---
 
+## From SEO to AEO: Optimising for an AI-first search landscape
+
+While SEO remains essential, AI-powered search has shifted the focus toward **AEO — Answer Engine Optimization**.  
+The goal is no longer just ranking for clicks, but being the **content that AI selects, cites, or summarises**.
+
+Below is a visual comparison of how traditional SEO differs from today’s AEO expectations.
+
+### SEO vs AEO at a glance
+![A visual comparison of SEO vs AEO. It highlights the key differences in goals, content structure and visibility metrics ](/images/google-seo-aeo-compare-table-min.jpg) 
+
+- **SEO ensures you’re findable.**  
+- **AEO ensures your content stays visible in an AI-first search world.**
+
+<br>AEO rewards:<br>
+-clear, concise answers  
+-structured data  
+-content crafted for conversational queries  
+-authority that AI models recognise and trust  
+
+This shift is why many websites with strong SEO foundations are still seeing lower traffic: being *ranked* is no longer the same as being *referenced*.
+
+---
+
 ## Quality and trust take centre stage
 
 To fuel these AI answers, Google needs reliable sources. That’s where **E-E-A-T** — Experience, Expertise, Authoritativeness, and Trustworthiness — becomes critical.  
@@ -63,25 +86,30 @@ To fuel these AI answers, Google needs reliable sources. That’s where **E-E-A-
 AI no longer just scans for **keyword density** — it now evaluates which content is most credible and worth citing.  
 This shift rewards brands that share real experience, genuine insights, and trustworthy voices over those that optimise only for algorithms.
 
-For small businesses and creators, this is an opportunity — not just to rank, but to be *quoted* by AI systems. The internet is moving from “who ranks highest” to “who is most credible”.
+For small businesses and independent professionals, this is an opportunity:
+credible voices now have a better chance of being selected — even over larger competitors.
 
 ---
 
 ## How to adapt your strategy
 
-The game isn’t over. It’s just changing.  
+The game isn’t over — it’s just changed shape.  
 
-Here’s where to focus next:  
-- **Rebalance your ad strategy:** Allocate part of your budget to AI-integrated ad formats and high-intent keywords.  
-- **Protect transactional searches:** Maintain SEO for purchase-ready queries — these still feed AI models and drive conversions.  
-- **Upgrade your content:** Create pieces that offer insight, proof, and expertise. Write for *humans first*, but structure for machines.  
+---
 
-The new SEO is less about gaming algorithms — and more about building digital authority.
+Focus on:
+
+- **Rebalancing ad budgets:** Explore AI-integrated ad formats and high-intent keywords.  
+- **Protecting transactional queries:** These still drive conversions and feed AI models with high-quality signals.  
+- **Creating authoritative content:** Lead with clarity, expertise, and useful insights. Structure content so humans enjoy reading it — and AI can understand it.
+
+Today, SEO is still the foundation. But AEO, authority and trust are what ensure long-term visibility.
 
 ---
 
 ## Takeaway
 
-As Google shifts from showing links to showing answers, brands built on **genuine expertise** will remain visible — because **credibility now defines discovery**.
+As Google shifts from showing links to showing answers, brands built on **real expertise** will stay discoverable — even in a zero-click world.  
 
----
+**Credibility now defines visibility**.
+
