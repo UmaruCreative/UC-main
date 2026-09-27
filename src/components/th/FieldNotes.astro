@@ -1,0 +1,60 @@
+---
+import { getCollection } from "astro:content";
+
+const articles = (await getCollection("articles", ({ data }) => data.lang === "en"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+const fmt = (d: Date) => d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+---
+
+<section id="blog" class="section notes" data-floor="Field notes · blog" aria-labelledby="notes-title">
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="eyebrow">Blog</p>
+        <h2 id="notes-title" class="h2" data-split>Field notes from <em>the lookout.</em></h2>
+      </div>
+      <div class="notes__side" data-reveal>
+        <p class="lede">Practical thinking on search, AI and owning your corner of the web.</p>
+        <a href="/en/articles/" class="btn btn--ghost" data-magnetic>All articles <span class="btn-arrow">→</span></a>
+      </div>
+    </div>
+
+    <ul class="notes__grid" data-stagger>
+      {articles.map((a) => (
+        <li>
+          <a href={`/en/articles/${a.slug}/`} class="note">
+            <div class="note__img">
+              {a.data.image && <img src={a.data.image} alt="" loading="lazy" />}
+            </div>
+            <p class="mono note__date"><time datetime={a.data.pubDate.toISOString()}>{fmt(a.data.pubDate)}</time></p>
+            <h3>{a.data.title}</h3>
+            <p class="note__desc">{a.data.description}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .notes { background: var(--birch); }
+  .notes__side { display: grid; gap: 22px; justify-items: start; }
+  .notes__grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 28px; }
+  @media (min-width: 820px) { .notes__grid { grid-template-columns: repeat(3, 1fr); } }
+  .note { display: block; text-decoration: none; }
+  .note__img { aspect-ratio: 4 / 3; border-radius: 16px; overflow: hidden; background: var(--sage); margin-bottom: 18px; }
+  .note__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s var(--ease-out), filter 0.6s; filter: saturate(0.9); }
+  .note:hover .note__img img { transform: scale(1.06); filter: saturate(1.05); }
+  .note__date { color: var(--fern); margin-bottom: 10px; }
+  .note h3 { font-size: 23px; line-height: 1.2; margin-bottom: 10px; transition: color 0.3s; }
+  .note:hover h3 { color: var(--fern); }
+  .note__desc {
+    color: var(--ink-soft);
+    font-size: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

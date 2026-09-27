@@ -1,0 +1,160 @@
+---
+const steps = [
+  {
+    no: "01",
+    phase: "Discovery",
+    title: "Survey the land",
+    body: "We start with a conversation about your business, your customers and what makes you different. I look at your market too, so the site is built around how people actually find you.",
+  },
+  {
+    no: "02",
+    phase: "Design",
+    title: "Draw the plans",
+    body: "I create a design concept that reflects your brand. We refine it together until it feels just right, before a single beam goes up.",
+  },
+  {
+    no: "03",
+    phase: "Development",
+    title: "Raise the beams",
+    body: "Once the plans are approved, I build your site with clean, efficient code that loads quickly, reads clearly to search engines and AI tools, and is very hard to break.",
+  },
+  {
+    no: "04",
+    phase: "Launch and support",
+    title: "Hand over the keys",
+    body: "After testing and review, we launch. You receive the deeds, documentation and training, so you can look after your treehouse with confidence.",
+  },
+];
+---
+
+<section id="process" class="section build" data-build data-floor="Workshop · process" aria-labelledby="build-title">
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="eyebrow">Process</p>
+        <h2 id="build-title" class="h2" data-split>How we build it, <em>together.</em></h2>
+      </div>
+      <p class="lede" data-reveal>A clear, personal process in four steps. Most projects are finished in two to four weeks, depending on scope and how ready your content is.</p>
+    </div>
+
+    <div class="build__grid">
+      <ol class="build__steps">
+        <span class="build__track" aria-hidden="true"><span data-build-progress></span></span>
+        {steps.map((s) => (
+          <li class="build__step" data-step>
+            <p class="mono build__no"><span>{s.no}</span> {s.phase}</p>
+            <h3 class="h3">{s.title}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))}
+      </ol>
+
+      <figure class="build__figure" aria-hidden="true">
+        <div class="build__sticky">
+          <svg viewBox="0 0 480 560">
+            <!-- 0 · survey -->
+            <g data-part="0" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 520 C 140 508, 340 510, 464 520" stroke="#5b7c48" stroke-width="3" />
+              <path d="M226 520 C 229 380, 231 250, 233 64" stroke="#5a3e2b" stroke-width="3" />
+              <path d="M256 520 C 253 380, 251 250, 249 64" stroke="#5a3e2b" stroke-width="3" />
+              <path d="M241 6 L270 56 L256 54 L290 104 L270 101 L306 160 L176 160 L212 101 L192 104 L226 54 L212 56 Z" stroke="#2c4632" stroke-width="2.5" />
+              <path d="M112 532 V488 L134 496 L112 504" stroke="#d4622e" stroke-width="2.5" />
+              <path d="M368 532 V488 L390 496 L368 504" stroke="#d4622e" stroke-width="2.5" />
+              <path d="M112 470 H368 M112 462 V478 M368 462 V478" stroke="#69736b" stroke-width="1.5" />
+            </g>
+            <!-- 1 · plans (blueprint) -->
+            <g data-part="1" fill="none" stroke="#2b5d9c" stroke-width="1.6" stroke-linecap="round">
+              <rect x="84" y="330" width="312" height="14" />
+              <rect x="124" y="216" width="232" height="114" />
+              <path d="M104 220 L240 146 L376 220" />
+              <path d="M84 380 H396 M84 372 V388 M396 372 V388" />
+              <path d="M424 216 V330 M416 216 H432 M416 330 H432" />
+              <circle cx="178" cy="270" r="26" />
+              <path d="M300 330 V268 a18 18 0 0 1 36 0 V330" />
+            </g>
+            <!-- 2 · beams -->
+            <g data-part="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M236 430 L108 344 M246 430 L374 344" stroke="#46301f" stroke-width="7" />
+              <rect x="84" y="330" width="312" height="14" rx="2" stroke="#5a3e2b" stroke-width="5" />
+              <rect x="124" y="216" width="232" height="114" stroke="#5a3e2b" stroke-width="5" />
+              <path d="M146 236 H334 M146 256 H334 M146 276 H200 M146 296 H200 M146 316 H280" stroke="#9c6e48" stroke-width="2" />
+              <path d="M100 222 L240 142 L380 222" stroke="#37261a" stroke-width="6" />
+              <path d="M300 330 V268 a18 18 0 0 1 36 0 V330" stroke="#37261a" stroke-width="4" />
+              <path d="M96 330 V300 M384 330 V300 M96 302 H130 M350 302 H384" stroke="#5a3e2b" stroke-width="4" />
+            </g>
+            <!-- 3 · keys -->
+            <g data-part="3" fill="none" stroke-linecap="round">
+              <circle cx="178" cy="270" r="60" fill="#f3a738" opacity="0.18" data-fill />
+              <rect x="154" y="250" width="48" height="40" rx="3" fill="#f7c56b" data-fill />
+              <rect x="154" y="250" width="48" height="40" rx="3" stroke="#37261a" stroke-width="4" />
+              <path d="M178 250 V290 M154 270 H202" stroke="#37261a" stroke-width="3" />
+              <path d="M396 344 V520 M420 344 V520" stroke="#c9a577" stroke-width="3" />
+              <path d="M396 370 H420 M396 396 H420 M396 422 H420 M396 448 H420 M396 474 H420 M396 500 H420" stroke="#c9a577" stroke-width="3" />
+              <path d="M96 344 V372" stroke="#37261a" stroke-width="2" />
+              <rect x="88" y="372" width="16" height="22" rx="2" fill="#f7c56b" data-fill />
+              <rect x="88" y="372" width="16" height="22" rx="2" stroke="#37261a" stroke-width="2.5" />
+              <circle cx="300" cy="470" r="14" stroke="#d4622e" stroke-width="4" />
+              <path d="M314 470 H352 M340 470 V482 M350 470 V480" stroke="#d4622e" stroke-width="4" />
+            </g>
+          </svg>
+          <p class="mono build__caption">Plan view · not to scale</p>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .build { background: var(--paper); }
+  .build__grid { display: grid; gap: 40px; }
+  @media (min-width: 960px) { .build__grid { grid-template-columns: 1fr 1fr; gap: clamp(48px, 6vw, 96px); } }
+
+  .build__steps { position: relative; list-style: none; margin: 0; padding: 0 0 0 36px; display: grid; gap: 22px; }
+  @media (min-width: 960px) { .build__steps { gap: 26vh; padding-block: 8vh 20vh; } }
+  .build__track { position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: var(--paper-2); }
+  .build__track span { display: block; height: 100%; background: var(--lantern); transform-origin: 50% 0; }
+  :global(html:not(.motion)) .build__track span { transform: none; }
+
+  .build__step { position: relative; transition: opacity 0.5s; }
+  .build__step::before {
+    content: "";
+    position: absolute;
+    left: -36px;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--paper-2);
+    transition: border-color 0.4s, background 0.4s, transform 0.5s var(--ease-out);
+  }
+  :global(.motion) .build__step { opacity: 0.4; }
+  .build__step.is-active { opacity: 1; }
+  .build__step.is-active::before { border-color: var(--lantern); background: var(--lantern); transform: scale(1.2); }
+  .build__no { color: var(--fern); margin-bottom: 12px; }
+  .build__no span { color: var(--lantern); margin-right: 8px; }
+  .build__step .h3 { font-size: clamp(30px, 3.4vw, 46px); margin-bottom: 14px; }
+  .build__step p:last-child { color: var(--ink-soft); max-width: 44ch; }
+
+  .build__figure { margin: 0; order: -1; }
+  @media (min-width: 960px) { .build__figure { order: 0; } }
+  .build__sticky { position: sticky; top: calc(50vh - 280px); }
+  .build__sticky svg {
+    width: 100%;
+    max-height: 520px;
+    display: block;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 24px 24px;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+  }
+  .build__caption { color: var(--muted); font-size: 11px; margin-top: 12px; text-align: right; }
+  :global(.motion) [data-fill] { opacity: 0; }
+  @media (max-width: 959px) {
+    .build__figure { position: sticky; top: 76px; z-index: 2; background: var(--paper); padding-bottom: 8px; }
+    .build__sticky { position: static; }
+    .build__sticky svg { max-height: 34vh; margin-inline: auto; }
+    .build__caption { display: none; }
+    .build__steps { gap: 22vh; padding-bottom: 12vh; }
+  }
+</style>

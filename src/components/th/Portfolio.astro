@@ -1,0 +1,102 @@
+---
+const projects = [
+  {
+    title: "Psychologist in Oslo",
+    body: "A calm, nature inspired website for a private practice. A quiet digital space that reflects trust, privacy and human connection.",
+    img: "/images/Norway-phsychologist.png",
+    alt: "Homepage of a calm, nature inspired website for a psychologist in Oslo",
+    tags: ["Personal practice", "Booking form", "Responsive"],
+    href: "https://umarucreative.github.io/psychologist-site/",
+  },
+  {
+    title: "Nordic Bites",
+    body: "Handcrafted sushi sandwiches with a calm, minimalist design that highlights weekly menus and pre-orders.",
+    img: "/images/Nordic-bites.png",
+    alt: "Homepage of the Nordic Bites sushi sandwich website",
+    tags: ["Restaurant", "Menu showcase", "Pre-order form"],
+    href: "https://umarucreative.github.io/Nordic-Bites/",
+  },
+  {
+    title: "Neuma Home",
+    body: "Innovative prefab steel homes built for strength and sustainability, told through storytelling and a clear model explorer.",
+    img: "/images/Neuma-home.png",
+    alt: "Homepage of the Neuma Home modern prefab living website",
+    tags: ["Storytelling", "User experience", "Responsive"],
+    href: "https://umarucreative.github.io/Neuma-Home/",
+  },
+];
+---
+
+<section id="portfolio" class="section portfolio" data-floor="Gallery · portfolio" aria-labelledby="portfolio-title">
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="eyebrow">Portfolio</p>
+        <h2 id="portfolio-title" class="h2" data-split>Treehouses <em>already standing.</em></h2>
+      </div>
+      <p class="lede" data-reveal>Three recent builds. Each one owned outright by the people who use it.</p>
+    </div>
+
+    <ol class="portfolio__list">
+      {projects.map((p, i) => (
+        <li class="project" data-reveal>
+          <a href={p.href} class="project__link" target="_blank" rel="noopener">
+            <div class="project__frame" data-tilt>
+              <div class="project__bar" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="project__img">
+                <img src={p.img} alt={p.alt} loading="lazy" data-parallax="0.12" />
+              </div>
+            </div>
+            <div class="project__text">
+              <p class="mono project__no">0{i + 1}</p>
+              <h3 class="h3">{p.title}</h3>
+              <p>{p.body}</p>
+              <ul>{p.tags.map((t) => <li class="chip">{t}</li>)}</ul>
+              <span class="link-arrow">Visit the site <span aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span></span>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .portfolio { background: var(--paper); }
+  .portfolio__list { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(64px, 9vw, 130px); }
+  .project__link { display: grid; gap: 28px; text-decoration: none; align-items: center; }
+  @media (min-width: 900px) {
+    .project__link { grid-template-columns: 1.35fr 1fr; gap: 64px; }
+    .project:nth-child(even) .project__frame { order: 2; }
+  }
+  .project__frame {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--birch);
+    border: 1px solid var(--line);
+    box-shadow: 0 50px 90px -60px rgba(27, 38, 32, 0.6);
+    transform-style: preserve-3d;
+  }
+  .project__frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.28), transparent 45%);
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  .project__link:hover .project__frame::after { opacity: 1; }
+  .project__bar { display: flex; gap: 6px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  .project__bar span { width: 9px; height: 9px; border-radius: 50%; background: var(--paper-2); }
+  .project__img { aspect-ratio: 16 / 10; overflow: hidden; }
+  .project__img img { width: 100%; height: 118%; object-fit: cover; object-position: top; transition: transform 1.2s var(--ease-out); }
+  .project__link:hover .project__img img { transform: scale(1.04); }
+  .project__no { color: var(--lantern); margin-bottom: 10px; }
+  .project .h3 { margin-bottom: 14px; font-size: clamp(28px, 3vw, 42px); }
+  .project__text > p:not(.mono) { color: var(--ink-soft); }
+  .project__text ul { list-style: none; padding: 0; margin: 18px 0 24px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .project .link-arrow { color: var(--moss); }
+  .project__link:hover .link-arrow { background-size: 100% 1px; }
+</style>

@@ -1,0 +1,320 @@
+---
+const services = [
+  { href: "/en/services/web-design/", label: "Web Design", note: "The cabin" },
+  { href: "/en/services/content-creation/", label: "Digital Content", note: "The window" },
+  { href: "/en/services/google-my-business/", label: "Google Business Profile", note: "The signpost" },
+  { href: "/en/services/weekly-reports/", label: "Weekly Reports", note: "The lookout", isNew: true },
+];
+const langs = [
+  { code: "EN", href: "/en/" },
+  { code: "FI", href: "/fi/" },
+  { code: "SV", href: "/sv/" },
+  { code: "FR", href: "/fr/" },
+  { code: "NO", href: "/no/" },
+];
+---
+
+<header class="th-header" data-header>
+  <div class="th-header__inner">
+    <a href="/en/" class="th-logo" aria-label="Umaru Creative, home">
+      <img src="/Umaru-Creative-Dango-blue.png" alt="" width="34" height="34" />
+      <span>Umaru<em>Creative</em></span>
+    </a>
+
+    <nav class="th-nav" aria-label="Main">
+      <ul>
+        <li class="th-nav__drop">
+          <button type="button" aria-expanded="false" aria-controls="th-services-menu" data-drop>
+            Services
+            <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3.5l4 3 4-3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </button>
+          <div class="th-drop" id="th-services-menu">
+            {services.map((s) => (
+              <a href={s.href}>
+                <span class="th-drop__label">{s.label}{s.isNew && <span class="chip chip--new">New</span>}</span>
+                <span class="th-drop__note mono">{s.note}</span>
+              </a>
+            ))}
+          </div>
+        </li>
+        <li><a href="/en/services/weekly-reports/">Reports</a></li>
+        <li><a href="/en/#security">Security</a></li>
+        <li><a href="/en/pricing/">Pricing</a></li>
+        <li><a href="/en/articles/">Blog</a></li>
+        <li><a href="/en/#founder">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="th-header__end">
+      <div class="th-lang" aria-label="Language">
+        {langs.map((l) => (
+          <a href={l.href} aria-current={l.code === "EN" ? "true" : undefined} lang={l.code.toLowerCase()}>{l.code}</a>
+        ))}
+      </div>
+      <a href="/en/contact/" class="btn btn--lantern th-header__cta" data-magnetic>
+        Start a project
+      </a>
+      <button class="th-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="th-mobile" data-burger>
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="th-mobile" id="th-mobile" data-mobile hidden>
+    <nav aria-label="Mobile">
+      <ul>
+        <li><a href="/en/">Home</a></li>
+        {services.map((s) => (
+          <li><a href={s.href}>{s.label}{s.isNew && <span class="chip chip--new">New</span>}</a></li>
+        ))}
+        <li><a href="/en/#security">Security</a></li>
+        <li><a href="/en/pricing/">Pricing</a></li>
+        <li><a href="/en/articles/">Blog</a></li>
+        <li><a href="/en/contact/">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="th-mobile__foot">
+      <div class="th-lang">
+        {langs.map((l) => (
+          <a href={l.href} aria-current={l.code === "EN" ? "true" : undefined}>{l.code}</a>
+        ))}
+      </div>
+      <p class="mono">Jyväskylä · Central Finland</p>
+    </div>
+  </div>
+</header>
+
+<style>
+  .th-header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 100;
+    padding: 14px var(--gutter) 0;
+    transition: transform 0.6s var(--ease-out);
+  }
+  .th-header.is-hidden { transform: translateY(-120%); }
+
+  .th-header__inner {
+    max-width: calc(var(--max) + 40px);
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    height: 58px;
+    padding: 0 10px 0 16px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: background 0.5s var(--ease-out), border-color 0.5s, box-shadow 0.5s, color 0.5s;
+    color: var(--ink);
+  }
+  .th-header.is-scrolled .th-header__inner {
+    background: color-mix(in srgb, var(--birch) 82%, transparent);
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    border-color: var(--line);
+    box-shadow: 0 10px 40px -20px rgba(27, 38, 32, 0.35);
+  }
+  .th-header.is-night .th-header__inner { color: var(--night-ink); }
+  .th-header.is-night.is-scrolled .th-header__inner {
+    background: color-mix(in srgb, var(--night-2) 80%, transparent);
+    border-color: rgba(233, 228, 214, 0.1);
+  }
+
+  .th-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 20px;
+    letter-spacing: -0.01em;
+  }
+  .th-logo img { width: 34px; height: 34px; object-fit: contain; transition: transform 0.8s var(--ease-out); }
+  .th-logo:hover img { transform: rotate(-12deg) scale(1.06); }
+  .th-logo em { font-style: italic; margin-left: 4px; color: var(--fern); }
+  .is-night .th-logo em { color: var(--lantern); }
+
+  .th-nav ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  .th-nav a,
+  .th-nav button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    font: 500 15px/1 var(--font-body);
+    color: inherit;
+    text-decoration: none;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .th-nav a:hover,
+  .th-nav button:hover,
+  .th-nav button[aria-expanded="true"] { background: color-mix(in srgb, currentColor 8%, transparent); }
+  .th-nav button svg { transition: transform 0.3s var(--ease-out); }
+  .th-nav button[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+  .th-nav__drop { position: relative; }
+  .th-drop {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: -12px;
+    width: 300px;
+    padding: 8px;
+    background: var(--birch);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 30px 60px -30px rgba(27, 38, 32, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out), visibility 0.35s;
+  }
+  .th-drop.is-open { opacity: 1; visibility: visible; transform: none; }
+  .th-drop a {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 12px 14px;
+    border-radius: 12px;
+  }
+  .th-drop a:hover { background: var(--sage); }
+  .th-drop__label { display: flex; gap: 8px; align-items: center; font-weight: 500; }
+  .th-drop__note { color: var(--muted); font-size: 11px; }
+
+  .th-header__end { display: flex; align-items: center; gap: 10px; }
+  .th-lang { display: flex; gap: 2px; font: 500 12px/1 var(--font-mono); }
+  .th-lang a {
+    padding: 8px 7px;
+    border-radius: 8px;
+    text-decoration: none;
+    opacity: 0.55;
+    transition: opacity 0.3s;
+  }
+  .th-lang a:hover,
+  .th-lang a[aria-current] { opacity: 1; }
+  .th-header__cta { padding: 13px 20px; font-size: 15px; }
+
+  .th-burger {
+    display: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+    background: transparent;
+    color: inherit;
+    position: relative;
+    cursor: pointer;
+  }
+  .th-burger span {
+    position: absolute;
+    left: 13px;
+    right: 13px;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.45s var(--ease-out);
+  }
+  .th-burger span:first-child { top: 18px; }
+  .th-burger span:last-child { top: 26px; }
+  .th-burger[aria-expanded="true"] span:first-child { transform: translateY(4px) rotate(45deg); }
+  .th-burger[aria-expanded="true"] span:last-child { transform: translateY(-4px) rotate(-45deg); }
+
+  .th-mobile {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: var(--night);
+    color: var(--night-ink);
+    padding: 110px var(--gutter) 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    clip-path: circle(0% at calc(100% - 44px) 44px);
+    transition: clip-path 0.8s var(--ease-soft);
+  }
+  .th-mobile.is-open { clip-path: circle(150% at calc(100% - 44px) 44px); }
+  .th-mobile ul { list-style: none; margin: 0; padding: 0; }
+  .th-mobile li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    font-family: var(--font-display);
+    font-size: clamp(28px, 8vw, 40px);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(233, 228, 214, 0.08);
+  }
+  .th-mobile__foot { display: flex; justify-content: space-between; align-items: center; color: var(--night-muted); }
+  .th-mobile__foot p { margin: 0; }
+
+  @media (max-width: 1080px) {
+    .th-nav, .th-header__end > .th-lang { display: none; }
+    .th-burger { display: inline-block; }
+  }
+  @media (max-width: 520px) {
+    .th-header__cta { display: none; }
+  }
+  :global(.menu-open) .th-header .th-header__inner { color: var(--night-ink); background: transparent; border-color: transparent; box-shadow: none; backdrop-filter: none; }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>("[data-header]");
+  if (header) {
+    // Services dropdown
+    const dropBtn = header.querySelector<HTMLButtonElement>("[data-drop]");
+    const drop = header.querySelector<HTMLElement>(".th-drop");
+    const setDrop = (open: boolean) => {
+      dropBtn?.setAttribute("aria-expanded", String(open));
+      drop?.classList.toggle("is-open", open);
+    };
+    dropBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      setDrop(dropBtn.getAttribute("aria-expanded") !== "true");
+    });
+    const dropWrap = dropBtn?.parentElement;
+    dropWrap?.addEventListener("mouseenter", () => matchMedia("(hover: hover)").matches && setDrop(true));
+    dropWrap?.addEventListener("mouseleave", () => matchMedia("(hover: hover)").matches && setDrop(false));
+    document.addEventListener("click", () => setDrop(false));
+    document.addEventListener("keydown", (e) => e.key === "Escape" && (setDrop(false), setMenu(false)));
+
+    // Mobile menu
+    const burger = header.querySelector<HTMLButtonElement>("[data-burger]");
+    const mobile = header.querySelector<HTMLElement>("[data-mobile]");
+    function setMenu(open: boolean) {
+      if (!burger || !mobile) return;
+      burger.setAttribute("aria-expanded", String(open));
+      burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      if (open) mobile.hidden = false;
+      requestAnimationFrame(() => mobile.classList.toggle("is-open", open));
+      document.documentElement.classList.toggle("menu-open", open);
+      window.dispatchEvent(new CustomEvent(open ? "th:lock" : "th:unlock"));
+      if (!open) setTimeout(() => { if (burger.getAttribute("aria-expanded") === "false") mobile.hidden = true; }, 800);
+    }
+    burger?.addEventListener("click", () => setMenu(burger.getAttribute("aria-expanded") !== "true"));
+    mobile?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+
+    // Hide on scroll down, show on scroll up, switch tone over night sections
+    let last = window.scrollY;
+    const nights = Array.from(document.querySelectorAll<HTMLElement>("[data-night]"));
+    const onScroll = () => {
+      const y = window.scrollY;
+      header.classList.toggle("is-scrolled", y > 24);
+      const goingDown = y > last && y > 240;
+      if (!document.documentElement.classList.contains("menu-open")) header.classList.toggle("is-hidden", goingDown);
+      last = y;
+      const probe = 40;
+      const overNight = nights.some((n) => {
+        const r = n.getBoundingClientRect();
+        return r.top <= probe && r.bottom >= probe;
+      });
+      header.classList.toggle("is-night", overNight);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+</script>

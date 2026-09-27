@@ -1,0 +1,40 @@
+---
+interface Props {
+  title?: string;
+  body?: string;
+  primary?: { label: string; href: string };
+  secondary?: { label: string; href: string };
+}
+const {
+  title = "Ready to build on <em>your own land?</em>",
+  body = "Tell me about your business. I’ll reply within two business days with honest advice and a clear plan.",
+  primary = { label: "Start a project", href: "/en/contact/" },
+  secondary = { label: "See pricing", href: "/en/pricing/" },
+} = Astro.props;
+---
+
+<section class="section section--night cta" data-night data-lantern-field style="--lx: 700; --ly: 200;">
+  <div class="cta__glow" aria-hidden="true"></div>
+  <div class="wrap cta__inner">
+    <h2 class="h2" data-split set:html={title} />
+    <p class="lede" data-reveal>{body}</p>
+    <div class="cta__btns" data-reveal data-delay="0.1">
+      <a href={primary.href} class="btn btn--lantern" data-magnetic>{primary.label} <span class="btn-arrow">→</span></a>
+      <a href={secondary.href} class="btn btn--ghost" data-magnetic>{secondary.label}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta { overflow: hidden; isolation: isolate; text-align: center; }
+  .cta__glow {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle 480px at calc(var(--lx) * 1px) calc(var(--ly) * 1px), rgba(243, 167, 56, 0.16), transparent 70%);
+  }
+  .cta__inner { display: grid; justify-items: center; gap: 26px; }
+  .cta .h2 { max-width: 16ch; }
+  .cta .lede { max-width: 46ch; margin: 0 auto; }
+  .cta__btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+</style>

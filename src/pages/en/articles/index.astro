@@ -1,55 +1,76 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../../../layouts/Layout.astro';
-import Header from '../../../components/Header.astro';
-import NewFooter from '../../../components/NewFooter.astro';
+import { getCollection } from "astro:content";
+import TreehouseLayout from "../../../layouts/TreehouseLayout.astro";
+import PageHero from "../../../components/th/PageHero.astro";
+import CtaBand from "../../../components/th/CtaBand.astro";
 
-const articles = await getCollection('articles', ({ data }) => data.lang === 'en');
-articles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const articles = (await getCollection("articles", ({ data }) => data.lang === "en")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const fmt = (d: Date) => d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+const [first, ...rest] = articles;
 ---
 
-<Layout title="Blog | Umaru Creative">
-  <Header />
-  
-  <main class="pt-32 pb-20">
-    <div class="container mx-auto px-6 md:px-12">
-      <div class="max-w-4xl mx-auto">
-        <h1 class="font-alexandria font-bold text-4xl md:text-5xl mb-12">Blog</h1>
-        
-        <div class="grid gap-8 md:grid-cols-2">
-          {articles.map(article => (
-            <article class="bg-white rounded-xl shadow-sm border border-primary-100 overflow-hidden hover:shadow-lg transition-shadow duration-300">
-              {article.data.image && (
-                <img 
-                  src={article.data.image} 
-                  alt={article.data.title}
-                  class="w-full h-48 object-cover"
-                />
-              )}
-              <div class="p-6">
-                <h2 class="font-alexandria font-bold text-xl mb-2">
-                  <a href={`/en/articles/${article.slug}`} class="hover:text-primary-600 transition-colors">
-                    {article.data.title}
-                  </a>
-                </h2>
-                <p class="text-primary-700 mb-4">{article.data.description}</p>
-                <div class="flex items-center justify-between text-sm text-primary-600">
-                  <span>{article.data.author}</span>
-                  <time datetime={article.data.pubDate.toISOString()}>
-                    {article.data.pubDate.toLocaleDateString('en', { 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
-                    })}
-                  </time>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
+<TreehouseLayout
+  title="Blog | Umaru Creative"
+  description="Field notes on web design, search, AI and owning your corner of the web, from Umaru Creative in Jyväskylä."
+  canonical="https://umaru-creative.com/en/articles/"
+>
+  <PageHero
+    eyebrow="Blog"
+    title="Field notes from <em>the lookout.</em>"
+    lede="Practical thinking on search, AI, security and owning your corner of the web."
+    crumbs={[{ label: "Home", href: "/en/" }, { label: "Blog" }]}
+  />
+
+  <section class="section section--birch blog">
+    <div class="wrap">
+      {first && (
+        <a href={`/en/articles/${first.slug}/`} class="lead" data-reveal>
+          <div class="lead__img">{first.data.image && <img src={first.data.image} alt="" />}</div>
+          <div>
+            <p class="mono lead__meta">Latest · <time datetime={first.data.pubDate.toISOString()}>{fmt(first.data.pubDate)}</time></p>
+            <h2 class="h3 lead__title">{first.data.title}</h2>
+            <p class="lead__desc">{first.data.description}</p>
+            <span class="link-arrow">Read the article →</span>
+          </div>
+        </a>
+      )}
+
+      <ul class="posts">
+        {rest.map((a) => (
+          <li data-reveal>
+            <a href={`/en/articles/${a.slug}/`} class="post">
+              <div class="post__img">{a.data.image && <img src={a.data.image} alt="" loading="lazy" />}</div>
+              <p class="mono post__date"><time datetime={a.data.pubDate.toISOString()}>{fmt(a.data.pubDate)}</time></p>
+              <h2>{a.data.title}</h2>
+              <p class="post__desc">{a.data.description}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
-  </main>
-  
-  <NewFooter />
-</Layout>
+  </section>
+
+  <CtaBand />
+</TreehouseLayout>
+
+<style>
+  .lead { display: grid; gap: 28px; text-decoration: none; margin-bottom: clamp(64px, 8vw, 110px); align-items: center; }
+  @media (min-width: 900px) { .lead { grid-template-columns: 1.2fr 1fr; gap: 64px; } }
+  .lead__img { aspect-ratio: 16 / 10; border-radius: var(--radius); overflow: hidden; background: var(--sage); }
+  .lead__img img, .post__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s var(--ease-out); }
+  .lead:hover .lead__img img, .post:hover .post__img img { transform: scale(1.05); }
+  .lead__meta, .post__date { color: var(--fern); margin-bottom: 12px; }
+  .lead__title { font-size: clamp(30px, 3.4vw, 46px); margin-bottom: 16px; }
+  .lead__desc { color: var(--ink-soft); margin-bottom: 20px !important; }
+  .lead .link-arrow { color: var(--moss); }
+  .lead:hover .link-arrow { background-size: 100% 1px; }
+
+  .posts { list-style: none; margin: 0; padding: 0; display: grid; gap: 48px 28px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .post { display: block; text-decoration: none; }
+  .post__img { aspect-ratio: 4 / 3; border-radius: 16px; overflow: hidden; background: var(--sage); margin-bottom: 16px; }
+  .post h2 { font-size: 22px; line-height: 1.25; margin-bottom: 8px; transition: color 0.3s; }
+  .post:hover h2 { color: var(--fern); }
+  .post__desc { color: var(--ink-soft); font-size: 15px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+</style>

@@ -1,0 +1,95 @@
+---
+import TreehouseLayout from "../../layouts/TreehouseLayout.astro";
+import PageHero from "./PageHero.astro";
+import CtaBand from "./CtaBand.astro";
+
+interface Feature { title: string; body: string; items: string[] }
+interface Price { name: string; detail: string; price: string }
+interface Props {
+  meta: { title: string; description: string; canonical: string };
+  room: string;
+  crumb: string;
+  heroTitle: string;
+  heroLede: string;
+  featuresTitle: string;
+  featuresLede: string;
+  features: Feature[];
+  whyTitle: string;
+  whyLede: string;
+  why: string[];
+  prices: Price[];
+  priceNote?: string;
+  service: string;
+}
+const p = Astro.props;
+---
+
+<TreehouseLayout title={p.meta.title} description={p.meta.description} canonical={p.meta.canonical}>
+  <PageHero
+    eyebrow={p.room}
+    title={p.heroTitle}
+    lede={p.heroLede}
+    crumbs={[{ label: "Home", href: "/en/" }, { label: "Services", href: "/en/#rooms" }, { label: p.crumb }]}
+    primary={{ label: "Start a project", href: `/en/contact/?service=${p.service}` }}
+    secondary={{ label: "See pricing", href: "#prices" }}
+  />
+
+  <section class="section section--birch">
+    <div class="wrap">
+      <div class="section-head section-head--split">
+        <div>
+          <p class="eyebrow">What you get</p>
+          <h2 class="h2" data-split set:html={p.featuresTitle} />
+        </div>
+        <p class="lede" data-reveal>{p.featuresLede}</p>
+      </div>
+      <ul class="features" data-stagger>
+        {p.features.map((f, i) => (
+          <li class="card feature">
+            <span class="mono feature__no">0{i + 1}</span>
+            <h3>{f.title}</h3>
+            <p>{f.body}</p>
+            <ul>{f.items.map((it) => <li>{it}</li>)}</ul>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--night" data-night>
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Built on your land</p>
+        <h2 class="h2" data-split set:html={p.whyTitle} />
+        <p class="lede" data-reveal>{p.whyLede}</p>
+      </div>
+      <ul class="ticks" data-stagger>
+        {p.why.map((w) => <li><span>{w}</span></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section id="prices" class="section section--sage">
+    <div class="wrap">
+      <div class="section-head section-head--split">
+        <div>
+          <p class="eyebrow">Pricing</p>
+          <h2 class="h2" data-split>Clear prices, <em>no surprises.</em></h2>
+        </div>
+        <p class="lede" data-reveal>{p.priceNote ?? "Transparent starting prices. Your final quote depends on scope, and you’ll see it before any work begins."}</p>
+      </div>
+      <ul class="features" data-stagger>
+        {p.prices.map((pr) => (
+          <li class="card feature">
+            <span class="mono feature__no">{pr.name}</span>
+            <h3>{pr.price}</h3>
+            <p>{pr.detail}</p>
+          </li>
+        ))}
+      </ul>
+      <p style="margin-top: 32px;" data-reveal><a class="link-arrow" href="/en/pricing/" style="color: var(--moss);">See all plans and prices →</a></p>
+    </div>
+  </section>
+
+  <CtaBand primary={{ label: "Start a project", href: `/en/contact/?service=${p.service}` }} />
+</TreehouseLayout>

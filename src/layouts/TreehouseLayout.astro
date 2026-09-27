@@ -1,0 +1,78 @@
+---
+import "../styles/treehouse.css";
+import Header from "../components/th/Header.astro";
+import Footer from "../components/th/Footer.astro";
+import LadderRail from "../components/th/LadderRail.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  rail?: boolean;
+}
+
+const {
+  title,
+  description = "Umaru Creative builds secure, handcrafted websites and bespoke weekly market research and web analytics reports for small businesses in Jyväskylä and across Finland.",
+  canonical,
+  rail = false,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f3eee2" />
+    <link rel="icon" type="image/png" href="/Umaru-Creative-Dango-blue.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="alternate" hreflang="en" href="https://umaru-creative.com/en/" />
+    <link rel="alternate" hreflang="fi" href="https://umaru-creative.com/fi/" />
+    <link rel="alternate" hreflang="sv" href="https://umaru-creative.com/sv/" />
+    <link rel="alternate" hreflang="fr" href="https://umaru-creative.com/fr/" />
+    <link rel="alternate" hreflang="no" href="https://umaru-creative.com/no/" />
+    <link rel="alternate" hreflang="x-default" href="https://umaru-creative.com/en/" />
+
+    <!-- Motion is opt in: without JS, or with reduced motion, everything renders in its final state -->
+    <script is:inline>
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("motion");
+      }
+    </script>
+
+    <slot name="head" />
+  </head>
+  <body class="th-body">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    {rail && <LadderRail />}
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      import { initMotion } from "../scripts/treehouse";
+      initMotion();
+    </script>
+  </body>
+</html>

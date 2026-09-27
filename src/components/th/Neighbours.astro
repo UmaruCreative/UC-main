@@ -1,0 +1,145 @@
+---
+const neighbours = [
+  {
+    title: "Independent cafés and bakeries",
+    body: "Coffee shops and bakeries that need a simple, effective home online to show what’s fresh and bring people through the door.",
+    icon: "cup",
+  },
+  {
+    title: "Local food makers",
+    body: "Artisan producers who want to share their story and connect with customers, shops and restaurants.",
+    icon: "wheat",
+  },
+  {
+    title: "Small businesses with craft",
+    body: "Local businesses that take pride in their work and need a website that reflects the same care and attention to detail.",
+    icon: "hammer",
+  },
+  {
+    title: "Creatives and people with purpose",
+    body: "Artists, designers and purpose driven people who want to communicate their vision without an algorithm in the way.",
+    icon: "brush",
+  },
+  {
+    title: "Brands in a crowded category",
+    body: "Businesses competing in a defined search category or retail channel, where the weekly reports show exactly where you stand.",
+    icon: "scope",
+  },
+];
+const words = ["Cafés", "Bakeries", "Local food makers", "Craft businesses", "Creatives", "Purpose driven brands", "Jyväskylä", "Across Finland"];
+---
+
+<section id="clients" class="section neighbours" data-floor="Neighbours · clients" aria-labelledby="clients-title">
+  <div class="neighbours__marquee" aria-hidden="true">
+    <div class="neighbours__track" data-marquee="46">
+      {[0, 1].map(() => (
+        <span>
+          {words.map((w) => (<><em>{w}</em><i>✦</i></>))}
+        </span>
+      ))}
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="eyebrow">Who I work with</p>
+        <h2 id="clients-title" class="h2" data-split>Neighbours I <em>build for.</em></h2>
+      </div>
+      <p class="lede" data-reveal>Small businesses and creatives in Jyväskylä and across Finland. If you value clarity, sustainability and quiet creativity, I’d love to work with you.</p>
+    </div>
+
+    <ul class="neighbours__grid" data-stagger>
+      {neighbours.map((n) => (
+        <li class="sign">
+          <span class="sign__post" aria-hidden="true"></span>
+          <div class="sign__board">
+            <span class="sign__icon" aria-hidden="true">
+              {n.icon === "cup" && (<svg viewBox="0 0 32 32"><path d="M6 12h16v8a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6z M22 14h2a3 3 0 0 1 0 6h-2 M11 4c-1 2 1 3 0 5 M16 4c-1 2 1 3 0 5" /></svg>)}
+              {n.icon === "wheat" && (<svg viewBox="0 0 32 32"><path d="M16 29V9 M16 12c-4 0-6-3-6-6 4 0 6 3 6 6z M16 12c4 0 6-3 6-6-4 0-6 3-6 6z M16 19c-4 0-6-3-6-6 4 0 6 3 6 6z M16 19c4 0 6-3 6-6-4 0-6 3-6 6z M16 3v5" /></svg>)}
+              {n.icon === "hammer" && (<svg viewBox="0 0 32 32"><path d="M6 27l12-12 M15 12l5-5 6 6-5 5z M20 7l2-3 6 6-3 2" /></svg>)}
+              {n.icon === "brush" && (<svg viewBox="0 0 32 32"><path d="M26 4L14 18 M10 20c-3 0-5 2-5 5 0 1-1 2-2 2 4 1 9 0 10-4 1-2-1-3-3-3z M14 18l2 2" /></svg>)}
+              {n.icon === "scope" && (<svg viewBox="0 0 32 32"><path d="M4 18l18-8 3 6-18 8z M22 10l4-2 3 6-4 2 M12 22l-3 7 M16 20l3 9" /></svg>)}
+            </span>
+            <h3>{n.title}</h3>
+            <p>{n.body}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .neighbours { background: var(--birch); overflow: hidden; padding-top: 0; }
+  .neighbours__marquee {
+    overflow: hidden;
+    border-block: 1px solid var(--line);
+    padding: 22px 0;
+    margin-bottom: clamp(80px, 10vw, 140px);
+  }
+  .neighbours__track { display: flex; width: max-content; }
+  .neighbours__track > span { display: flex; align-items: center; flex-shrink: 0; }
+  .neighbours__track em {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(28px, 4vw, 52px);
+    padding-inline: 26px;
+    color: var(--moss);
+    white-space: nowrap;
+  }
+  .neighbours__track i { font-style: normal; color: var(--lantern); font-size: 22px; }
+
+  .neighbours__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 34px 22px;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  }
+  .sign { position: relative; padding-top: 18px; }
+  .sign__post {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 10px;
+    height: 30px;
+    margin-left: -5px;
+    border-radius: 3px;
+    background: var(--bark);
+  }
+  .sign__board {
+    position: relative;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 26px 22px 24px;
+    border-radius: 14px;
+    background:
+      repeating-linear-gradient(0deg, rgba(55, 38, 26, 0.05) 0 1px, transparent 1px 16px),
+      linear-gradient(180deg, #e7c9a0, #d8b384);
+    color: var(--bark-dark);
+    transform-origin: 50% -18px;
+    transition: transform 0.9s var(--ease-out), box-shadow 0.6s;
+    box-shadow: 0 16px 30px -22px rgba(55, 38, 26, 0.7);
+  }
+  .sign:hover .sign__board { animation: swing 1.6s var(--ease-out); box-shadow: 0 26px 40px -24px rgba(55, 38, 26, 0.8); }
+  @keyframes swing {
+    20% { transform: rotate(3.5deg); }
+    45% { transform: rotate(-2.4deg); }
+    70% { transform: rotate(1.2deg); }
+    100% { transform: rotate(0); }
+  }
+  .sign__icon svg {
+    width: 34px;
+    height: 34px;
+    fill: none;
+    stroke: var(--bark-dark);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    margin-bottom: 18px;
+  }
+  .sign h3 { font-size: 21px; margin-bottom: 10px; }
+  .sign p { font-size: 14.5px; line-height: 1.5; color: #5d4634; }
+</style>

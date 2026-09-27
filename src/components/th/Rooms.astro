@@ -1,0 +1,237 @@
+---
+const rooms = [
+  {
+    id: "cabin",
+    no: "01",
+    room: "The cabin",
+    title: "Web Design",
+    body: "Custom websites built for clarity. Easy for visitors to navigate, easy for you to manage, and structured so search engines and AI tools read them accurately. Static, fast and very hard to break.",
+    chips: ["Landing pages", "Multi page sites", "Online shops", "Multilingual"],
+    price: "From €990",
+    href: "/en/services/web-design/",
+  },
+  {
+    id: "window",
+    no: "02",
+    room: "The window",
+    title: "Digital Content",
+    body: "Short videos, social visuals, promotional materials and email campaigns that tell your story without noise. Made to match your site’s voice, and to lead people home to it.",
+    chips: ["Reels and shorts", "Mini documentaries", "Email campaigns"],
+    price: "From €270",
+    href: "/en/services/content-creation/",
+  },
+  {
+    id: "lookout",
+    no: "03",
+    room: "The lookout",
+    title: "Weekly Reports",
+    body: "Bespoke weekly market research and web analytics reports. See what competitors are doing, what your buyers search for and how your own site really performs, written in plain English with a clear action list.",
+    chips: ["Market research", "Web analytics", "Action list"],
+    price: "Bespoke · quote on request",
+    href: "/en/services/weekly-reports/",
+    isNew: true,
+  },
+  {
+    id: "sign",
+    no: "04",
+    room: "The signpost",
+    title: "Google Business Profile",
+    body: "Your Google profile set up and optimised so nearby customers find you first, on Maps and in Search, with the right hours, photos and categories.",
+    chips: ["Setup and verification", "Photos", "Review strategy"],
+    price: "From €450",
+    href: "/en/services/google-my-business/",
+  },
+  {
+    id: "shed",
+    no: "05",
+    room: "The toolshed",
+    title: "Website Care",
+    body: "Updates, tweaks and improvements whenever you need them. Already have a site built elsewhere? I can make it clearer, faster and easier to trust.",
+    chips: ["Hourly support €60/h", "Improvements from €590", "6 month care plan"],
+    price: "From €60/hour",
+    href: "/en/pricing/",
+  },
+];
+---
+
+<section id="rooms" class="section rooms" data-rooms data-floor="Rooms · services" aria-labelledby="rooms-title">
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="eyebrow">Services</p>
+        <h2 id="rooms-title" class="h2" data-split>Five rooms, <em>one</em> treehouse.</h2>
+      </div>
+      <p class="lede" data-reveal>
+        Everything you need to be found, trusted and chosen, built on foundations you own. Pick one room or move into all of them.
+      </p>
+    </div>
+
+    <div class="rooms__grid">
+      <figure class="rooms__figure" aria-hidden="true">
+        <div class="rooms__sticky">
+          <svg viewBox="0 0 520 640">
+            <defs>
+              <radialGradient id="halo" r="0.5">
+                <stop offset="0" stop-color="#ffd27a" stop-opacity="0.85" />
+                <stop offset="1" stop-color="#ffd27a" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <!-- ground -->
+            <path d="M0 600 C 120 588, 380 590, 520 600 L520 640 L0 640 Z" fill="#b7c59c" />
+            <!-- crown -->
+            <g fill="#2c4632" opacity="0.92">
+              <path d="M270 0 L310 60 L292 58 L336 118 L306 114 L356 186 L184 186 L234 114 L204 118 L248 58 L230 60 Z" />
+            </g>
+            <!-- trunk -->
+            <path d="M254 600 C 258 420, 260 260, 262 60 L280 60 C 282 260, 284 420, 290 600 Z" fill="#5a3e2b" />
+
+            <!-- LOOKOUT -->
+            <g class="zone" data-zone="lookout">
+              <circle class="halo" cx="272" cy="96" r="120" fill="url(#halo)" />
+              <path d="M186 74 L272 30 L358 74 Z" fill="#37261a" />
+              <rect x="198" y="74" width="148" height="44" fill="#8f633f" />
+              <rect class="lamp" x="214" y="84" width="42" height="24" rx="2" />
+              <rect class="lamp" x="290" y="84" width="42" height="24" rx="2" />
+              <rect x="186" y="118" width="172" height="9" rx="2" fill="#6b4a31" />
+              <rect x="350" y="80" width="46" height="11" rx="4" fill="#37261a" transform="rotate(-16 350 86)" />
+              <text class="zone-label" x="410" y="60">03 · Lookout</text>
+            </g>
+
+            <!-- CABIN -->
+            <g class="zone" data-zone="cabin">
+              <circle class="halo" cx="270" cy="270" r="190" fill="url(#halo)" />
+              <path d="M126 222 L270 146 L414 222 Z" fill="#37261a" />
+              <rect x="146" y="218" width="248" height="118" fill="#a0714b" />
+              <g stroke="#8a5f3c" stroke-width="2">
+                <line x1="146" y1="238" x2="394" y2="238" /><line x1="146" y1="258" x2="394" y2="258" /><line x1="146" y1="278" x2="394" y2="278" /><line x1="146" y1="298" x2="394" y2="298" /><line x1="146" y1="318" x2="394" y2="318" />
+              </g>
+              <path class="lamp" d="M318 336 V270 a20 20 0 0 1 40 0 V336 Z" />
+              <circle class="lamp" cx="270" cy="192" r="11" />
+              <text class="zone-label" x="410" y="250">01 · Cabin</text>
+            </g>
+
+            <!-- WINDOW (content) -->
+            <g class="zone" data-zone="window">
+              <circle class="halo" cx="212" cy="272" r="110" fill="url(#halo)" />
+              <rect class="lamp" x="170" y="246" width="84" height="56" rx="3" />
+              <rect x="166" y="242" width="92" height="64" rx="5" fill="none" stroke="#37261a" stroke-width="5" />
+              <path class="zone-play" d="M204 262 L226 274 L204 286 Z" />
+              <text class="zone-label" x="20" y="230">02 · Window</text>
+            </g>
+
+            <!-- platform and railing -->
+            <rect x="96" y="336" width="348" height="12" rx="2" fill="#6b4a31" />
+            <g stroke="#46301f" stroke-width="7" stroke-linecap="round"><line x1="258" y1="440" x2="130" y2="346" /><line x1="286" y1="440" x2="412" y2="346" /></g>
+
+            <!-- ladder -->
+            <g stroke="#c9a577" stroke-width="2.5">
+              <line x1="404" y1="348" x2="404" y2="600" /><line x1="428" y1="348" x2="428" y2="600" />
+              <line x1="404" y1="370" x2="428" y2="370" /><line x1="404" y1="396" x2="428" y2="396" /><line x1="404" y1="422" x2="428" y2="422" /><line x1="404" y1="448" x2="428" y2="448" /><line x1="404" y1="474" x2="428" y2="474" /><line x1="404" y1="500" x2="428" y2="500" /><line x1="404" y1="526" x2="428" y2="526" /><line x1="404" y1="552" x2="428" y2="552" /><line x1="404" y1="578" x2="428" y2="578" />
+            </g>
+
+            <!-- SHED (care) -->
+            <g class="zone" data-zone="shed">
+              <circle class="halo" cx="108" cy="468" r="110" fill="url(#halo)" />
+              <line x1="256" y1="498" x2="80" y2="494" stroke="#5a3e2b" stroke-width="10" stroke-linecap="round" />
+              <path d="M52 446 L112 424 L164 446 Z" fill="#37261a" />
+              <rect x="60" y="446" width="98" height="46" fill="#9c6e48" />
+              <rect class="lamp" x="72" y="456" width="26" height="20" rx="2" />
+              <g stroke="#37261a" stroke-width="4" stroke-linecap="round"><line x1="118" y1="476" x2="138" y2="456" /><circle cx="140" cy="454" r="5" fill="none" /></g>
+              <text class="zone-label" x="20" y="410">05 · Toolshed</text>
+            </g>
+
+            <!-- SIGN (Google profile) -->
+            <g class="zone" data-zone="sign">
+              <circle class="halo" cx="160" cy="556" r="100" fill="url(#halo)" />
+              <rect x="150" y="540" width="7" height="62" fill="#46301f" />
+              <path class="lamp" d="M96 528 H196 L212 546 L196 564 H96 Z" />
+              <path d="M96 528 H196 L212 546 L196 564 H96 Z" fill="none" stroke="#6b4a31" stroke-width="3" />
+              <path d="M128 537 a8 8 0 0 1 16 0 c0 6 -8 14 -8 14 s-8 -8 -8 -14z" fill="#37261a" />
+              <text class="zone-label" x="20" y="624">04 · Signpost</text>
+            </g>
+          </svg>
+          <p class="rooms__caption mono">Hover or scroll a room to light it</p>
+        </div>
+      </figure>
+
+      <ol class="rooms__list">
+        {rooms.map((r) => (
+          <li class="room card" data-room={r.id} data-reveal>
+            <div class="room__meta mono">
+              <span>{r.no}</span><span>{r.room}</span>
+              {r.isNew && <span class="chip chip--new">New</span>}
+            </div>
+            <h3 class="h3">{r.title}</h3>
+            <p>{r.body}</p>
+            <ul class="room__chips">
+              {r.chips.map((c) => <li class="chip">{c}</li>)}
+            </ul>
+            <div class="room__foot">
+              <span class="room__price">{r.price}</span>
+              <a class="link-arrow" href={r.href}>Step inside <span aria-hidden="true">→</span></a>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .rooms { background: var(--birch); }
+  .rooms__grid { display: grid; gap: 40px; }
+  @media (min-width: 960px) {
+    .rooms__grid { grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 96px); }
+  }
+  .rooms__figure { margin: 0; display: none; }
+  @media (min-width: 960px) { .rooms__figure { display: block; } }
+  .rooms__sticky { position: sticky; top: calc(50vh - 290px); }
+  .rooms__sticky svg { width: 100%; max-height: 560px; display: block; overflow: visible; }
+  .rooms__caption { color: var(--muted); font-size: 11px; text-align: center; margin-top: 14px; }
+
+  .zone .lamp { fill: #5f574a; transition: fill 0.6s var(--ease-out); }
+  .zone .halo { opacity: 0; transition: opacity 0.8s var(--ease-out); }
+  .zone .zone-play { fill: #37261a; opacity: 0; transition: opacity 0.6s; }
+  .zone .zone-label {
+    font: 500 13px var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    fill: var(--moss);
+    opacity: 0;
+    transition: opacity 0.5s, transform 0.6s var(--ease-out);
+    transform: translateX(-6px);
+  }
+  .zone.is-lit .lamp { fill: #f7c56b; }
+  .zone.is-lit .halo { opacity: 1; }
+  .zone.is-lit .zone-play { opacity: 0.9; }
+  .zone.is-lit .zone-label { opacity: 1; transform: none; }
+
+  .rooms__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; }
+  @media (min-width: 960px) {
+    .rooms__list { gap: 24vh; padding-block: 8vh 16vh; }
+  }
+  .room {
+    transition: border-color 0.5s, box-shadow 0.6s var(--ease-out), background 0.5s;
+  }
+  .room.is-active {
+    border-color: color-mix(in srgb, var(--lantern) 70%, transparent);
+    box-shadow: 0 30px 70px -40px rgba(212, 98, 46, 0.55);
+    background: #fffdf7;
+  }
+  .room__meta { display: flex; align-items: center; gap: 14px; color: var(--fern); font-size: 11px; margin-bottom: 18px; }
+  .room__meta span:first-child { color: var(--lantern); }
+  .room .h3 { margin-bottom: 14px; font-size: clamp(28px, 3vw, 40px); }
+  .room p { color: var(--ink-soft); }
+  .room__chips { list-style: none; margin: 18px 0 24px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .room__foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding-top: 18px;
+    border-top: 1px dashed var(--line);
+  }
+  .room__price { font-family: var(--font-display); font-size: 20px; }
+  .room .link-arrow { color: var(--moss); }
+</style>

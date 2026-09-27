@@ -1,0 +1,226 @@
+---
+const uid = Math.random().toString(36).slice(2, 7);
+const spark = [812, 860, 845, 930, 1010, 980, 1146, 1284];
+const max = Math.max(...spark);
+const min = Math.min(...spark);
+const pts = spark
+  .map((v, i) => `${(i / (spark.length - 1)) * 220},${58 - ((v - min) / (max - min)) * 50}`)
+  .join(" ");
+const sources = [
+  { label: "Google Search", v: 46 },
+  { label: "Google Maps", v: 21 },
+  { label: "Instagram", v: 14 },
+  { label: "Direct", v: 12 },
+  { label: "AI assistants", v: 7 },
+];
+---
+
+<article class="report" data-report aria-label="Sample weekly report">
+  <header class="report__head">
+    <div>
+      <p class="mono report__kicker">Weekly report · Week 39</p>
+      <p class="report__client">Kahvila Aalto <span>(sample client)</span></p>
+    </div>
+    <div class="report__tabs" role="tablist" aria-label="Report type">
+      <button role="tab" id={`t-an-${uid}`} aria-controls={`p-an-${uid}`} aria-selected="true" data-tab>Web analytics</button>
+      <button role="tab" id={`t-mk-${uid}`} aria-controls={`p-mk-${uid}`} aria-selected="false" tabindex="-1" data-tab>Market research</button>
+    </div>
+  </header>
+
+  <div class="report__panel" role="tabpanel" id={`p-an-${uid}`} aria-labelledby={`t-an-${uid}`}>
+    <div class="report__kpis" data-report-row>
+      <div>
+        <p class="mono">Visits</p>
+        <p class="report__num"><span data-count="1284">1,284</span></p>
+        <p class="report__delta up">+12% vs last week</p>
+      </div>
+      <div>
+        <p class="mono">Enquiries</p>
+        <p class="report__num"><span data-count="23">23</span></p>
+        <p class="report__delta up">+4 vs last week</p>
+      </div>
+      <div class="report__spark">
+        <p class="mono">Last 8 weeks</p>
+        <svg viewBox="-4 -4 228 70" aria-hidden="true" data-draw>
+          <polyline points={pts} fill="none" stroke="#5b7c48" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </div>
+    <div class="report__sources" data-report-row>
+      <p class="mono">Where visitors came from</p>
+      <ul data-bars>
+        {sources.map((s) => (
+          <li>
+            <span>{s.label}</span>
+            <span class="report__bar"><span data-bar style={`width:${s.v * 2}%`}></span></span>
+            <span class="report__pct">{s.v}%</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <p class="report__insight" data-report-row>
+      <span class="mono">Plain English</span>
+      Most new visitors found you by searching “cinnamon buns jyväskylä”. Your menu page keeps them longest, but only 1 in 9 reaches the contact button.
+    </p>
+  </div>
+
+  <div class="report__panel" role="tabpanel" id={`p-mk-${uid}`} aria-labelledby={`t-mk-${uid}`} hidden>
+    <ul class="report__findings">
+      <li data-report-row>
+        <span class="mono">Competitors</span>
+        <p>Café Lumo added a weekend brunch menu and later Sunday opening hours.</p>
+        <cite>Source: their website, 22 Sep</cite>
+      </li>
+      <li data-report-row>
+        <span class="mono">Buyer searches</span>
+        <p>Searches for “gluten free pastries” in Central Finland rose again this week.</p>
+        <cite>Source: Google Trends</cite>
+      </li>
+      <li data-report-row>
+        <span class="mono">AI visibility</span>
+        <p>You appear in AI answers for 2 of 6 tracked questions about cafés in Jyväskylä.</p>
+        <cite>Source: checks in ChatGPT and Gemini</cite>
+      </li>
+      <li data-report-row>
+        <span class="mono">Season</span>
+        <p>Korvapuustipäivä is on 4 October. Interest in cinnamon buns usually climbs the week before.</p>
+        <cite>Source: calendar and last year’s trend</cite>
+      </li>
+    </ul>
+  </div>
+
+  <footer class="report__actions" data-report-row>
+    <p class="mono">What to do next</p>
+    <ol>
+      <li><span class="tag tag--urgent">Urgent</span> Add brunch hours to your Google profile before the weekend.</li>
+      <li><span class="tag">This week</span> Publish a cinnamon bun page ahead of 4 October.</li>
+      <li><span class="tag tag--calm">Strategic</span> Answer the questions AI tools ask about you on your About page.</li>
+    </ol>
+    <p class="report__disclaimer">Illustrative sample. Real reports are written for your business and your market.</p>
+  </footer>
+</article>
+
+<style>
+  .report {
+    position: relative;
+    background: #fffdf8;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: clamp(20px, 3vw, 34px);
+    box-shadow: 0 40px 80px -50px rgba(27, 38, 32, 0.5), 0 2px 0 rgba(27, 38, 32, 0.04);
+  }
+  .report::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    width: 90px;
+    height: 20px;
+    transform: translateX(-50%) rotate(-2deg);
+    background: color-mix(in srgb, var(--lichen) 70%, transparent);
+    border-radius: 3px;
+  }
+  .report p { margin: 0; }
+  .report .mono { font-size: 10.5px; color: var(--muted); }
+  .report__head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding-bottom: 18px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .report__kicker { color: var(--fern) !important; margin-bottom: 6px !important; }
+  .report__client { font-family: var(--font-display); font-size: 22px; }
+  .report__client span { font-family: var(--font-body); font-size: 13px; color: var(--muted); }
+
+  .report__tabs { display: inline-flex; padding: 4px; border-radius: 999px; background: var(--paper); gap: 2px; }
+  .report__tabs button {
+    border: 0;
+    background: transparent;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font: 500 13px var(--font-body);
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+  }
+  .report__tabs button[aria-selected="true"] { background: var(--ink); color: var(--birch); }
+
+  .report__kpis { display: grid; grid-template-columns: 1fr 1fr 1.6fr; gap: 16px; margin-bottom: 24px; }
+  .report__num { font-family: var(--font-display); font-size: clamp(30px, 3.2vw, 44px); line-height: 1.05; margin-top: 6px !important; }
+  .report__delta { font-size: 12px; font-weight: 500; }
+  .report__delta.up { color: var(--fern); }
+  .report__spark svg { width: 100%; height: 60px; margin-top: 8px; overflow: visible; }
+
+  .report__sources ul { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+  .report__sources li { display: grid; grid-template-columns: 110px 1fr 38px; gap: 10px; align-items: center; font-size: 13px; }
+  .report__bar { height: 8px; border-radius: 8px; background: var(--paper); overflow: hidden; }
+  .report__bar span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--fern), var(--lichen)); }
+  .report__pct { font-family: var(--font-mono); font-size: 12px; text-align: right; color: var(--ink-soft); }
+
+  .report__insight {
+    margin-top: 22px !important;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: var(--sage);
+    font-size: 14.5px;
+    line-height: 1.5;
+    display: grid;
+    gap: 4px;
+  }
+
+  .report__findings { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  .report__findings li { display: grid; gap: 4px; padding-bottom: 14px; border-bottom: 1px dashed var(--line); }
+  .report__findings p { font-size: 15px; line-height: 1.45; }
+  .report__findings cite { font-style: normal; font-size: 12px; color: var(--lake); }
+
+  .report__actions { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .report__actions ol { list-style: none; margin: 12px 0 14px; padding: 0; display: grid; gap: 10px; }
+  .report__actions li { display: flex; gap: 10px; align-items: baseline; font-size: 14.5px; line-height: 1.45; }
+  .tag {
+    flex-shrink: 0;
+    font: 500 10px var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: var(--lantern-soft);
+    color: var(--bark-dark);
+  }
+  .tag--urgent { background: var(--ember); color: #fff; }
+  .tag--calm { background: var(--sage); color: var(--moss); }
+  .report__disclaimer { font-size: 12px; color: var(--muted); font-style: italic; }
+
+  @media (max-width: 560px) {
+    .report__kpis { grid-template-columns: 1fr 1fr; }
+    .report__spark { grid-column: 1 / -1; }
+    .report__sources li { grid-template-columns: 92px 1fr 34px; font-size: 12px; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-report]").forEach((report) => {
+    const tabs = Array.from(report.querySelectorAll<HTMLButtonElement>("[data-tab]"));
+    const select = (tab: HTMLButtonElement) => {
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.setAttribute("aria-selected", String(on));
+        t.tabIndex = on ? 0 : -1;
+        const panel = document.getElementById(t.getAttribute("aria-controls")!);
+        if (panel) panel.hidden = !on;
+      });
+    };
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => select(tab));
+      tab.addEventListener("keydown", (e) => {
+        if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+        const next = tabs[(i + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length];
+        select(next);
+        next.focus();
+      });
+    });
+  });
+</script>

@@ -1,0 +1,77 @@
+---
+const faqs = [
+  {
+    q: "What kind of websites do you design?",
+    a: "I design high-converting, modern websites tailored to your brand and goals. Each project is built from scratch to reflect your positioning, audience, and business objectives. I focus on clarity, performance, and conversion — whether you need a landing page, portfolio, or full business website that actually drives results."
+  },
+  {
+    q: "How long does a typical project take?",
+    a: "Most projects are completed within 2–4 weeks depending on scope and complexity. Timelines vary based on content readiness, revisions, and feature requirements. I follow a structured process to keep everything efficient, with clear milestones so you always know what's happening and when your site will be ready."
+  },
+  {
+    q: "Do you also handle content and copywriting?",
+    a: "Yes, I can guide or create website copy aligned with your brand voice. If you don't have content ready, I help structure messaging, refine your value proposition, and write clear, conversion-focused copy. This ensures your website not only looks good but communicates effectively and drives action."
+  },
+  {
+    q: "Will my website be optimized for mobile and performance?",
+    a: "Yes, every website is fully responsive and optimized for speed and usability. Your site will be designed to work seamlessly across devices, with fast loading times and clean structure. This improves user experience, supports SEO, and ensures your visitors stay engaged instead of leaving due to poor performance."
+  },
+  {
+    q: "Can I update the website myself after launch?",
+    a: "Yes, you'll be able to easily update content without technical knowledge. I build websites using intuitive systems that allow you to edit text, images, and basic sections on your own. If needed, I also provide guidance so you feel confident managing your site after it goes live."
+  },
+  {
+    q: "What makes your approach different from other designers?",
+    a: "I focus on strategy-driven design that prioritizes clarity, positioning, and conversion. Instead of just visual design, I align structure, messaging, and user flow with your business goals. The result is a website that not only looks polished but actively supports your growth and communicates your value effectively."
+  },
+  {
+    q: "How do we get started working together?",
+    a: "Start by reaching out, and I'll guide you through the next steps. We begin with a quick discussion to understand your goals, scope, and timeline. From there, I outline a clear plan and proposal so you know exactly what to expect before we move into the design process."
+  }
+];
+---
+
+<section id="faq" class="py-20 md:py-32 animate-on-scroll">
+  <div class="container mx-auto px-6 md:px-12">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-12">
+        <span class="inline-block px-3 py-1 bg-accent-100 text-primary-800 rounded-full text-sm font-alexandria mb-4">
+          FAQ
+        </span>
+        <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-4">
+          Frequently Asked Questions
+        </h2>
+      </div>
+
+      <div class="space-y-3">
+        {faqs.map((faq, index) => (
+          <details class="faq-item bg-white border border-primary-100 rounded-xl overflow-hidden group">
+            <summary class="flex items-center justify-between px-6 py-5 cursor-pointer list-none font-alexandria font-medium text-primary-900 hover:text-primary-600 transition-colors gap-4">
+              <span>{faq.q}</span>
+              <span class="faq-icon flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-primary-100 text-primary-700 transition-transform duration-300 group-open:rotate-45">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+              </span>
+            </summary>
+            <div class="px-6 pb-6">
+              <p class="text-primary-700 leading-relaxed">{faq.a}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details[open] .faq-icon {
+    transform: rotate(45deg);
+    background-color: rgb(var(--color-primary-800, 2 78 137));
+    color: white;
+  }
+</style>

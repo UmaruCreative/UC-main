@@ -5,8 +5,8 @@ interface Props {
   lang?: string;
 }
 
-const { 
-  title, 
+const {
+  title,
   description = "Umaru Creative - Calmly Crafted Websites, Designed to Last. For cafés, creators, and local businesses in Finland. Secure. Sustainable. Personal.",
   lang = "en"
 } = Astro.props;
@@ -21,12 +21,12 @@ const {
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
-    
+
     <!-- Preconnect to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    
+
     <!-- Open Graph / Social Media Meta Tags -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -34,21 +34,32 @@ const {
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
+
+    <!-- hreflang: language alternates (global) -->
+    <link rel="alternate" hreflang="en" href="https://umaru-creative.com/en/" />
+    <link rel="alternate" hreflang="fi" href="https://umaru-creative.com/fi/" />
+    <link rel="alternate" hreflang="sv" href="https://umaru-creative.com/sv/" />
+    <link rel="alternate" hreflang="fr" href="https://umaru-creative.com/fr/" />
+    <link rel="alternate" hreflang="no" href="https://umaru-creative.com/no/" />
+    <link rel="alternate" hreflang="x-default" href="https://umaru-creative.com/en/" />
+
+    <!-- Page-specific head content (canonical, schema, etc.) -->
+    <slot name="head" />
   </head>
   <body class="bg-white text-primary-950 font-sans antialiased min-h-screen">
     <slot />
-    
+
     <script>
       import { gsap } from "gsap";
       import { ScrollTrigger } from "gsap/ScrollTrigger";
-      
+
       gsap.registerPlugin(ScrollTrigger);
-      
+
       // Fade in animation for sections
       gsap.utils.toArray('.animate-on-scroll').forEach((section, i) => {
         gsap.fromTo(
-          section, 
-          { opacity: 0, y: 50 }, 
+          section,
+          { opacity: 0, y: 50 },
           {
             opacity: 1,
             y: 0,
@@ -70,33 +81,33 @@ const {
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
     line-height: 1.5;
     font-size: 16px;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Alexandria', sans-serif;
     font-weight: 700;
     line-height: 1.2;
   }
-  
+
   p {
     margin-bottom: 1.5rem;
   }
-  
+
   .container {
     width: 100%;
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 1.5rem;
   }
-  
+
   :root {
     --header-height: 5rem;
   }
-  
+
   @media (max-width: 768px) {
     :root {
       --header-height: 4rem;

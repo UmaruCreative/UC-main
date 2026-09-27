@@ -1,0 +1,186 @@
+---
+const cols = 6;
+const rows = 11;
+const windows = Array.from({ length: cols * rows }, (_, i) => ({
+  x: 34 + (i % cols) * 30,
+  y: 70 + Math.floor(i / cols) * 34,
+  i,
+}));
+const yours = 6 * 7 + 2;
+
+const stamps = [
+  { text: "Algorithm changed", sub: "Reach down overnight", pos: "top: 8%; left: -6%;" },
+  { text: "Pay to be seen", sub: "Boost this post?", pos: "top: 32%; right: -10%;" },
+  { text: "Account under review", sub: "Access restricted", pos: "top: 56%; left: -12%;" },
+  { text: "Terms updated", sub: "Your content, their licence", pos: "top: 78%; right: -4%;" },
+];
+
+const owned = [
+  { title: "Your domain, in your name", body: "The address people remember belongs to you, not to a platform." },
+  { title: "Your code and content", body: "Every file handed over. Export it, move it, keep it forever." },
+  { title: "Your customer relationships", body: "Enquiries land in your inbox. No middleman decides who sees you." },
+  { title: "Your analytics, your data", body: "Numbers you can read, measured without selling your visitors on." },
+];
+---
+
+<section id="rent" class="rent" data-rent data-floor="Rented or owned" aria-labelledby="rent-title">
+  <div class="wrap rent__grid">
+    <div class="rent__intro">
+      <p class="eyebrow">Rented vs owned</p>
+      <h2 id="rent-title" class="h2" data-split>Don’t be held <em>hostage</em> by platforms.</h2>
+      <p class="lede" data-reveal>
+        Social platforms are rented rooms in someone else’s tower. The landlord sets the rent, changes the locks and decides who finds your door.
+        A website is a treehouse on your own land.
+      </p>
+      <div class="rent__meter" aria-hidden="true">
+        <span class="mono">Who holds the keys</span>
+        <div class="rent__meter-track"><span data-rent-meter></span></div>
+        <div class="rent__meter-ends mono"><span>Them</span><span>You</span></div>
+      </div>
+      <p class="rent__note" data-reveal>
+        Keep your socials. Just make sure they lead home.
+        <a class="link-arrow" href="/en/articles/en/2025-instagram-ban-wave/">Read: the 2025 Instagram ban wave →</a>
+      </p>
+    </div>
+
+    <figure class="rent__panel rent__panel--tower">
+      <figcaption class="mono">Rented · the platform tower</figcaption>
+      <div class="rent__tower">
+        <svg viewBox="0 0 248 470" aria-hidden="true">
+          <rect x="18" y="40" width="212" height="430" fill="#c9cbc4" />
+          <rect x="18" y="40" width="212" height="18" fill="#a9aca4" />
+          <rect x="98" y="0" width="52" height="40" fill="#b4b7b0" />
+          <line x1="124" y1="0" x2="124" y2="-20" stroke="#a9aca4" stroke-width="3" />
+          {windows.map((w) =>
+            w.i === yours ? (
+              <rect x={w.x} y={w.y} width="20" height="22" rx="2" fill="#f3a738" data-your-window />
+            ) : (
+              <rect x={w.x} y={w.y} width="20" height="22" rx="2" fill="#e9eae4" data-tower-window />
+            )
+          )}
+          <rect x="104" y="436" width="40" height="34" fill="#a9aca4" />
+        </svg>
+        <span class="rent__you mono" aria-hidden="true">You are here</span>
+        {stamps.map((s) => (
+          <p class="stamp" style={s.pos} data-stamp>
+            <strong>{s.text}</strong>
+            <span>{s.sub}</span>
+          </p>
+        ))}
+      </div>
+    </figure>
+
+    <figure class="rent__panel rent__panel--own">
+      <figcaption class="mono">Owned · your treehouse</figcaption>
+      <div class="rent__house">
+        <svg viewBox="0 0 220 180" aria-hidden="true">
+          <circle cx="110" cy="92" r="90" fill="#f3a738" opacity="0.25" data-house-glow />
+          <rect x="102" y="96" width="16" height="84" fill="#5a3e2b" />
+          <rect x="44" y="94" width="132" height="8" rx="2" fill="#6b4a31" />
+          <rect x="62" y="44" width="96" height="50" fill="#a0714b" />
+          <path d="M50 48 L110 8 L170 48 Z" fill="#37261a" />
+          <rect x="74" y="56" width="26" height="22" rx="2" fill="#f7c56b" />
+          <path d="M122 94 V66 a10 10 0 0 1 20 0 V94 Z" fill="#37261a" />
+          <g stroke="#c9a577" stroke-width="2"><line x1="160" y1="102" x2="160" y2="176" /><line x1="174" y1="102" x2="174" y2="176" />
+            <line x1="160" y1="116" x2="174" y2="116" /><line x1="160" y1="132" x2="174" y2="132" /><line x1="160" y1="148" x2="174" y2="148" /><line x1="160" y1="164" x2="174" y2="164" /></g>
+        </svg>
+      </div>
+      <ul class="rent__owned">
+        {owned.map((o) => (
+          <li data-own>
+            <span class="own-tick" aria-hidden="true">
+              <svg viewBox="0 0 16 16" width="12" height="12"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </span>
+            <span><strong>{o.title}</strong><span>{o.body}</span></span>
+          </li>
+        ))}
+      </ul>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .rent {
+    position: relative;
+    background: var(--paper);
+    padding-block: clamp(88px, 10vw, 140px);
+  }
+  @media (min-width: 960px) {
+    .rent { min-height: 100vh; display: flex; align-items: center; padding-block: 110px 60px; box-sizing: border-box; }
+  }
+  .rent__grid { display: grid; gap: 48px; align-items: center; }
+  @media (min-width: 960px) {
+    .rent__grid { grid-template-columns: 1.15fr 0.9fr 1fr; gap: clamp(28px, 4vw, 64px); }
+  }
+  .rent__intro .h2 { font-size: clamp(38px, 4.6vw, 66px); margin-bottom: 24px; }
+  .rent__intro .lede { margin-bottom: 28px; }
+
+  .rent__meter { margin-bottom: 28px; max-width: 340px; }
+  .rent__meter > .mono { color: var(--muted); font-size: 11px; }
+  .rent__meter-track { height: 6px; border-radius: 6px; background: var(--paper-2); margin: 10px 0 8px; overflow: hidden; }
+  .rent__meter-track span { display: block; height: 100%; background: linear-gradient(90deg, var(--ember), var(--lantern), var(--fern)); transform-origin: 0 50%; }
+  .rent__meter-ends { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); }
+  .rent__note { color: var(--ink-soft); font-size: 15px; display: grid; gap: 6px; justify-items: start; }
+  .rent__note a { color: var(--moss); }
+
+  .rent__panel { margin: 0; }
+  .rent__panel figcaption { color: var(--muted); font-size: 11px; margin-bottom: 18px; }
+
+  .rent__tower { position: relative; max-width: 260px; margin-inline: auto; }
+  .rent__tower svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .rent__you {
+    position: absolute;
+    left: 50%;
+    top: 58%;
+    font-size: 10px;
+    background: var(--ink);
+    color: var(--birch);
+    padding: 4px 8px;
+    border-radius: 999px;
+    transform: translate(-10%, -130%);
+    white-space: nowrap;
+  }
+  .stamp {
+    position: absolute;
+    margin: 0;
+    padding: 8px 12px;
+    border: 2px solid var(--ember);
+    border-radius: 6px;
+    color: var(--ember);
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1.25;
+    box-shadow: 0 12px 30px -18px rgba(212, 98, 46, 0.7);
+    display: grid;
+    white-space: nowrap;
+  }
+  .stamp strong { font-size: 12px; font-weight: 500; }
+  .stamp span { font-size: 9.5px; opacity: 0.8; }
+
+  .rent__house { max-width: 220px; margin: 0 auto 20px; }
+  .rent__house svg { width: 100%; height: auto; display: block; }
+  .rent__owned { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .rent__owned li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; align-items: start; }
+  .rent__owned strong { display: block; font-weight: 600; font-size: 15px; }
+  .rent__owned li span span { display: block; font-size: 14px; color: var(--ink-soft); line-height: 1.45; }
+  .own-tick {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--fern);
+    color: var(--birch);
+    margin-top: 1px;
+  }
+  :global(.motion) .own-tick { transform: scale(0.4); }
+  @media (max-width: 959px) {
+    :global(.motion) .own-tick { transform: none; }
+    .stamp { position: static; margin: 8px auto 0; width: max-content; transform: rotate(-2deg); }
+    .rent__tower { display: flex; flex-direction: column; }
+    .rent__tower svg { max-width: 190px; margin: 0 auto 10px; }
+    .rent__you { display: none; }
+  }
+</style>

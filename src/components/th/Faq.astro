@@ -1,0 +1,132 @@
+---
+interface Props {
+  items?: { q: string; a: string }[];
+  title?: string;
+  floor?: string;
+}
+
+const defaults = [
+  {
+    q: "What is in a weekly report?",
+    a: "The market research report covers competitor moves, what your buyers are searching for, your visibility in Google and AI answers, and local or seasonal signals. The web analytics report explains how your own site performed: visits, sources, the pages that lead to enquiries and the searches that found you. Both end with a short, prioritised action list, and every claim is sourced.",
+  },
+  {
+    q: "How are the reports priced?",
+    a: "Each report is bespoke, so the price depends on your market, how many competitors and questions we track, and whether you want one report or both. Tell me about your business and I’ll send a clear quote. No long contracts.",
+  },
+  {
+    q: "Who owns my website and my data?",
+    a: "You do, completely. The domain is registered in your name, you receive the full source code and content, and your analytics data can be exported at any time. If you ever move on, you take everything with you.",
+  },
+  {
+    q: "Is a static website really more secure?",
+    a: "For most small businesses, yes. A static site is a set of pre-built files, so there is no database or admin login on the server for anyone to break into, and no pile of plugins waiting for security patches. It is also faster and cheaper to host.",
+  },
+  {
+    q: "How long does a typical project take?",
+    a: "Most websites are finished within two to four weeks, depending on scope and how ready your content is. You get clear milestones, so you always know what is happening and when your site will go live.",
+  },
+  {
+    q: "Can I update the website myself after launch?",
+    a: "Yes. You’ll be able to update everyday content such as text, photos, menus and opening hours, and I provide documentation and training so you feel confident. For bigger changes, hourly support is always there.",
+  },
+  {
+    q: "Do you also handle content and copywriting?",
+    a: "Yes. If your content isn’t ready, I help structure your message, sharpen what makes you different and write clear copy in your voice, so the site communicates as well as it looks.",
+  },
+];
+
+const { items = defaults, title = "Questions from the ground", floor = "Questions · FAQ" } = Astro.props;
+---
+
+<section id="faq" class="section faq" data-floor={floor} aria-labelledby="faq-title">
+  <div class="wrap faq__grid">
+    <div>
+      <p class="eyebrow">FAQ</p>
+      <h2 id="faq-title" class="h2" data-split>{title}</h2>
+      <p class="lede faq__lede" data-reveal>Can’t find your answer? <a href="/en/contact/" class="link-arrow">Knock on the door →</a></p>
+    </div>
+    <div class="faq__list" data-stagger="0.06">
+      {items.map((f) => (
+        <details class="faq__item">
+          <summary>
+            <span>{f.q}</span>
+            <span class="faq__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq__answer"><p>{f.a}</p></div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq { background: var(--paper); }
+  .faq__grid { display: grid; gap: 48px; }
+  @media (min-width: 960px) { .faq__grid { grid-template-columns: 0.9fr 1.1fr; gap: 96px; align-items: start; } }
+  .faq__grid .h2 { margin-bottom: 24px; }
+  .faq__lede a { color: var(--moss); }
+  .faq__list { border-top: 1px solid var(--line); }
+  .faq__item { border-bottom: 1px solid var(--line); }
+  .faq__item summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 0;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-display);
+    font-size: clamp(19px, 1.8vw, 23px);
+    line-height: 1.3;
+    transition: color 0.3s;
+  }
+  .faq__item summary::-webkit-details-marker { display: none; }
+  .faq__item summary:hover { color: var(--fern); }
+  .faq__icon {
+    position: relative;
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    transition: background 0.4s, border-color 0.4s, transform 0.5s var(--ease-out);
+  }
+  .faq__icon::before,
+  .faq__icon::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 12px;
+    height: 1.5px;
+    margin: -0.75px 0 0 -6px;
+    background: currentColor;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .faq__icon::after { transform: rotate(90deg); }
+  .faq__item[open] .faq__icon { background: var(--lantern); border-color: var(--lantern); transform: rotate(180deg); }
+  .faq__item[open] .faq__icon::after { transform: rotate(0); }
+  .faq__answer { overflow: hidden; }
+  .faq__answer p { padding: 0 56px 26px 0; margin: 0; color: var(--ink-soft); }
+</style>
+
+<script>
+  // Smooth open and close for <details>
+  document.querySelectorAll<HTMLDetailsElement>(".faq__item").forEach((item) => {
+    const summary = item.querySelector("summary")!;
+    const body = item.querySelector<HTMLElement>(".faq__answer")!;
+    summary.addEventListener("click", (e) => {
+      if (!document.documentElement.classList.contains("motion")) return;
+      e.preventDefault();
+      if (item.open) {
+        const h = body.offsetHeight;
+        body.animate([{ height: `${h}px`, opacity: 1 }, { height: "0px", opacity: 0 }], { duration: 380, easing: "cubic-bezier(0.65,0,0.35,1)" }).onfinish = () => (item.open = false);
+      } else {
+        item.open = true;
+        const h = body.offsetHeight;
+        body.animate([{ height: "0px", opacity: 0 }, { height: `${h}px`, opacity: 1 }], { duration: 480, easing: "cubic-bezier(0.22,1,0.36,1)" });
+      }
+    });
+  });
+</script>

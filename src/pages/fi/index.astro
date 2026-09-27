@@ -1,194 +1,960 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
+import FiHeader from '../../components/FiHeader.astro';
 import LoadingSpinner from '../../components/LoadingSpinner.astro';
-import NewHero from '../../components/NewHero.astro';
-import NewAbout from '../../components/NewAbout.astro';
-import NewWhy from '../../components/NewWhy.astro';
-import LakesideBanner from '../../components/LakesideBanner.astro';
-import NewHowIWork from '../../components/NewHowIWork.astro';
-import NewWhoIWorkWith from '../../components/NewWhoIWorkWith.astro';
-import MyCreations from '../../components/MyCreations.astro';
-import PastryBanner from '../../components/PastryBanner.astro';
-import AboutFounder from '../../components/AboutFounder.astro';
-import DiscoverServices from '../../components/DiscoverServices.astro';
-import BlogSection from '../../components/BlogSection.astro';
-import NewContact from '../../components/NewContact.astro';
-import NewFooter from '../../components/NewFooter.astro';
+
+const year = new Date().getFullYear();
+
+const faqs = [
+  {
+    q: "Millaisia verkkosivustoja suunnittelet?",
+    a: "Suunnittelen korkean konversion moderneja verkkosivustoja räätälöitynä brändillesi ja tavoitteillesi. Jokainen projekti rakennetaan alusta asti heijastamaan asemointiasi, yleisöäsi ja liiketoimintatavoitteitasi. Keskityn selkeyteen, suorituskykyyn ja konversioon — olitpa tarvitsemassa laskeutumissivua, portfoliota tai täysimittaista yrityssivustoa, joka todella tuottaa tuloksia."
+  },
+  {
+    q: "Kuinka kauan tyypillinen projekti kestää?",
+    a: "Useimmat projektit valmistuvat 2–4 viikossa laajuudesta ja monimutkaisuudesta riippuen. Aikataulut vaihtelevat sisällön valmiuden, muokkausten ja ominaisuusvaatimusten mukaan. Noudatan jäsenneltyä prosessia pitääkseen kaiken tehokkaana, selkeillä välitavoitteilla, jotta tiedät aina mitä tapahtuu ja milloin sivustosi on valmis."
+  },
+  {
+    q: "Hoidatko myös sisällön ja tekstisuunnittelun?",
+    a: "Kyllä, voin ohjata tai luoda verkkosivuston tekstisisällön brändisi ääneen sovitettuna. Jos sinulla ei ole valmista sisältöä, autan rakentamaan viestinnän, tarkentamaan arvolupauksen ja kirjoittamaan selkeän, konversiokeskeisen tekstin. Tämä varmistaa, että verkkosivustosi ei ainoastaan näytä hyvältä, vaan kommunikoi tehokkaasti ja ohjaa toimintaan."
+  },
+  {
+    q: "Onko verkkosivustoni optimoitu mobiilille ja suorituskyvylle?",
+    a: "Kyllä, jokainen verkkosivusto on täysin responsiivinen ja optimoitu nopeuden ja käytettävyyden suhteen. Sivustosi suunnitellaan toimimaan saumattomasti kaikilla laitteilla, nopeilla latausajoilla ja puhtaalla rakenteella. Tämä parantaa käyttäjäkokemusta, tukee hakukoneoptimointia ja varmistaa, että vierailijasi pysyvät sitoutuneina sen sijaan, että he poistuisivat hitaan suorituskyvyn vuoksi."
+  },
+  {
+    q: "Voinko päivittää verkkosivustoa itse julkaisun jälkeen?",
+    a: "Kyllä, voit helposti päivittää sisältöä ilman teknistä osaamista. Rakennan verkkosivustoja intuitiivisilla järjestelmillä, joiden avulla voit muokata tekstiä, kuvia ja perusosia itsenäisesti. Tarvittaessa tarjoan myös ohjausta, jotta tunnet itsesi varmaksi sivustosi hallinnassa sen julkaisun jälkeen."
+  },
+  {
+    q: "Mikä tekee lähestymistavastasi erilaisen kuin muista suunnittelijoista?",
+    a: "Keskityn strategialähtöiseen suunnitteluun, joka priorisoi selkeyden, asemoinnin ja konversion. Pelkän visuaalisen suunnittelun sijaan yhteensovitan rakenteen, viestinnän ja käyttäjäpolun liiketoimintatavoitteidesi kanssa. Tuloksena on verkkosivusto, joka ei ainoastaan näytä viimeistellyltä, vaan aktiivisesti tukee kasvuasi ja kommunikoi arvosi tehokkaasti."
+  },
+  {
+    q: "Miten aloitamme yhteistyön?",
+    a: "Ota yhteyttä, ja ohjaan sinut seuraaviin vaiheisiin. Aloitamme lyhyellä keskustelulla ymmärtääksemme tavoitteesi, laajuuden ja aikataulun. Sieltä hahmottelen selkeän suunnitelman ja ehdotuksen, jotta tiedät tarkalleen mitä odottaa ennen kuin siirrymme suunnitteluprosessiin."
+  }
+];
 ---
 
-<Layout title="Umaru Creative | Ammattimaista verkkosuunnittelua joka kasvaa kanssasi" lang="fi">
+<Layout
+  title="Verkkosuunnittelu pienyrityksille Jyväskylässä | Umaru Creative"
+  description="Umaru Creative tarjoaa edullista, käsintehtyä verkkosuunnittelua pienyrityksille ja luoville ammattilaisille Jyväskylässä, Suomessa. Yksinkertaiset, turvalliset verkkosivut kestämään."
+  lang="fi"
+>
+  <Fragment slot="head">
+    <link rel="canonical" href="https://umaru-creative.com/fi/" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Umaru Creative",
+      "description": "Edullista, käsintehtyä verkkosuunnittelua pienyrityksille, kahviloille ja luoville ammattilaisille Jyväskylässä, Suomessa. Yksinkertainen, turvallinen ja kestämään rakennettu.",
+      "url": "https://umaru-creative.com/fi/",
+      "email": "umaru.creative@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Jyväskylä",
+        "addressRegion": "Keski-Suomi",
+        "addressCountry": "FI"
+      },
+      "areaServed": [{"@type": "City", "name": "Jyväskylä"}, {"@type": "Country", "name": "Suomi"}],
+      "serviceType": ["Verkkosuunnittelu", "Verkkosivuston kehitys", "Digitaalinen sisältö", "Google My Business -optimointi", "Markkinatieto"],
+      "priceRange": "€€",
+      "foundingDate": "2025",
+      "sameAs": ["https://techbehemoths.com/company/umaru-creative"]
+    }
+    </script>
+  </Fragment>
+
   <LoadingSpinner />
-  <Header />
-  
-  <!-- Finnish Hero Section -->
+  <FiHeader />
+
+  <!-- ═══════════════════════════════════════════════
+       1. HERO
+  ═══════════════════════════════════════════════ -->
   <section class="min-h-screen flex flex-col justify-center relative overflow-hidden pt-16 animate-on-scroll">
     <div class="absolute inset-0 z-0">
-      <img 
-        src="https://images.pexels.com/photos/531756/pexels-photo-531756.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2" 
-        alt="Sininen taivas kelluvilla pilvilla" 
+      <img
+        src="https://images.pexels.com/photos/531756/pexels-photo-531756.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2"
+        alt="Sininen taivas kelluvilla pilvilla"
         class="w-full h-full object-cover opacity-30"
       />
       <div class="absolute inset-0 bg-gradient-to-b from-primary-50/80 to-white/90"></div>
     </div>
 
+    <img
+      id="logo-char-1"
+      src="/Dango-transparent.png"
+      alt="Umaru Creative -logo"
+      class="absolute w-96 h-96 opacity-90 z-20"
+      style="right: 5%; bottom: 20%;"
+    />
+    <img
+      id="logo-char-2"
+      src="/Dango-transparent.png"
+      alt="Umaru Creative -logo"
+      class="absolute w-60 h-60 opacity-50 z-20"
+      style="left: 18%; top: 50%;"
+    />
+
     <div class="container mx-auto px-6 md:px-12 py-20 md:py-32 relative z-10">
       <div class="max-w-4xl mx-auto text-center">
-        <h1 class="font-alexandria font-bold text-4xl md:text-5xl lg:text-6xl leading-tight mb-6 hero-text">
-          Ammattimaista verkkosuunnittelua joka kasvaa kanssasi
+        <h1 class="font-alexandria font-bold text-4xl md:text-5xl lg:text-6xl leading-tight mb-6">
+          <span class="hero-line" data-delay="0">Verkkosivut rakennettu löydettäviksi —</span><br>
+          <span class="hero-line" data-delay="0.5">ihmisille ja tekoälylle.</span>
         </h1>
-        
-        <p class="text-lg md:text-xl text-primary-800 mb-10 max-w-3xl mx-auto hero-text">
-          Edullista. Kaunista. Helppoa hallita. Täydellinen pienyrittäjille jotka haluavat tuloksia—ei stressiä.
+
+        <p class="text-lg md:text-xl text-primary-800 mb-10 max-w-3xl mx-auto">
+          <span class="hero-line" data-delay="1">Käsintehty pienyrityksille Jyväskylässä, Suomessa.</span><br>
+          <span class="hero-line" data-delay="1.5">Puhdas koodi, rehellinen hinnoittelu, ei toimistoyläkustannuksia.</span>
         </p>
-        
-        <div class="flex flex-col sm:flex-row gap-4 justify-center hero-buttons">
-          <a 
-            href="#pricing" 
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center hero-buttons" data-delay="2">
+          <a
+            href="/en/pricing"
             class="px-8 py-4 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-all duration-300 hover:shadow-lg hover:scale-105"
           >
             Katso hinnoittelu
           </a>
-          <a 
-            href="#contact" 
+          <a
+            href="/en/contact"
             class="px-8 py-4 bg-accent-100 text-primary-900 rounded-md font-alexandria hover:bg-accent-200 transition-all duration-300 hover:shadow-lg hover:scale-105"
           >
-            Kysy kysymys
+            Kysy lisää
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Finnish About Section -->
-  <section id="about" class="py-20 md:py-32">
+  <!-- ═══════════════════════════════════════════════
+       2. PALVELUT (Services)
+  ═══════════════════════════════════════════════ -->
+  <section id="palvelut" class="py-20 md:py-32 bg-accent-50 animate-on-scroll">
     <div class="container mx-auto px-6 md:px-12">
-      <div class="max-w-3xl mx-auto text-center">
-        <span class="inline-block px-3 py-1 bg-accent-100 text-primary-800 rounded-full text-sm font-alexandria mb-4">
-          Tietoa
-        </span>
-        
-        <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-8">
-          Tietoa Umaru Creativesta
-        </h2>
-        
-        <p class="text-lg text-primary-800 mb-10">
-          Luovia verkkoratkaisuja räätälöitynä yrityksellesi. Keskitymme pienyrityksiin jotka arvostavat laatua ja henkilökohtaista palvelua.
-        </p>
-        
-        <a 
-          href="#services" 
-          class="inline-block px-6 py-3 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-colors"
-        >
-          Tutustu palveluihin
-        </a>
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="inline-block px-3 py-1 bg-white text-primary-800 rounded-full text-sm font-alexandria mb-4">
+            Palvelut
+          </span>
+          <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-4">
+            Tutustu palveluihini
+          </h2>
+          <p class="text-lg text-primary-800">
+            Verkkosuunnittelu, sisältö, paikallinen haku — ja päivittäinen markkinatieto.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Verkkosuunnittelu -->
+          <div class="bg-white p-8 rounded-xl shadow-sm bloom-card hover:shadow-lg hover:scale-105 transition-all duration-300">
+            <div class="w-12 h-12 mb-6 flex items-center justify-center bg-primary-100 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-primary-700">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+              </svg>
+            </div>
+            <h3 class="font-alexandria font-bold text-xl mb-4">Verkkosuunnittelu</h3>
+            <p class="text-primary-700 mb-6">
+              Räätälöidyt verkkosivut rakennettu selkeydelle — helppoja vierailijoillesi navigoida, helppoja sinulle hallita, ja rakennettu niin että hakukoneet ja tekoälytyökalut voivat lukea ne tarkasti.
+            </p>
+            <a href="/en/services/web-design" class="text-primary-600 hover:text-primary-800 font-alexandria font-medium">
+              Lue lisää →
+            </a>
+          </div>
+
+          <!-- Digitaalinen sisältö -->
+          <div class="bg-white p-8 rounded-xl shadow-sm bloom-card hover:shadow-lg hover:scale-105 transition-all duration-300">
+            <div class="w-12 h-12 mb-6 flex items-center justify-center bg-primary-100 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-primary-700">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+              </svg>
+            </div>
+            <h3 class="font-alexandria font-bold text-xl mb-4">Digitaalinen sisältö</h3>
+            <p class="text-primary-700 mb-6">
+              Lyhyet videosisällöt, sosiaalisen median kuvat, markkinointimateriaalit ja sähköpostikampanjat, jotka kertovat tarinasi ilman hälyä. Tehty vastaamaan sivustosi ääntä.
+            </p>
+            <a href="/en/services/content-creation" class="text-primary-600 hover:text-primary-800 font-alexandria font-medium">
+              Lue lisää →
+            </a>
+          </div>
+
+          <!-- Google My Business -->
+          <div class="bg-white p-8 rounded-xl shadow-sm bloom-card hover:shadow-lg hover:scale-105 transition-all duration-300">
+            <div class="w-12 h-12 mb-6 flex items-center justify-center bg-primary-100 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-primary-700">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13" />
+              </svg>
+            </div>
+            <h3 class="font-alexandria font-bold text-xl mb-4">Google My Business</h3>
+            <p class="text-primary-700 mb-6">
+              Google-profiilisi asetettu ja optimoitu niin, että paikalliset haut löytävät sinut ensin. Erityisen hyödyllinen, jos asiakkaasi ovat lähellä ja etsivät juuri nyt.
+            </p>
+            <a href="/en/services/google-my-business" class="text-primary-600 hover:text-primary-800 font-alexandria font-medium">
+              Lue lisää →
+            </a>
+          </div>
+
+          <!-- Markkinatieto -->
+          <div class="bg-white p-8 rounded-xl shadow-sm bloom-card hover:shadow-lg hover:scale-105 transition-all duration-300">
+            <div class="w-12 h-12 mb-6 flex items-center justify-center bg-primary-100 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-primary-700">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
+              </svg>
+            </div>
+            <h3 class="font-alexandria font-bold text-xl mb-4">Markkinatieto</h3>
+            <p class="text-primary-700 mb-6">
+              Päivittäinen skannaus kilpailijoistasi, ostajien hauista ja näkyvyysaukoistasi — toimitettuna rakenteellisena aamuraportina. Jokainen väite lähdeverifioitu.
+            </p>
+            <a href="/en/contact" class="text-primary-600 hover:text-primary-800 font-alexandria font-medium">
+              Lue lisää →
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Finnish Why Section -->
-  <section id="why" class="py-20 md:py-32 bg-accent-50 animate-on-scroll">
+  <!-- ═══════════════════════════════════════════════
+       3. MARKKINATIETO – oma osio (Market Intelligence)
+  ═══════════════════════════════════════════════ -->
+  <section id="markkinatieto" class="py-20 md:py-32 animate-on-scroll">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="inline-block px-3 py-1 bg-accent-100 text-primary-800 rounded-full text-sm font-alexandria mb-4">
+            Päivittäinen tieto
+          </span>
+          <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-4">
+            Joka aamu. Jokainen liike.
+          </h2>
+          <p class="text-lg text-primary-800">
+            Tiedä mitä markkinoillasi tapahtuu.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div class="bg-accent-50 p-8 rounded-xl bloom-card hover:shadow-lg transition-all duration-300">
+            <div class="w-12 h-12 mb-6 flex items-center justify-center bg-white rounded-full shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-primary-700">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
+              </svg>
+            </div>
+            <h3 class="font-alexandria font-bold text-xl mb-4">Mitä seurataan</h3>
+            <p class="text-primary-700">
+              Kilpailijoiden toiminta, live-ostajahaut ja hakukoneen näkyvyytesi — tarkistetaan päivittäin sinun erityismarkkinaasi vasten, ei yleistä toimialapohjaa.
+            </p>
+          </div>
+
+          <div class="bg-accent-50 p-8 rounded-xl bloom-card hover:shadow-lg transition-all duration-300">
+            <div class="w-12 h-12 mb-6 flex items-center justify-center bg-white rounded-full shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-primary-700">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 9v.906a2.25 2.25 0 01-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 001.183 1.981l6.478 3.488m8.839 2.51l-4.66-2.51m0 0l-1.023-.55a2.25 2.25 0 00-2.134 0l-1.022.55m0 0l-4.661 2.51m16.5 1.615a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V8.844a2.25 2.25 0 011.183-1.98l7.5-4.04a2.25 2.25 0 012.134 0l7.5 4.04a2.25 2.25 0 011.183 1.98V19.5z" />
+              </svg>
+            </div>
+            <h3 class="font-alexandria font-bold text-xl mb-4">Mitä saapuu postilaatikkoosi</h3>
+            <p class="text-primary-700">
+              Lyhyt, rakenteellinen raportti. Lähdeverifioidut väitteet, vain sen päivän data. Kirjoitettu niin, että voit lukea sen aamukahvin kanssa ja tietää tarkalleen missä seisot.
+            </p>
+          </div>
+
+          <div class="bg-accent-50 p-8 rounded-xl bloom-card hover:shadow-lg transition-all duration-300">
+            <div class="w-12 h-12 mb-6 flex items-center justify-center bg-white rounded-full shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-primary-700">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 class="font-alexandria font-bold text-xl mb-4">Mitä teet seuraavaksi</h3>
+            <p class="text-primary-700">
+              Priorisoitu toimintolista jokaisen raportin lopussa. Kiireelliset kohteet merkitty. Strategiset huomioitu. Ei kojelautaan kirjautumista.
+            </p>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <p class="text-primary-800 mb-6 max-w-2xl mx-auto">
+            Soveltuu brändeille, jotka kilpailevat määritellyssä hakukategoriassa tai vähittäiskanavassa — jossa poissaolo aiheuttaa suoran kustannuksen.
+          </p>
+          <a
+            href="/en/contact"
+            class="inline-block px-8 py-4 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-all duration-300 hover:shadow-lg hover:scale-105"
+          >
+            Ota yhteyttä →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       4. ASIAKKAAT (Who I Work With)
+  ═══════════════════════════════════════════════ -->
+  <section id="asiakkaat" class="py-20 md:py-32 bg-accent-50 animate-on-scroll">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="max-w-3xl mx-auto">
+        <span class="inline-block px-3 py-1 bg-white text-primary-800 rounded-full text-sm font-alexandria mb-4">
+          Asiakkaat
+        </span>
+        <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-8">
+          Kenen kanssa teen töitä
+        </h2>
+        <p class="text-lg text-primary-800 mb-10">
+          Pienyritykset ja luovat ammattilaiset Jyväskylässä ja ympäri Suomea.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+          <div class="bg-white p-6 rounded-xl shadow-sm bloom-card hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+            <div class="w-12 h-12 mb-4 flex items-center justify-center bg-primary-100 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-primary-700">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+              </svg>
+            </div>
+            <h3 class="font-alexandria font-bold text-xl mb-3">Itsenäiset kahvilat ja leipomot</h3>
+            <p class="text-primary-700">
+              Paikalliset kahvilat ja leipomot, jotka tarvitsevat yksinkertaisen mutta tehokkaan verkkoläsnäolon esitelläkseen tarjontaansa ja yhdistääkseen asiakkaisiinsa.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-xl shadow-sm bloom-card hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+            <div class="w-12 h-12 mb-4 flex items-center justify-center bg-primary-100 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-primary-700">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.87c1.355 0 2.697.055 4.024.165C17.155 8.51 18 9.473 18 10.608v2.513m-3-4.87v-1.5m-6 1.5v-1.5m12 9.75l-1.5.75a3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0L3 16.5m15-3.38a48.474 48.474 0 00-6-.37c-2.032 0-4.034.125-6 .37m12 0c.39.049.777.102 1.163.16 1.07.16 1.837 1.094 1.837 2.175v5.17c0 .62-.504 1.124-1.125 1.124H4.125A1.125 1.125 0 013 20.625v-5.17c0-1.08.768-2.014 1.837-2.174A47.78 47.78 0 016 13.12M12.265 3.11a.375.375 0 11-.53 0L12 2.845l.265.265zm-3 0a.375.375 0 11-.53 0L9 2.845l.265.265zm6 0a.375.375 0 11-.53 0L15 2.845l.265.265z" />
+              </svg>
+            </div>
+            <h3 class="font-alexandria font-bold text-xl mb-3">Paikalliset elintarviketuottajat</h3>
+            <p class="text-primary-700">
+              Käsityöläiset elintarviketuottajat, jotka tarvitsevat alustan esitelläkseen tuotteitaan, jakaakseen tarinansa ja yhdistääkseen asiakkaisiin ja jälleenmyyjiin.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-xl shadow-sm bloom-card hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+            <div class="w-12 h-12 mb-4 flex items-center justify-center bg-primary-100 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-primary-700">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z" />
+              </svg>
+            </div>
+            <h3 class="font-alexandria font-bold text-xl mb-3">Pienyritykset joilla on taidetta</h3>
+            <p class="text-primary-700">
+              Paikalliset yritykset, jotka ovat ylpeitä käsityöstään ja tarvitsevat verkkosivuston, joka heijastaa heidän laaduaan ja huomiotaan yksityiskohtiin.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-xl shadow-sm bloom-card hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+            <div class="w-12 h-12 mb-4 flex items-center justify-center bg-primary-100 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-primary-700">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              </svg>
+            </div>
+            <h3 class="font-alexandria font-bold text-xl mb-3">Luovat ammattilaiset ja tarkoituksen omaavat ihmiset</h3>
+            <p class="text-primary-700">
+              Taiteilijat, suunnittelijat ja tarkoitushakuiset yksilöt, jotka tarvitsevat verkkosivuston, joka kommunikoi heidän visionsa ja yhdistää heidän yleisönsä kanssa.
+            </p>
+          </div>
+        </div>
+
+        <p class="text-xl font-alexandria text-center mt-12">
+          Jos arvostat selkeyttä, kestävyyttä ja hiljaista luovuutta —<br>haluaisin tehdä yhteistyötä kanssasi.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       5. PORTFOLIO
+  ═══════════════════════════════════════════════ -->
+  <section id="portfolio" class="py-20 md:py-32 animate-on-scroll">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="inline-block px-3 py-1 bg-accent-100 text-primary-800 rounded-full text-sm font-alexandria mb-4">
+            Portfolio
+          </span>
+          <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-4">
+            Luomukseni: Verkkosivuja jotka inspiroivat
+          </h2>
+          <p class="text-lg text-primary-800">
+            Tutustu 3 esimerkki-projektiin.
+          </p>
+        </div>
+
+        <div class="space-y-8">
+          <!-- Projekti 1 -->
+          <div class="bg-white rounded-xl shadow-sm overflow-hidden bloom-card hover:shadow-lg transition-all duration-300 group">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+              <div class="relative overflow-hidden order-2 lg:order-1">
+                <img
+                  src="/images/Norway-phsychologist.png"
+                  alt="Psykologi Oslossa — verkkosivuprojekti"
+                  class="w-full h-64 lg:h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <div class="p-8 flex flex-col justify-center order-1 lg:order-2">
+                <h3 class="font-alexandria font-bold text-2xl mb-4">Psykologi Oslossa</h3>
+                <p class="text-primary-700 mb-6 text-lg">Rauhallinen, luontoaiheinen verkkosivusto psykologille Oslossa. Se kutsuu vierailijat hiljaiseen digitaaliseen tilaan, joka heijastaa luottamusta, yksityisyyttä ja ihmisyhteyttä.</p>
+                <div class="flex gap-2 mb-6 flex-wrap">
+                  <span class="px-3 py-1 bg-primary-100 text-primary-800 rounded-full text-sm">Responsiivinen</span>
+                  <span class="px-3 py-1 bg-primary-100 text-primary-800 rounded-full text-sm">Henkilökohtainen käytäntö</span>
+                  <span class="px-3 py-1 bg-primary-100 text-primary-800 rounded-full text-sm">Varauslomake</span>
+                </div>
+                <a href="https://umarucreative.github.io/psychologist-site/" class="inline-block px-6 py-3 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-colors w-fit">
+                  Katso projekti
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Projekti 2 -->
+          <div class="bg-white rounded-xl shadow-sm overflow-hidden bloom-card hover:shadow-lg transition-all duration-300 group">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+              <div class="relative overflow-hidden">
+                <img
+                  src="/images/Nordic-bites.png"
+                  alt="Sushi-voileivät — verkkosivuprojekti"
+                  class="w-full h-64 lg:h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <div class="p-8 flex flex-col justify-center">
+                <h3 class="font-alexandria font-bold text-2xl mb-4">Sushi-voileivät</h3>
+                <p class="text-primary-700 mb-6 text-lg">Esittelee käsintehtyjä sushi-voileipiä rauhallisella, minimalistisella suunnittelulla. Verkkosivusto korostaa viikkoruokalistoja ja ennakkotilausvaihtoehtoja luoden hienovaraisen verkkokokemuksen.</p>
+                <div class="flex gap-2 mb-6 flex-wrap">
+                  <span class="px-3 py-1 bg-primary-100 text-primary-800 rounded-full text-sm">Ruokalistojen esittely</span>
+                  <span class="px-3 py-1 bg-primary-100 text-primary-800 rounded-full text-sm">Ennakkotilauslomake</span>
+                  <span class="px-3 py-1 bg-primary-100 text-primary-800 rounded-full text-sm">Ravintola</span>
+                </div>
+                <a href="https://umarucreative.github.io/Nordic-Bites/" class="inline-block px-6 py-3 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-colors w-fit">
+                  Katso projekti
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Projekti 3 -->
+          <div class="bg-white rounded-xl shadow-sm overflow-hidden bloom-card hover:shadow-lg transition-all duration-300 group">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+              <div class="relative overflow-hidden order-2 lg:order-1">
+                <img
+                  src="/images/Neuma-home.png"
+                  alt="Moderni elementtitalo-asuminen — verkkosivuprojekti"
+                  class="w-full h-64 lg:h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <div class="p-8 flex flex-col justify-center order-1 lg:order-2">
+                <h3 class="font-alexandria font-bold text-2xl mb-4">Moderni elementtitalo-asuminen</h3>
+                <p class="text-primary-700 mb-6 text-lg">Esittelee innovatiivisia teräksisiä elementtitaloja, rakennettu lujuuden ja kestävyyden vuoksi. Sivusto yhdistää modernin muotoilun käytännölliseen asumiseen ja kutsuu vierailijat tutustumaan monipuolisiin talomalleihin.</p>
+                <div class="flex gap-2 mb-6 flex-wrap">
+                  <span class="px-3 py-1 bg-primary-100 text-primary-800 rounded-full text-sm">Tarinankerronta</span>
+                  <span class="px-3 py-1 bg-primary-100 text-primary-800 rounded-full text-sm">Käyttäjäkokemus</span>
+                  <span class="px-3 py-1 bg-primary-100 text-primary-800 rounded-full text-sm">Responsiivinen</span>
+                </div>
+                <a href="https://umarucreative.github.io/Neuma-Home/" class="inline-block px-6 py-3 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-colors w-fit">
+                  Katso projekti
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-12">
+          <a
+            href="/en/portfolio"
+            class="inline-block px-8 py-4 bg-accent-100 text-primary-900 rounded-md font-alexandria hover:bg-accent-200 transition-all duration-300 hover:shadow-lg hover:scale-105"
+          >
+            Katso lisää projekteja
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       BANNERI — Tehty huolella
+  ═══════════════════════════════════════════════ -->
+  <section class="py-16 relative overflow-hidden">
+    <div class="relative h-64 md:h-80">
+      <img
+        src="https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=1920&h=800&dpr=2"
+        alt="Leivonnaisia, kakkuja ja croissanteja"
+        class="w-full h-full object-cover pastry-image"
+      />
+      <div class="absolute inset-0 bg-accent-900/30"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="text-center text-white">
+          <h3 class="font-alexandria font-bold text-2xl md:text-3xl mb-2">
+            Tehty huolella
+          </h3>
+          <p class="text-lg opacity-90">
+            Aivan kuten yrityksesi — jokainen yksityiskohta merkitsee
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       6. PERUSTAJA (About Founder)
+  ═══════════════════════════════════════════════ -->
+  <section id="perustaja" class="py-20 md:py-32 animate-on-scroll">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div class="order-2 lg:order-1">
+            <div class="bg-primary-100 rounded-xl h-80 flex items-center justify-center text-primary-600">
+              <div class="text-center">
+                <div class="w-16 h-16 bg-primary-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                  </svg>
+                </div>
+                <p class="font-alexandria text-lg">Perustajan kuva</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-1 lg:order-2">
+            <span class="inline-block px-3 py-1 bg-accent-100 text-primary-800 rounded-full text-sm font-alexandria mb-4">
+              Perustaja
+            </span>
+            <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-6">
+              Tietoa perustajasta
+            </h2>
+            <div class="prose prose-lg text-primary-800 max-w-none">
+              <p>
+                Kymmenen vuotta Ranskassa — tarpeeksi kauan ottaakseen leipomot vakavasti. Nyt Jyväskylässä, missä metsät ja järvet ovat parempi työmatkareitti.
+              </p>
+              <p>
+                Perustin Umaru Creativen, koska pienyritykset ansaitsevat verkkosivustot jotka todella toimivat: rehellinen rakenne, puhdas koodi ja sisältö, jonka sekä ihmiset että tekoälytyökalut voivat ymmärtää.
+              </p>
+              <p>
+                Jokainen rakentamani sivusto saa saman huomion, jonka antaisin hyvälle reseptille — ei mitään geneeristä, ei mitään kiireellistä.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       7. UKK (FAQ)
+  ═══════════════════════════════════════════════ -->
+  <section id="ukk" class="py-20 md:py-32 bg-accent-50 animate-on-scroll">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="inline-block px-3 py-1 bg-white text-primary-800 rounded-full text-sm font-alexandria mb-4">
+            UKK
+          </span>
+          <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-4">
+            Usein kysytyt kysymykset
+          </h2>
+        </div>
+
+        <div class="space-y-3">
+          {faqs.map((faq) => (
+            <details class="faq-item bg-white border border-primary-100 rounded-xl overflow-hidden group">
+              <summary class="flex items-center justify-between px-6 py-5 cursor-pointer list-none font-alexandria font-medium text-primary-900 hover:text-primary-600 transition-colors gap-4">
+                <span>{faq.q}</span>
+                <span class="faq-icon flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-primary-100 text-primary-700 transition-transform duration-300 group-open:rotate-45">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                  </svg>
+                </span>
+              </summary>
+              <div class="px-6 pb-6">
+                <p class="text-primary-700 leading-relaxed">{faq.a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       8. PROSESSI (How I Work)
+  ═══════════════════════════════════════════════ -->
+  <section id="prosessi" class="py-20 md:py-32 relative animate-on-scroll">
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2"
+        alt="Metsän opastetaulu"
+        class="w-full h-full object-cover opacity-20 parallax-bg"
+      />
+      <div class="absolute inset-0 bg-white/80"></div>
+    </div>
+
+    <div class="container mx-auto px-6 md:px-12 relative z-10">
+      <div class="max-w-3xl mx-auto">
+        <span class="inline-block px-3 py-1 bg-accent-100 text-primary-800 rounded-full text-sm font-alexandria mb-4">
+          Prosessi
+        </span>
+        <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-8">
+          Miten teen yhteistyötä kanssasi
+        </h2>
+        <p class="text-lg text-primary-800 mb-12">
+          Räätälöity prosessi suunnittelusta julkaisuun.
+        </p>
+
+        <div class="space-y-12">
+          <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-start">
+            <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-primary-100 text-primary-800 font-alexandria font-bold text-xl">1</div>
+            <div>
+              <h3 class="font-alexandria font-bold text-xl mb-2">Kartoitus</h3>
+              <p class="text-primary-700">
+                Aloitamme keskustelulla yrityksestäsi, tarpeistasi ja visiostasi. Tämä auttaa minua ymmärtämään mikä tekee yrityksestäsi erityisen.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-start">
+            <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-primary-100 text-primary-800 font-alexandria font-bold text-xl">2</div>
+            <div>
+              <h3 class="font-alexandria font-bold text-xl mb-2">Suunnittelu</h3>
+              <p class="text-primary-700">
+                Luon suunnittelukonseptin, joka heijastaa brändiäsi ja vastaa tarpeitasi. Hienosäädämme sen yhdessä, kunnes se tuntuu juuri oikealta.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-start">
+            <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-primary-100 text-primary-800 font-alexandria font-bold text-xl">3</div>
+            <div>
+              <h3 class="font-alexandria font-bold text-xl mb-2">Toteutus</h3>
+              <p class="text-primary-700">
+                Kun suunnittelu on hyväksytty, rakennan verkkosivustosi puhtaalla, tehokkaalla koodilla, joka latautuu nopeasti ja toimii sujuvasti.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-start">
+            <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-primary-100 text-primary-800 font-alexandria font-bold text-xl">4</div>
+            <div>
+              <h3 class="font-alexandria font-bold text-xl mb-2">Julkaisu ja tuki</h3>
+              <p class="text-primary-700">
+                Testauksen ja tarkistuksen jälkeen julkaisemme sivustosi. Tarjoan dokumentaation ja opastuksen, jotta voit päivittää sivustoasi luottavaisesti.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       BANNERI — Matka yhdessä
+  ═══════════════════════════════════════════════ -->
+  <section class="py-16 relative overflow-hidden">
+    <div class="relative h-64 md:h-80">
+      <img
+        src="https://images.pexels.com/photos/1770809/pexels-photo-1770809.jpeg?auto=compress&cs=tinysrgb&w=1920&h=800&dpr=2"
+        alt="Järvenrannan polku koivujen ja veden kanssa"
+        class="w-full h-full object-cover lakeside-image"
+      />
+      <div class="absolute inset-0 bg-primary-900/20"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="text-center text-white">
+          <h3 class="font-alexandria font-bold text-2xl md:text-3xl mb-2">
+            Matka yhdessä
+          </h3>
+          <p class="text-lg opacity-90">
+            Jokainen hyvä verkkosivusto alkaa tarinasi ymmärtämisestä
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       9. MIKSI VERKKOSIVUT? (Why a Website)
+  ═══════════════════════════════════════════════ -->
+  <section id="miksi" class="py-20 md:py-32 bg-accent-50 animate-on-scroll">
     <div class="container mx-auto px-6 md:px-12">
       <div class="max-w-3xl mx-auto">
         <span class="inline-block px-3 py-1 bg-white text-primary-800 rounded-full text-sm font-alexandria mb-4">
           Miksi verkkosivut?
         </span>
-        
         <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-8">
-          Yrityksesi ansaitsee oman tilan
+          Yrityksesi, omilla ehdoillasi.
         </h2>
-        
+
         <div class="prose prose-lg text-primary-800 max-w-none">
           <p>
-            Verkkosivut ovat digitaalinen myymäläsi—saatavilla 24/7, rakentamassa luottamusta ja edistämässä kasvua.
+            Sosiaaliset alustat muuttuvat. Algoritmit vaihtuvat. Verkkosivusto on ainoa paikka verkossa, jonka todella omistat — saatavilla asiakkaillesi mihin vuorokauden aikaan tahansa, ilman kenenkään lupaa. Se on myös yhä enenevässä määrin se paikka, josta tekoälyhakutyökalut etsivät ensin tietoa, kun joku kysyy yrityksestäsi.
           </p>
-          
-          <p>
-            Sosiaalisen median alustat tulevat ja menevät. Algoritmit muuttuvat. Mutta verkkosivustosi on jotain mitä omistat ja hallitset.
-          </p>
+
+          <div class="mt-8">
+            <a
+              href="https://umaru-creative.com/en/articles/en/why-your-website-still-matters/"
+              class="inline-block px-6 py-3 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-colors"
+            >
+              Lisää tietoa turvallisen verkkosivuston rakentamisesta →
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-12 relative">
+          <div class="absolute inset-0 bg-gradient-to-r from-primary-100/50 to-accent-100/50 rounded-xl -rotate-1"></div>
+          <img
+            src="https://images.pexels.com/photos/1684151/pexels-photo-1684151.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            alt="Kodikas kahvilaistunto"
+            class="rounded-xl relative z-10 object-cover h-64 w-full"
+          />
         </div>
       </div>
     </div>
   </section>
 
-  <LakesideBanner />
-  <NewHowIWork />
-  <NewWhoIWorkWith />
-  <MyCreations />
-  <PastryBanner />
-  <AboutFounder />
-  <DiscoverServices />
-  <BlogSection />
-  <NewContact />
-  <NewFooter />
+  <!-- ═══════════════════════════════════════════════
+       10. OTA YHTEYTTÄ (Contact)
+  ═══════════════════════════════════════════════ -->
+  <section id="ota-yhteytta" class="py-20 md:py-32 animate-on-scroll">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="inline-block px-3 py-1 bg-accent-100 text-primary-800 rounded-full text-sm font-alexandria mb-4">
+            Ota yhteyttä
+          </span>
+          <h2 class="font-alexandria font-bold text-3xl md:text-4xl mb-4">
+            Otetaan yhteyttä
+          </h2>
+          <p class="text-lg text-primary-800">
+            Valmis aloittamaan?
+          </p>
+        </div>
+
+        <form class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="fi-name" class="block text-sm font-medium text-primary-800 mb-1">Nimi</label>
+              <input
+                type="text"
+                id="fi-name"
+                name="name"
+                class="w-full px-4 py-3 rounded-md border border-primary-200 focus:border-primary-500 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
+                placeholder="Sinun nimesi"
+                required
+              />
+            </div>
+            <div>
+              <label for="fi-email" class="block text-sm font-medium text-primary-800 mb-1">Sähköposti</label>
+              <input
+                type="email"
+                id="fi-email"
+                name="email"
+                class="w-full px-4 py-3 rounded-md border border-primary-200 focus:border-primary-500 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
+                placeholder="sinun@sahkoposti.fi"
+                required
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="fi-subject" class="block text-sm font-medium text-primary-800 mb-1">Aihe</label>
+            <input
+              type="text"
+              id="fi-subject"
+              name="subject"
+              class="w-full px-4 py-3 rounded-md border border-primary-200 focus:border-primary-500 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
+              placeholder="Mistä haluaisit jutella?"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="fi-message" class="block text-sm font-medium text-primary-800 mb-1">Viesti</label>
+            <textarea
+              id="fi-message"
+              name="message"
+              rows="5"
+              class="w-full px-4 py-3 rounded-md border border-primary-200 focus:border-primary-500 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
+              placeholder="Kerro yrityksestäsi ja tavoitteistasi..."
+              required
+            ></textarea>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              class="px-8 py-4 bg-primary-800 text-white rounded-md font-alexandria hover:bg-primary-700 transition-all duration-300 w-full md:w-auto contact-button"
+            >
+              Lähetä viesti
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       ALATUNNISTE (Footer)
+  ═══════════════════════════════════════════════ -->
+  <footer class="relative py-16 bg-primary-950 text-white overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.pexels.com/photos/1770809/pexels-photo-1770809.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2"
+        alt="Kimaltava järvi havumetsien keskellä"
+        class="w-full h-full object-cover opacity-20 lake-forest"
+      />
+    </div>
+
+    <div class="container mx-auto px-6 md:px-12 relative z-10">
+      <div class="max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div>
+            <h3 class="font-alexandria font-bold text-xl mb-4">Umaru Creative</h3>
+            <p class="text-primary-200 mb-4">
+              Huolella luodut verkkosivustot — inspiraationa millefeuille, järvenrannan kävelyt ja pienet hyvät asiat.
+            </p>
+            <p class="text-primary-300">
+              Sijainti: Jyväskylä, Keski-Suomi
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-alexandria font-bold text-xl mb-4">Yhteystiedot</h3>
+            <ul class="space-y-2 text-primary-200">
+              <li>
+                <a href="mailto:umaru.creative@gmail.com" class="hover:text-white transition-colors">
+                  umaru.creative@gmail.com
+                </a>
+              </li>
+              <li>+358 123 456 789</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="font-alexandria font-bold text-xl mb-4">Yhdistä</h3>
+            <ul class="space-y-2 text-primary-200">
+              <li><a href="#" class="hover:text-white transition-colors">Instagram</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">LinkedIn</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">Twitter</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="border-t border-primary-800 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center">
+          <p class="text-primary-300 text-sm">
+            &copy; {year} Umaru Creative | Kaikki oikeudet pidätetty
+          </p>
+          <div class="flex gap-6 mt-4 md:mt-0">
+            <a href="#" class="text-primary-300 text-sm hover:text-white transition-colors">Tietosuojakäytäntö</a>
+            <a href="#" class="text-primary-300 text-sm hover:text-white transition-colors">Käyttöehdot</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 </Layout>
 
 <style>
-  .hero-text {
+  /* Hero animations */
+  .hero-line {
     opacity: 0;
     transform: translateY(30px);
-    animation: fadeInUp 1s ease-out 0.3s forwards;
+    display: inline-block;
   }
-
   .hero-buttons {
     opacity: 0;
     transform: translateY(30px);
-    animation: fadeInUp 1s ease-out 0.6s forwards;
   }
 
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* Logo characters */
+  @keyframes logoRun {
+    0%   { transform: translate(0, 0) scale(1); }
+    25%  { transform: translate(-50px, -30px) scale(1.1); }
+    50%  { transform: translate(-100px, 20px) scale(0.9); }
+    75%  { transform: translate(-30px, 40px) scale(1.05); }
+    100% { transform: translate(0, 0) scale(1); }
   }
+  #logo-char-1 { animation: logoRun 8s ease-in-out infinite; }
+  #logo-char-2 { animation: logoRun 12s ease-in-out infinite; animation-delay: 4s; }
+
+  /* Banner animations */
+  .pastry-image {
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+  }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  .lakeside-image { animation: subtleRipple 6s ease-in-out infinite; }
+  @keyframes subtleRipple {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.02); }
+  }
+
+  /* Process parallax */
+  .parallax-bg { transform: translateZ(0); will-change: transform; }
+  @media (prefers-reduced-motion: no-preference) {
+    .parallax-bg { animation: parallaxMove 20s ease-in-out infinite; }
+  }
+  @keyframes parallaxMove {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-10px); }
+  }
+
+  /* Footer lake */
+  .lake-forest { animation: subtleWave 8s ease-in-out infinite; }
+  @keyframes subtleWave {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50%       { transform: translateY(-5px) scale(1.01); }
+  }
+
+  /* Contact button glow */
+  .contact-button {
+    box-shadow: 0 0 0 0 rgba(55, 65, 81, 0.5);
+    animation: buttonGlow 2s infinite;
+  }
+  @keyframes buttonGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(55, 65, 81, 0.5); }
+    50%       { box-shadow: 0 0 0 10px rgba(55, 65, 81, 0); }
+  }
+
+  /* FAQ */
+  details summary::-webkit-details-marker { display: none; }
 </style>
 
 <script>
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
-  
+
   gsap.registerPlugin(ScrollTrigger);
-  
-  // Bloom effect for cards
-  gsap.utils.toArray('.bloom-card').forEach((card, i) => {
+
+  // Hero text line-by-line
+  document.addEventListener('DOMContentLoaded', () => {
+    const heroLines = document.querySelectorAll('.hero-line');
+    const heroButtons = document.querySelector('.hero-buttons');
+
+    heroLines.forEach((line) => {
+      const delay = parseFloat(line.dataset.delay) || 0;
+      gsap.to(line, { opacity: 1, y: 0, duration: 0.8, delay, ease: "power2.out" });
+    });
+
+    if (heroButtons) {
+      const delay = parseFloat(heroButtons.dataset.delay) || 0;
+      gsap.to(heroButtons, { opacity: 1, y: 0, duration: 0.8, delay, ease: "power2.out" });
+    }
+  });
+
+  // Bloom cards
+  gsap.utils.toArray('.bloom-card').forEach((card) => {
     gsap.fromTo(
-      card, 
-      { 
-        opacity: 0, 
-        scale: 0.8, 
-        filter: "blur(5px)" 
-      }, 
+      card,
+      { opacity: 0, scale: 0.8, filter: "blur(5px)" },
       {
-        opacity: 1,
-        scale: 1,
-        filter: "blur(0px)",
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: card,
-          start: "top 80%",
-          toggleActions: "play none none none"
-        }
+        opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.8, ease: "power2.out",
+        scrollTrigger: { trigger: card, start: "top 80%", toggleActions: "play none none none" }
       }
     );
   });
-  
-  // Fade in animation for sections
-  gsap.utils.toArray('.animate-on-scroll').forEach((section, i) => {
+
+  // Fade-in sections
+  gsap.utils.toArray('.animate-on-scroll').forEach((section) => {
     gsap.fromTo(
-      section, 
-      { opacity: 0, y: 50 }, 
+      section,
+      { opacity: 0, y: 50 },
       {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 80%",
-          toggleActions: "play none none none"
-        }
+        opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
+        scrollTrigger: { trigger: section, start: "top 80%", toggleActions: "play none none none" }
       }
     );
   });

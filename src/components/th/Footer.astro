@@ -1,0 +1,138 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="th-footer" data-night data-floor="Ground · your land" data-altitude="0">
+  <svg class="th-footer__roots" viewBox="0 0 1440 260" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+    <g fill="none" stroke="#5a3e2b" stroke-linecap="round" data-roots>
+      <path d="M720 0 C 716 60, 690 90, 640 120 S 520 170, 430 230" stroke-width="7" />
+      <path d="M720 0 C 726 70, 760 100, 820 130 S 960 170, 1060 240" stroke-width="7" />
+      <path d="M720 0 C 720 80, 716 140, 724 260" stroke-width="6" />
+      <path d="M640 120 C 600 150, 560 150, 500 140 S 380 120, 290 150" stroke-width="3.5" />
+      <path d="M820 130 C 870 160, 930 150, 990 128 S 1120 110, 1210 150" stroke-width="3.5" />
+      <path d="M680 100 C 640 130, 620 180, 600 250" stroke-width="3" />
+      <path d="M760 100 C 800 150, 820 200, 850 250" stroke-width="3" />
+      <path d="M500 140 C 470 170, 440 180, 380 196" stroke-width="2" />
+      <path d="M990 128 C 1030 160, 1080 170, 1140 190" stroke-width="2" />
+      <path d="M290 150 C 240 160, 190 190, 130 200" stroke-width="1.6" />
+      <path d="M1210 150 C 1260 170, 1300 190, 1360 196" stroke-width="1.6" />
+    </g>
+    <g fill="#f3a738" data-root-lights>
+      <circle cx="430" cy="230" r="3" /><circle cx="1060" cy="240" r="3" /><circle cx="724" cy="258" r="3" />
+      <circle cx="290" cy="150" r="2.4" /><circle cx="1210" cy="150" r="2.4" /><circle cx="130" cy="200" r="2" /><circle cx="1360" cy="196" r="2" />
+    </g>
+  </svg>
+
+  <div class="wrap">
+    <div class="th-footer__big">
+      <p class="mono">Ground level · 0 m</p>
+      <h2 class="h2">Your land.<br /><em>Your rules.</em></h2>
+      <a href="/en/contact/" class="btn btn--lantern" data-magnetic>Claim your plot <span class="btn-arrow">→</span></a>
+    </div>
+
+    <div class="th-footer__grid">
+      <div>
+        <a href="/en/" class="th-footer__logo">
+          <img src="/Umaru-Creative-Dango-blue.png" alt="" width="40" height="40" />
+          <span>Umaru Creative</span>
+        </a>
+        <p class="th-footer__tag">Websites crafted with care, inspired by millefeuille, lakeside walks and small, good things.</p>
+        <p class="mono th-footer__loc">Based in Jyväskylä, Central Finland</p>
+      </div>
+      <nav aria-label="Footer services">
+        <h3 class="mono">Rooms</h3>
+        <ul>
+          <li><a href="/en/services/web-design/">Web Design</a></li>
+          <li><a href="/en/services/content-creation/">Digital Content</a></li>
+          <li><a href="/en/services/google-my-business/">Google Business Profile</a></li>
+          <li><a href="/en/services/weekly-reports/">Weekly Reports</a></li>
+          <li><a href="/en/pricing/">Pricing</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Footer studio">
+        <h3 class="mono">Studio</h3>
+        <ul>
+          <li><a href="/en/#founder">About</a></li>
+          <li><a href="/en/#security">Security</a></li>
+          <li><a href="/en/articles/">Blog</a></li>
+          <li><a href="/en/contact/">Contact</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h3 class="mono">Knock</h3>
+        <ul>
+          <li><a href="mailto:umaru.creative@gmail.com">umaru.creative@gmail.com</a></li>
+          <li><a href="https://www.instagram.com/" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="th-footer__base">
+      <p>© {year} Umaru Creative. All rights reserved.</p>
+      <p class="th-footer__langs">
+        <a href="/en/">EN</a><a href="/fi/">FI</a><a href="/sv/">SV</a><a href="/fr/">FR</a><a href="/no/">NO</a>
+      </p>
+      <p><a href="/en/contact/">Privacy Policy</a> · <a href="/en/contact/">Terms of Service</a></p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .th-footer {
+    position: relative;
+    background: var(--night);
+    color: var(--night-ink);
+    padding-bottom: 32px;
+    overflow: hidden;
+  }
+  .th-footer__roots { display: block; width: 100%; height: clamp(140px, 18vw, 260px); }
+  .th-footer__big {
+    display: grid;
+    gap: 28px;
+    justify-items: start;
+    padding: clamp(40px, 6vw, 80px) 0 clamp(56px, 8vw, 110px);
+    border-bottom: 1px solid rgba(233, 228, 214, 0.1);
+  }
+  .th-footer__big .mono { color: var(--lantern); margin: 0; }
+  .th-footer__big .h2 { font-size: clamp(52px, 10vw, 150px); line-height: 0.92; }
+  .th-footer__big em { color: var(--lantern); }
+
+  .th-footer__grid {
+    display: grid;
+    gap: 40px;
+    padding: 56px 0;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) { .th-footer__grid { grid-template-columns: 1.6fr 1fr 1fr 1.2fr; } }
+  .th-footer__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-display);
+    font-size: 24px;
+    text-decoration: none;
+    margin-bottom: 16px;
+  }
+  .th-footer__tag { color: var(--night-muted); max-width: 34ch; }
+  .th-footer__loc { color: var(--lichen); }
+  .th-footer h3 { color: var(--night-muted); margin-bottom: 16px; font-weight: 400; }
+  .th-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .th-footer ul a { text-decoration: none; opacity: 0.85; transition: opacity 0.3s, color 0.3s; }
+  .th-footer ul a:hover { opacity: 1; color: var(--lantern); }
+
+  .th-footer__base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(233, 228, 214, 0.1);
+    font-size: 14px;
+    color: var(--night-muted);
+  }
+  .th-footer__base p { margin: 0; }
+  .th-footer__base a { text-decoration: none; }
+  .th-footer__base a:hover { color: var(--night-ink); }
+  .th-footer__langs { display: flex; gap: 14px; font-family: var(--font-mono); font-size: 12px; }
+</style>

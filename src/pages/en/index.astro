@@ -1,101 +1,60 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
-import LoadingSpinner from '../../components/LoadingSpinner.astro';
-import EnhancedHero from '../../components/EnhancedHero.astro';
-import NewAbout from '../../components/NewAbout.astro';
-import NewWhy from '../../components/NewWhy.astro';
-import LakesideBanner from '../../components/LakesideBanner.astro';
-import NewHowIWork from '../../components/NewHowIWork.astro';
-import NewWhoIWorkWith from '../../components/NewWhoIWorkWith.astro';
-import MyCreations from '../../components/MyCreations.astro';
-import PastryBanner from '../../components/PastryBanner.astro';
-import AboutFounder from '../../components/AboutFounder.astro';
-import DiscoverServices from '../../components/DiscoverServices.astro';
-import BlogSection from '../../components/BlogSection.astro';
-import NewContact from '../../components/NewContact.astro';
-import NewFooter from '../../components/NewFooter.astro';
+import TreehouseLayout from "../../layouts/TreehouseLayout.astro";
+import Hero from "../../components/th/Hero.astro";
+import RentOwn from "../../components/th/RentOwn.astro";
+import Rooms from "../../components/th/Rooms.astro";
+import Lookout from "../../components/th/Lookout.astro";
+import Security from "../../components/th/Security.astro";
+import Build from "../../components/th/Build.astro";
+import Neighbours from "../../components/th/Neighbours.astro";
+import Portfolio from "../../components/th/Portfolio.astro";
+import Founder from "../../components/th/Founder.astro";
+import Faq from "../../components/th/Faq.astro";
+import FieldNotes from "../../components/th/FieldNotes.astro";
+import Contact from "../../components/th/Contact.astro";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "Umaru Creative",
+  description:
+    "Handcrafted, secure web design plus bespoke weekly market research and web analytics reports for small businesses, cafés and creatives in Jyväskylä, Finland.",
+  url: "https://umaru-creative.com/en/",
+  email: "umaru.creative@gmail.com",
+  address: { "@type": "PostalAddress", addressLocality: "Jyväskylä", addressRegion: "Central Finland", addressCountry: "FI" },
+  areaServed: [{ "@type": "City", name: "Jyväskylä" }, { "@type": "Country", name: "Finland" }],
+  serviceType: [
+    "Web Design",
+    "Website Development",
+    "Digital Content",
+    "Google Business Profile Optimisation",
+    "Weekly Market Research Reports",
+    "Web Analytics Reports",
+  ],
+  priceRange: "€€",
+  foundingDate: "2025",
+  sameAs: ["https://techbehemoths.com/company/umaru-creative"],
+};
 ---
 
-<Layout title="Umaru Creative | Professional Web Design That Grows With You" lang="en">
-  <LoadingSpinner />
-  <Header />
-  <EnhancedHero />
-  <NewAbout />
-  <NewWhy />
-  <LakesideBanner />
-  <NewHowIWork />
-  <NewWhoIWorkWith />
-  <MyCreations />
-  <PastryBanner />
-  <AboutFounder />
-  <DiscoverServices />
-  <BlogSection />
-  <NewContact />
-  <NewFooter />
-</Layout>
+<TreehouseLayout
+  title="Secure Web Design and Weekly Market Reports in Jyväskylä | Umaru Creative"
+  description="Handcrafted, secure websites you own outright, plus bespoke weekly market research and web analytics reports for small businesses in Jyväskylä and across Finland."
+  canonical="https://umaru-creative.com/en/"
+  rail
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
 
-<style>
-  .bloom-card {
-    opacity: 0;
-    transform: scale(0.8);
-    filter: blur(5px);
-  }
-
-  .bloom-card.bloomed {
-    opacity: 1;
-    transform: scale(1);
-    filter: blur(0);
-    transition: all 0.8s ease-out;
-  }
-</style>
-
-<script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  
-  gsap.registerPlugin(ScrollTrigger);
-  
-  // Bloom effect for cards
-  gsap.utils.toArray('.bloom-card').forEach((card, i) => {
-    gsap.fromTo(
-      card, 
-      { 
-        opacity: 0, 
-        scale: 0.8, 
-        filter: "blur(5px)" 
-      }, 
-      {
-        opacity: 1,
-        scale: 1,
-        filter: "blur(0px)",
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: card,
-          start: "top 80%",
-          toggleActions: "play none none none"
-        }
-      }
-    );
-  });
-  
-  // Fade in animation for sections
-  gsap.utils.toArray('.animate-on-scroll').forEach((section, i) => {
-    gsap.fromTo(
-      section, 
-      { opacity: 0, y: 50 }, 
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 80%",
-          toggleActions: "play none none none"
-        }
-      }
-    );
-  });
-</script>
+  <Hero />
+  <RentOwn />
+  <Rooms />
+  <Lookout />
+  <Security />
+  <Build />
+  <Neighbours />
+  <Portfolio />
+  <Founder />
+  <Faq />
+  <FieldNotes />
+  <Contact />
+</TreehouseLayout>

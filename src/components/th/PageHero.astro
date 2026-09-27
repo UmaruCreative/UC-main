@@ -1,0 +1,91 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  lede?: string;
+  crumbs?: { label: string; href?: string }[];
+  primary?: { label: string; href: string };
+  secondary?: { label: string; href: string };
+  tone?: "day" | "dusk";
+}
+const { eyebrow, title, lede, crumbs = [], primary, secondary, tone = "day" } = Astro.props;
+
+let seed = 11;
+const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+const back = Array.from({ length: 34 }, (_, i) => ({ x: i * 44 - 30 + rand() * 20, s: 0.28 + rand() * 0.18 }));
+const front = Array.from({ length: 16 }, (_, i) => ({ x: i * 96 - 40 + rand() * 40, s: 0.42 + rand() * 0.26 }));
+---
+
+<section class:list={["phero", `phero--${tone}`]} data-floor="Canopy" data-night={tone === "dusk" ? "" : undefined}>
+  <div class="wrap phero__copy">
+    {crumbs.length > 0 && (
+      <nav class="phero__crumbs mono" aria-label="Breadcrumb">
+        <ol>
+          {crumbs.map((c) => (
+            <li>{c.href ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}</li>
+          ))}
+        </ol>
+      </nav>
+    )}
+    <p class="eyebrow">{eyebrow}</p>
+    <h1 class="display phero__title" data-split set:html={title} />
+    {lede && <p class="lede" data-reveal>{lede}</p>}
+    {(primary || secondary) && (
+      <div class="phero__ctas" data-reveal data-delay="0.1">
+        {primary && <a href={primary.href} class="btn" data-magnetic>{primary.label} <span class="btn-arrow">→</span></a>}
+        {secondary && <a href={secondary.href} class="btn btn--ghost" data-magnetic>{secondary.label}</a>}
+      </div>
+    )}
+  </div>
+
+  <div class="phero__forest" aria-hidden="true">
+    <svg viewBox="0 0 1440 240" preserveAspectRatio="xMidYMax slice" data-parallax="0.15">
+      <g class="phero__back">
+        {back.map((p) => <use href="#ph-pine" x={p.x} y={240 - 300 * p.s} width={100 * p.s} height={300 * p.s} />)}
+      </g>
+    </svg>
+    <svg viewBox="0 0 1440 240" preserveAspectRatio="xMidYMax slice">
+      <defs>
+        <symbol id="ph-pine" viewBox="0 0 100 300">
+          <path d="M50 0 L62 40 L56 38 L71 80 L61 77 L79 125 L65 121 L87 175 L69 170 L95 232 L56 224 L56 300 L44 300 L44 224 L5 232 L31 170 L13 175 L35 121 L21 125 L39 77 L29 80 L44 38 L38 40 Z" />
+        </symbol>
+      </defs>
+      <g class="phero__front">
+        {front.map((p) => <use href="#ph-pine" x={p.x} y={250 - 300 * p.s} width={100 * p.s} height={300 * p.s} />)}
+      </g>
+      <rect class="phero__front" x="0" y="226" width="1440" height="20" />
+    </svg>
+  </div>
+</section>
+
+<style>
+  .phero {
+    position: relative;
+    overflow: hidden;
+    padding: calc(var(--header-h) + clamp(56px, 10vw, 120px)) 0 clamp(170px, 20vw, 260px);
+    background: linear-gradient(180deg, #e8ecdf 0%, var(--paper) 70%);
+  }
+  .phero--dusk { background: linear-gradient(180deg, #16231e 0%, #22342c 100%); color: var(--night-ink); }
+  .phero--dusk .lede { color: var(--night-muted); }
+  .phero--dusk .eyebrow { color: var(--lantern); }
+  .phero--dusk .display em { color: var(--lantern); }
+  .phero--dusk .btn { --btn-bg: var(--lantern); --btn-fg: var(--night); }
+  .phero--dusk .btn--ghost { --btn-bg: transparent; --btn-fg: var(--night-ink); }
+
+  .phero__copy { position: relative; z-index: 1; }
+  .phero__crumbs ol { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0 0 30px; padding: 0; font-size: 11px; }
+  .phero__crumbs li { display: flex; gap: 8px; opacity: 0.7; }
+  .phero__crumbs li + li::before { content: "/"; }
+  .phero__crumbs a { text-decoration: none; }
+  .phero__crumbs a:hover { text-decoration: underline; }
+  .phero__title { font-size: clamp(46px, 7.4vw, 104px); max-width: 13ch; margin-bottom: 28px; }
+  .phero .lede { max-width: 48ch; margin-bottom: 34px; }
+  .phero__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  .phero__forest { position: absolute; left: 0; right: 0; bottom: 0; height: clamp(150px, 18vw, 240px); pointer-events: none; }
+  .phero__forest svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .phero__back { fill: #a9b8a0; }
+  .phero__front { fill: #4b6840; }
+  .phero--dusk .phero__back { fill: #2b4136; }
+  .phero--dusk .phero__front { fill: #0d1613; }
+</style>

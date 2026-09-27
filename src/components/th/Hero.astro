@@ -1,0 +1,355 @@
+---
+// Seeded random so the forest is the same on every build
+let seed = 7;
+const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+
+type Pine = { x: number; y: number; s: number };
+const row = (count: number, y0: number, spread: number, s0: number, sv: number, x0 = -60, x1 = 1500): Pine[] =>
+  Array.from({ length: count }, (_, i) => ({
+    x: x0 + ((x1 - x0) / count) * i + rand() * 40,
+    y: y0 + rand() * spread,
+    s: s0 + rand() * sv,
+  }));
+
+const far = row(46, 612, 26, 0.34, 0.2);
+// Trees behind the text stay short so the copy always sits on open sky
+const mid = row(22, 700, 40, 0.62, 0.36, -80, 980).map((p) =>
+  p.x < 720 ? { ...p, s: 0.3 + (p.s - 0.62) * 0.4 } : p
+);
+const front = [
+  { x: 1370, y: 930, s: 2.2 },
+  { x: 880, y: 960, s: 1.3 },
+];
+const rungs = Array.from({ length: 15 }, (_, i) => 506 + i * 27);
+const posts = [1032, 1056, 1300, 1324, 1348];
+---
+
+<section class="hero" data-hero data-floor="Canopy · 18 m" aria-labelledby="hero-title">
+  <svg width="0" height="0" class="sr-only" aria-hidden="true">
+    <defs>
+      <symbol id="pine" viewBox="0 0 100 300">
+        <path d="M50 0 L62 40 L56 38 L71 80 L61 77 L79 125 L65 121 L87 175 L69 170 L95 232 L56 224 L56 300 L44 300 L44 224 L5 232 L31 170 L13 175 L35 121 L21 125 L39 77 L29 80 L44 38 L38 40 Z" />
+      </symbol>
+      <radialGradient id="glow" r="0.5">
+        <stop offset="0" stop-color="#ffd27a" stop-opacity="0.9" />
+        <stop offset="1" stop-color="#ffd27a" stop-opacity="0" />
+      </radialGradient>
+      <linearGradient id="lake" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0" stop-color="#9fb6c9" />
+        <stop offset="1" stop-color="#6f8fa9" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div class="hero__sky" data-hero-sky>
+    <div class="hero__sun"></div>
+  </div>
+
+  <!-- Far hills and lake -->
+  <div class="hero__layer" data-depth="0.1">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <path d="M0 620 C 180 560, 320 590, 470 570 S 760 520, 930 566 S 1240 540, 1440 580 L1440 700 L0 700 Z" fill="#b9c3bb" />
+      <rect x="0" y="650" width="1440" height="120" fill="url(#lake)" />
+      <g stroke="#e8eef2" stroke-width="2" stroke-linecap="round" opacity="0.7" class="hero__shimmer">
+        <line x1="180" y1="676" x2="260" y2="676" /><line x1="420" y1="690" x2="470" y2="690" />
+        <line x1="640" y1="672" x2="740" y2="672" /><line x1="860" y1="700" x2="900" y2="700" />
+        <line x1="300" y1="712" x2="350" y2="712" /><line x1="1000" y1="684" x2="1060" y2="684" />
+      </g>
+    </svg>
+  </div>
+
+  <!-- Distant pines -->
+  <div class="hero__layer" data-depth="0.22">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <g fill="#8ea08f">
+        {far.map((p) => <use href="#pine" x={p.x} y={p.y - 300 * p.s} width={100 * p.s} height={300 * p.s} />)}
+      </g>
+      <rect x="0" y="628" width="1440" height="40" fill="#8ea08f" />
+    </svg>
+  </div>
+
+  <div class="hero__fog hero__fog--1" aria-hidden="true"></div>
+
+  <!-- Mid forest -->
+  <div class="hero__layer" data-depth="0.4">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <g fill="#58764a">
+        {mid.map((p) => <use href="#pine" x={p.x} y={p.y - 300 * p.s} width={100 * p.s} height={300 * p.s} />)}
+      </g>
+      <path d="M0 760 C 200 730, 420 750, 640 740 S 1100 720, 1440 750 L1440 900 L0 900 Z" fill="#4b6840" />
+    </svg>
+  </div>
+
+  <!-- The treehouse -->
+  <div class="hero__layer hero__layer--house" data-depth="0.6">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMaxYMax slice" aria-hidden="true">
+      <!-- crown behind -->
+      <g fill="#2f4a33">
+        <use href="#pine" x="1030" y="-40" width="300" height="560" />
+      </g>
+      <!-- trunk -->
+      <path d="M1148 900 C 1156 720, 1162 520, 1168 90 L1192 90 C 1198 520, 1206 720, 1222 900 Z" fill="#5a3e2b" />
+      <path d="M1176 140 C 1174 400, 1178 700, 1184 900" stroke="#46301f" stroke-width="3" fill="none" opacity="0.6" />
+
+      <!-- lookout -->
+      <g class="hero__lookout">
+        <line x1="1180" y1="118" x2="1180" y2="46" stroke="#37261a" stroke-width="3" />
+        <path class="hero__flag" d="M1182 48 L1226 58 L1182 70 Z" fill="#f3a738" />
+        <path d="M1128 158 L1180 120 L1232 158 Z" fill="#37261a" />
+        <rect x="1136" y="158" width="88" height="34" fill="none" stroke="#37261a" stroke-width="3" />
+        <line x1="1150" y1="158" x2="1150" y2="192" stroke="#37261a" stroke-width="3" />
+        <line x1="1210" y1="158" x2="1210" y2="192" stroke="#37261a" stroke-width="3" />
+        <rect x="1124" y="192" width="112" height="10" rx="2" fill="#7a5436" />
+        <rect x="1222" y="166" width="30" height="8" rx="3" fill="#37261a" transform="rotate(-14 1222 170)" />
+      </g>
+
+      <!-- supports -->
+      <g stroke="#46301f" stroke-width="9" stroke-linecap="round">
+        <line x1="1166" y1="610" x2="1044" y2="490" />
+        <line x1="1196" y1="610" x2="1322" y2="490" />
+      </g>
+
+      <!-- platform + railing -->
+      <rect x="1012" y="478" width="348" height="16" rx="3" fill="#6b4a31" />
+      <g stroke="#6b4a31" stroke-width="5" stroke-linecap="round">
+        {posts.map((x) => <line x1={x} y1="478" x2={x} y2="444" />)}
+        <line x1="1024" y1="446" x2="1072" y2="446" />
+        <line x1="1292" y1="446" x2="1356" y2="446" />
+      </g>
+
+      <!-- cabin -->
+      <rect x="1082" y="338" width="200" height="140" fill="#a0714b" />
+      <g stroke="#8a5f3c" stroke-width="2">
+        {[352, 366, 380, 394, 408, 422, 436, 450, 464].map((y) => <line x1="1082" y1={y} x2="1282" y2={y} />)}
+      </g>
+      <path d="M1058 344 L1182 256 L1306 344 Z" fill="#37261a" />
+      <path d="M1058 344 L1182 256 L1306 344 L1296 350 L1182 270 L1068 350 Z" fill="#241910" />
+      <!-- stovepipe and smoke -->
+      <rect x="1238" y="270" width="14" height="44" fill="#241910" />
+      <path class="hero__smoke" d="M1245 266 C 1235 240, 1260 226, 1248 200 S 1236 160, 1256 136" fill="none" stroke="#d9d4c7" stroke-width="5" stroke-linecap="round" />
+
+      <!-- lit windows -->
+      <g data-hero-window>
+        <circle cx="1136" cy="388" r="70" fill="url(#glow)" class="hero__glow" />
+        <rect x="1108" y="366" width="56" height="46" rx="3" fill="#f7c56b" />
+        <path d="M1136 366 V412 M1108 389 H1164" stroke="#6b4a31" stroke-width="4" />
+        <rect x="1105" y="363" width="62" height="52" rx="4" fill="none" stroke="#37261a" stroke-width="4" />
+        <circle cx="1182" cy="310" r="13" fill="#f7c56b" stroke="#37261a" stroke-width="4" />
+      </g>
+      <!-- door -->
+      <path d="M1204 478 V398 a22 22 0 0 1 44 0 V478 Z" fill="#37261a" />
+      <circle cx="1238" cy="440" r="3" fill="#f3a738" />
+
+      <!-- hanging lantern -->
+      <g class="hero__lantern">
+        <line x1="1030" y1="494" x2="1030" y2="528" stroke="#37261a" stroke-width="2" />
+        <circle cx="1030" cy="548" r="46" fill="url(#glow)" class="hero__glow" />
+        <rect x="1021" y="528" width="18" height="5" rx="2" fill="#37261a" />
+        <path d="M1022 533 H1038 L1036 558 H1024 Z" fill="#f7c56b" />
+        <rect x="1019" y="558" width="22" height="5" rx="2" fill="#37261a" />
+      </g>
+
+      <!-- rope ladder -->
+      <g stroke="#c9a577" stroke-width="3" fill="none" stroke-linecap="round">
+        <path d="M1302 494 C 1300 640, 1306 760, 1300 900" />
+        <path d="M1334 494 C 1332 640, 1338 760, 1332 900" />
+        {rungs.map((y) => <line x1="1302" y1={y} x2="1334" y2={y} />)}
+      </g>
+
+      <!-- signpost at the foot of the tree -->
+      <g class="hero__sign">
+        <rect x="1052" y="790" width="7" height="110" fill="#46301f" />
+        <path d="M1000 792 H1106 L1120 810 L1106 828 H1000 Z" fill="#c9996a" stroke="#6b4a31" stroke-width="3" />
+        <text x="1054" y="815" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" letter-spacing="1.5" fill="#37261a">YOUR LAND</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="hero__fog hero__fog--2" aria-hidden="true"></div>
+
+  <!-- Foreground -->
+  <div class="hero__layer" data-depth="0.9">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <path d="M0 850 C 240 820, 520 842, 760 830 S 1200 812, 1440 836 L1440 900 L0 900 Z" fill="#1f3326" />
+      <g fill="#1a2b20">
+        {front.map((p) => <use href="#pine" x={p.x} y={p.y - 300 * p.s} width={100 * p.s} height={300 * p.s} />)}
+      </g>
+    </svg>
+  </div>
+
+  <canvas class="hero__flies" data-fireflies aria-hidden="true"></canvas>
+  <div class="hero__dusk" data-hero-dusk aria-hidden="true"></div>
+  <div class="hero__mist" aria-hidden="true"></div>
+
+  <div class="hero__copy wrap" data-hero-copy>
+    <p class="eyebrow" data-hero-in>Web studio · Jyväskylä, Finland</p>
+    <h1 id="hero-title" class="display" data-split>Build on land <em>you&nbsp;own.</em></h1>
+    <p class="lede" data-hero-in>
+      Handcrafted websites, plus bespoke weekly market research and web analytics reports, for small businesses across Finland.
+      Your domain, your code, your data. Nobody else’s rules.
+    </p>
+    <div class="hero__ctas" data-hero-in>
+      <a href="/en/contact/" class="btn" data-magnetic>Start your treehouse <span class="btn-arrow">→</span></a>
+      <a href="#rooms" class="btn btn--ghost" data-magnetic>Explore the rooms</a>
+    </div>
+  </div>
+
+  <div class="hero__foot wrap" data-hero-in>
+    <ul class="hero__facts mono">
+      <li>Static &amp; secure</li>
+      <li>Owned, not rented</li>
+      <li>Weekly reports</li>
+    </ul>
+    <a href="#rent" class="hero__cue mono">
+      <span class="hero__cue-rope" aria-hidden="true"></span>
+      Climb down
+    </a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: max(100svh, 720px);
+    overflow: hidden;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .hero__sky {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: linear-gradient(180deg, #e7ebdf 0%, #f1e8d2 42%, #f5d7a6 70%, #f2c287 100%);
+  }
+  .hero__sun {
+    position: absolute;
+    left: 58%;
+    top: 58%;
+    width: clamp(160px, 18vw, 280px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff3d6 0%, #fbd79a 45%, rgba(251, 215, 154, 0) 70%);
+    transform: translate(-50%, -50%);
+  }
+  .hero__layer {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    will-change: transform;
+  }
+  .hero__layer svg { width: 100%; height: 100%; display: block; }
+
+  .hero__fog {
+    position: absolute;
+    left: -10%;
+    right: -10%;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(243, 238, 226, 0), rgba(243, 238, 226, 0.75) 50%, rgba(243, 238, 226, 0));
+    animation: drift 28s ease-in-out infinite alternate;
+  }
+  .hero__fog--1 { bottom: 20%; height: 18%; }
+  .hero__fog--2 { bottom: 4%; height: 14%; opacity: 0.55; animation-duration: 36s; }
+  @keyframes drift { to { transform: translateX(6%); } }
+
+  .hero__flies { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+  .hero__dusk {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(13, 22, 19, 0.2), rgba(13, 22, 19, 0.75));
+  }
+
+  /* Morning mist behind the copy: keeps text readable at every screen size */
+  .hero__mist {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 58% 62% at 20% 44%, rgba(243, 238, 226, 0.9) 0%, rgba(243, 238, 226, 0.78) 45%, rgba(243, 238, 226, 0) 100%),
+      linear-gradient(90deg, rgba(243, 238, 226, 0.55) 0%, rgba(243, 238, 226, 0) 55%);
+  }
+
+  .hero__copy {
+    padding-top: calc(var(--header-h) + clamp(40px, 9vh, 120px));
+    position: relative;
+  }
+  .hero__copy .display { max-width: 9.5ch; margin-bottom: 30px; }
+  .hero__copy .display em { color: var(--moss); }
+  .hero__copy .lede { max-width: 44ch; color: var(--ink); margin-bottom: 36px; }
+  .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  .hero__foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 28px;
+    color: var(--birch);
+  }
+  .hero__facts { display: flex; flex-wrap: wrap; gap: 8px 22px; list-style: none; margin: 0; padding: 0; }
+  .hero__facts li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: rgba(13, 22, 19, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .hero__facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--lantern); }
+  .hero__cue {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    padding: 6px 14px 6px 10px;
+    border-radius: 999px;
+    background: rgba(13, 22, 19, 0.55);
+  }
+  .hero__cue-rope {
+    width: 1.5px;
+    height: 44px;
+    background: repeating-linear-gradient(to bottom, currentColor 0 5px, transparent 5px 8px);
+    animation: rope 1.6s linear infinite;
+  }
+  @keyframes rope { to { background-position: 0 16px; } }
+
+  .hero__smoke { stroke-dasharray: 16 14; animation: smoke 3.5s linear infinite; opacity: 0.8; }
+  @keyframes smoke { to { stroke-dashoffset: -60; } }
+  .hero__flag { transform-origin: 1182px 58px; animation: flag 2.4s ease-in-out infinite; }
+  @keyframes flag { 50% { transform: skewY(6deg) scaleX(0.9); } }
+  .hero__glow { animation: glow 3.4s ease-in-out infinite; }
+  @keyframes glow { 0%, 100% { opacity: 0.8; } 45% { opacity: 1; } 60% { opacity: 0.65; } }
+  .hero__lantern { transform-origin: 1030px 494px; animation: sway 5s ease-in-out infinite; }
+  @keyframes sway { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+  .hero__shimmer line { animation: shimmer 4s ease-in-out infinite; }
+  .hero__shimmer line:nth-child(2n) { animation-delay: -2s; }
+  @keyframes shimmer { 50% { opacity: 0.2; transform: translateX(10px); } }
+
+  /* Hero ghost button gets a soft backing so it reads over the scene */
+  .hero__ctas .btn--ghost { background: rgba(243, 238, 226, 0.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+
+  /* Portrait tablets: keep the treehouse below and to the right of the copy */
+  @media (max-width: 1080px) and (orientation: portrait) {
+    .hero__layer--house { top: 34%; left: 30%; }
+  }
+
+  @media (max-width: 760px) {
+    .hero__copy .display { font-size: clamp(46px, 14vw, 72px); }
+    .hero__copy .lede { font-size: 17px; }
+    .hero__layer--house { left: 24%; top: 46%; }
+    .hero__mist {
+      background: linear-gradient(180deg, rgba(243, 238, 226, 0.92) 0%, rgba(243, 238, 226, 0.86) 52%, rgba(243, 238, 226, 0) 76%);
+    }
+    .hero__sun { left: 70%; top: 66%; }
+    .hero__foot { flex-direction: column; align-items: flex-start; gap: 18px; }
+    .hero__cue { display: none; }
+  }
+</style>

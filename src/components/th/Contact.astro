@@ -1,0 +1,161 @@
+---
+interface Props {
+  as?: "h1" | "h2";
+}
+const { as: Tag = "h2" } = Astro.props;
+
+const services = [
+  { value: "web", label: "Web design" },
+  { value: "content", label: "Digital content" },
+  { value: "gbp", label: "Google Business Profile" },
+  { value: "reports", label: "Weekly reports" },
+  { value: "care", label: "Website care" },
+  { value: "other", label: "Something else" },
+];
+---
+
+<section id="contact" class="section section--night contact" data-night data-lantern-field data-floor="Front door · contact" style="--lx: 300; --ly: 200;" aria-labelledby="contact-title">
+  <div class="contact__glow" aria-hidden="true"></div>
+  <div class="wrap contact__grid">
+    <div class="contact__intro">
+      <p class="eyebrow">Contact</p>
+      <Tag id="contact-title" class="h2" data-split>Knock on <em>the trapdoor.</em></Tag>
+      <p class="lede" data-reveal>Tell me a little about your business and what you’d like to build. I reply within two business days.</p>
+      <ul class="contact__facts" data-stagger>
+        <li><span class="mono">Email</span><a href="mailto:umaru.creative@gmail.com">umaru.creative@gmail.com</a></li>
+        <li><span class="mono">Studio</span>Jyväskylä, Central Finland. Serving clients across Finland and beyond.</li>
+        <li><span class="mono">Hours</span>Monday to Friday, 9:00 to 17:00 (EET)</li>
+      </ul>
+    </div>
+
+    <form class="contact__form" data-contact novalidate data-reveal>
+      <div class="field">
+        <label for="c-name">Your name</label>
+        <input id="c-name" name="name" type="text" autocomplete="name" required />
+      </div>
+      <div class="field">
+        <label for="c-email">Email</label>
+        <input id="c-email" name="email" type="email" autocomplete="email" required />
+      </div>
+      <fieldset class="field field--chips">
+        <legend>What are you interested in?</legend>
+        <div class="chips">
+          {services.map((s, i) => (
+            <label class="pick">
+              <input type="radio" name="service" value={s.label} data-key={s.value} checked={i === 0} />
+              <span>{s.label}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      <div class="field">
+        <label for="c-msg">Message</label>
+        <textarea id="c-msg" name="message" rows="5" required placeholder="A few lines about your business, your goals and your timing"></textarea>
+      </div>
+      <div class="contact__submit">
+        <button type="submit" class="btn btn--lantern" data-magnetic>Send the message <span class="btn-arrow">→</span></button>
+        <p class="contact__privacy">Opens your own email app with the message ready to send. No third party form service stores what you write.</p>
+      </div>
+      <p class="contact__status" role="status" data-status></p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .contact { overflow: hidden; isolation: isolate; }
+  .contact__glow {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(circle 460px at calc(var(--lx) * 1px) calc(var(--ly) * 1px), rgba(243, 167, 56, 0.14), transparent 70%);
+  }
+  .contact__grid { display: grid; gap: 56px; }
+  @media (min-width: 960px) { .contact__grid { grid-template-columns: 0.95fr 1.05fr; gap: 96px; } }
+  .contact__intro .h2 { margin-bottom: 26px; }
+  .contact__facts { list-style: none; margin: 40px 0 0; padding: 0; display: grid; gap: 18px; }
+  .contact__facts li { display: grid; gap: 4px; padding-top: 16px; border-top: 1px solid rgba(233, 228, 214, 0.12); color: var(--night-ink); }
+  .contact__facts .mono { color: var(--night-muted); font-size: 11px; }
+  .contact__facts a { text-decoration: none; color: var(--lantern); }
+
+  .contact__form {
+    display: grid;
+    gap: 22px;
+    padding: clamp(24px, 3.5vw, 44px);
+    border-radius: var(--radius);
+    background: var(--night-2);
+    border: 1px solid rgba(233, 228, 214, 0.08);
+  }
+  .field { display: grid; gap: 8px; border: 0; margin: 0; padding: 0; min-width: 0; }
+  .field label,
+  .field legend { font-size: 14px; color: var(--night-muted); padding: 0; margin-bottom: 8px; }
+  .field input,
+  .field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(233, 228, 214, 0.14);
+    background: rgba(13, 22, 19, 0.6);
+    color: var(--night-ink);
+    font: 400 16px var(--font-body);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .field textarea { resize: vertical; min-height: 130px; }
+  .field input:focus,
+  .field textarea:focus { outline: none; border-color: var(--lantern); box-shadow: 0 0 0 4px rgba(243, 167, 56, 0.15); }
+  .field [aria-invalid="true"] { border-color: var(--ember); }
+  .field textarea::placeholder { color: rgba(154, 167, 157, 0.7); }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pick { position: relative; cursor: pointer; }
+  .pick input { position: absolute; opacity: 0; pointer-events: none; }
+  .pick span {
+    display: inline-block;
+    padding: 9px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(233, 228, 214, 0.18);
+    font-size: 14px;
+    color: var(--night-ink);
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .pick:hover span { border-color: var(--lantern); }
+  .pick input:checked + span { background: var(--lantern); border-color: var(--lantern); color: var(--night); }
+  .pick input:focus-visible + span { outline: 2px solid var(--lantern); outline-offset: 3px; }
+
+  .contact__submit { display: grid; gap: 14px; justify-items: start; }
+  .contact__privacy { font-size: 13px; color: var(--night-muted); margin: 0; max-width: 46ch; }
+  .contact__status { margin: 0; font-size: 14px; color: var(--lantern); min-height: 1em; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>("[data-contact]").forEach((form) => {
+    const status = form.querySelector<HTMLElement>("[data-status]")!;
+    const wanted = new URLSearchParams(location.search).get("service");
+    if (wanted) {
+      const radio = form.querySelector<HTMLInputElement>(`input[data-key="${CSS.escape(wanted)}"]`);
+      if (radio) radio.checked = true;
+    }
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const fields = Array.from(form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input[required], textarea[required]"));
+      let firstBad: HTMLElement | null = null;
+      fields.forEach((f) => {
+        const ok = f.checkValidity() && f.value.trim() !== "";
+        f.setAttribute("aria-invalid", String(!ok));
+        if (!ok && !firstBad) firstBad = f;
+      });
+      if (firstBad) {
+        status.textContent = "Please fill in your name, a valid email and a short message.";
+        (firstBad as HTMLElement).focus();
+        return;
+      }
+      const data = new FormData(form);
+      const service = String(data.get("service") ?? "");
+      const subject = `${service}: enquiry from ${data.get("name")}`;
+      const body = `${data.get("message")}\n\nName: ${data.get("name")}\nEmail: ${data.get("email")}\nInterested in: ${service}`;
+      window.location.href = `mailto:umaru.creative@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      status.textContent = "Your email app should now open with the message ready to send. If nothing happens, write to umaru.creative@gmail.com.";
+    });
+  });
+</script>

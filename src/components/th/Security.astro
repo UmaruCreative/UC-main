@@ -1,0 +1,226 @@
+---
+const planks = [
+  {
+    no: "01",
+    title: "No database to break into",
+    body: "I build static websites: plain, pre-built files. There is no admin login or database sitting on the server waiting to be guessed or hacked.",
+  },
+  {
+    no: "02",
+    title: "No plugin sprawl",
+    body: "Fewer moving parts means fewer unlocked doors. No stack of third party plugins that need patching every other week.",
+  },
+  {
+    no: "03",
+    title: "Encrypted by default",
+    body: "HTTPS everywhere, sensible security headers, and forms that send straight to your inbox rather than through a data broker.",
+  },
+  {
+    no: "04",
+    title: "Analytics without surveillance",
+    body: "Your weekly numbers are measured with privacy first tools. Your visitors are counted, not tracked across the web or sold on.",
+  },
+  {
+    no: "05",
+    title: "You hold the deeds",
+    body: "Domain in your name, code in your hands, logins in your password manager. Nothing is held back, and nothing is held hostage.",
+  },
+  {
+    no: "06",
+    title: "Leave whenever you like",
+    body: "Everything is portable. If you ever move on, you take the whole treehouse with you. No exit fees, no lock in.",
+  },
+];
+const deed = [
+  "Domain registered in your name",
+  "Complete source code and content",
+  "Hosting and account access",
+  "Analytics data, exportable",
+  "Plain English handbook",
+];
+const rungs = Array.from({ length: 34 }, (_, i) => 20 + i * 28);
+---
+
+<section
+  id="security"
+  class="section section--night security"
+  data-night
+  data-ladder
+  data-lantern-field
+  data-floor="Ladder · security"
+  style="--lx: 900; --ly: 300;"
+  aria-labelledby="security-title"
+>
+  <div class="security__field" aria-hidden="true"></div>
+  <div class="security__glow" aria-hidden="true"></div>
+
+  <div class="wrap security__grid">
+    <div class="security__visual" aria-hidden="true">
+      <div class="security__sticky">
+        <svg class="security__platform" viewBox="0 0 320 90">
+          <rect x="0" y="40" width="320" height="22" rx="3" fill="#5a3e2b" />
+          <g stroke="#37261a" stroke-width="2"><line x1="40" y1="40" x2="40" y2="62" /><line x1="92" y1="40" x2="92" y2="62" /><line x1="150" y1="40" x2="150" y2="62" /><line x1="226" y1="40" x2="226" y2="62" /><line x1="280" y1="40" x2="280" y2="62" /></g>
+          <rect x="120" y="36" width="80" height="30" rx="3" fill="#6b4a31" stroke="#37261a" stroke-width="2" />
+          <line x1="160" y1="36" x2="160" y2="66" stroke="#37261a" stroke-width="2" />
+          <g data-ladder-lock>
+            <path d="M150 58 v-8 a10 10 0 0 1 20 0 v8" fill="none" stroke="#f3a738" stroke-width="3.5" />
+            <rect x="145" y="56" width="30" height="24" rx="4" fill="#f3a738" />
+            <circle cx="160" cy="66" r="3" fill="#37261a" /><rect x="159" y="66" width="2" height="7" fill="#37261a" />
+          </g>
+          <path d="M0 40 L20 0 M320 40 L300 0" stroke="#37261a" stroke-width="6" />
+        </svg>
+        <div class="security__shaft">
+          <div class="security__rope" data-ladder-rope>
+            <svg viewBox="0 0 80 980">
+              <g stroke="#c9a577" stroke-width="3" fill="none" stroke-linecap="round">
+                <path d="M22 0 C 20 300, 26 640, 22 980" />
+                <path d="M58 0 C 60 300, 54 640, 58 980" />
+                {rungs.map((y) => <line x1="22" y1={y} x2="58" y2={y} />)}
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="security__status mono" data-ladder-status data-up="Ladder up · locked">Scroll to pull the ladder up</p>
+      </div>
+    </div>
+
+    <div class="security__content">
+      <p class="eyebrow">Data security</p>
+      <h2 id="security-title" class="h2" data-split>Pull up the ladder. <em>Keep what’s yours safe.</em></h2>
+      <p class="lede" data-reveal>
+        Security isn’t an add on. It’s how the treehouse is built, from the roots up, so you can stop worrying about who else has a key.
+      </p>
+
+      <ol class="security__planks">
+        {planks.map((p) => (
+          <li class="plank" data-plank>
+            <span class="plank__no mono">{p.no}</span>
+            <div>
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <aside class="deed" data-reveal data-tilt aria-labelledby="deed-title">
+        <p class="mono deed__kicker">Title deed</p>
+        <h3 id="deed-title">What you receive at handover</h3>
+        <ul>
+          {deed.map((d) => <li>{d}</li>)}
+        </ul>
+        <p class="deed__sign">Signed over to you, in full.</p>
+        <span class="deed__seal" aria-hidden="true">UC</span>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .security { overflow: hidden; isolation: isolate; }
+  .security__field {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.55;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g fill='none' stroke='%23f3a738' stroke-width='1.2' stroke-linecap='round'><path d='M20 30 q10 -14 22 0 q-12 14 -22 0z'/><path d='M20 30 h22'/><path d='M80 80 q10 -14 22 0 q-12 14 -22 0z'/><path d='M80 80 h22'/><path d='M70 20 l6 10 l6 -10 M76 30 v12'/><path d='M22 86 l6 10 l6 -10 M28 96 v12'/></g></svg>");
+    background-size: 120px 120px;
+    -webkit-mask-image: radial-gradient(circle 300px at calc(var(--lx) * 1px) calc(var(--ly) * 1px), #000 0%, transparent 70%);
+    mask-image: radial-gradient(circle 300px at calc(var(--lx) * 1px) calc(var(--ly) * 1px), #000 0%, transparent 70%);
+  }
+  .security__glow {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle 420px at calc(var(--lx) * 1px) calc(var(--ly) * 1px), rgba(243, 167, 56, 0.13), transparent 70%);
+    pointer-events: none;
+  }
+
+  .security__grid { display: grid; gap: 48px; }
+  @media (min-width: 960px) { .security__grid { grid-template-columns: 0.7fr 1.3fr; gap: 72px; } }
+
+  .security__visual { display: none; }
+  @media (min-width: 960px) { .security__visual { display: block; } }
+  .security__sticky { position: sticky; top: 120px; display: grid; justify-items: center; }
+  .security__platform { width: 100%; max-width: 300px; }
+  .security__shaft { width: 80px; height: min(56vh, 520px); overflow: hidden; margin-top: -24px; }
+  .security__rope svg { width: 80px; height: auto; display: block; }
+  .security__status { color: var(--night-muted); font-size: 11px; margin-top: 16px; transition: color 0.4s; }
+  .security__status.is-up { color: var(--lantern); }
+
+  .security__content .h2 { margin-bottom: 26px; }
+  .security__content .lede { max-width: 46ch; margin-bottom: 56px; }
+
+  .security__planks { list-style: none; margin: 0 0 56px; padding: 0; display: grid; gap: 14px; }
+  @media (min-width: 720px) { .security__planks { grid-template-columns: 1fr 1fr; } }
+  .plank {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    padding: 24px 24px 26px;
+    border-radius: 16px;
+    background:
+      repeating-linear-gradient(178deg, rgba(255, 255, 255, 0.025) 0 2px, transparent 2px 9px),
+      linear-gradient(180deg, #2a2019, #221a14);
+    border: 1px solid rgba(201, 153, 106, 0.18);
+    transition: border-color 0.4s, transform 0.5s var(--ease-out);
+  }
+  .plank::before,
+  .plank::after {
+    content: "";
+    position: absolute;
+    top: 14px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(201, 153, 106, 0.45);
+  }
+  .plank::before { left: 10px; }
+  .plank::after { right: 10px; }
+  .plank:hover { border-color: rgba(243, 167, 56, 0.55); transform: translateY(-3px); }
+  .plank__no { color: var(--lantern); padding-top: 4px; }
+  .plank h3 { font-size: 21px; margin-bottom: 8px; color: var(--night-ink); }
+  .plank p { color: var(--night-muted); font-size: 15px; line-height: 1.55; }
+
+  .deed {
+    position: relative;
+    max-width: 520px;
+    padding: 34px 36px 38px;
+    border-radius: 6px;
+    background: linear-gradient(180deg, #f6ecd6, #eddcb8);
+    color: var(--bark-dark);
+    box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7);
+    transform-style: preserve-3d;
+  }
+  .deed::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border: 1px solid rgba(90, 62, 43, 0.35);
+    border-radius: 3px;
+    pointer-events: none;
+  }
+  .deed__kicker { color: var(--wood); margin-bottom: 8px; }
+  .deed h3 { font-size: 28px; margin-bottom: 18px; color: var(--bark-dark); }
+  .deed ul { margin: 0 0 18px; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .deed li { display: flex; gap: 10px; align-items: baseline; }
+  .deed li::before { content: "✓"; color: var(--fern); font-weight: 600; }
+  .deed__sign { font-family: var(--font-display); font-style: italic; font-size: 20px; margin: 0; }
+  .deed__seal {
+    position: absolute;
+    right: 26px;
+    bottom: 22px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(circle at 35% 30%, #f7b650, #d4622e 70%);
+    color: #fff4df;
+    font: 500 16px var(--font-display);
+    letter-spacing: 0.06em;
+    box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.2), 0 6px 14px rgba(0, 0, 0, 0.25);
+    transform: rotate(-12deg);
+  }
+</style>

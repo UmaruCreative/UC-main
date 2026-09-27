@@ -1,70 +1,93 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../../../layouts/Layout.astro';
-import Header from '../../../components/Header.astro';
-import NewFooter from '../../../components/NewFooter.astro';
+import { getCollection } from "astro:content";
+import TreehouseLayout from "../../../layouts/TreehouseLayout.astro";
+import CtaBand from "../../../components/th/CtaBand.astro";
 
 export async function getStaticPaths() {
-  const articles = await getCollection('articles');
+  const articles = await getCollection("articles");
   return articles
-    .filter(article => article.data.lang === 'en')
-    .map(article => ({
-      params: { slug: article.slug },
-      props: { article },
-    }));
+    .filter((article) => article.data.lang === "en")
+    .map((article) => ({ params: { slug: article.slug }, props: { article } }));
 }
 
 const { article } = Astro.props;
 const { Content } = await article.render();
+const date = article.data.pubDate.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 ---
 
-<Layout title={`${article.data.title} | Umaru Creative`} description={article.data.description}>
-  <Header />
-  
-  <main class="pt-32 pb-20">
-    <article class="container mx-auto px-6 md:px-12">
-      <div class="max-w-3xl mx-auto">
-        <header class="mb-12">
-          {article.data.image && (
-            <img 
-              src={article.data.image} 
-              alt={article.data.title}
-              class="w-full h-64 md:h-96 object-cover rounded-xl mb-8"
-            />
-          )}
-          
-          <h1 class="font-alexandria font-bold text-4xl md:text-5xl mb-4">
-            {article.data.title}
-          </h1>
-          
-          <div class="flex items-center gap-4 text-primary-600">
-            <span>{article.data.author}</span>
-            <span>•</span>
-            <time datetime={article.data.pubDate.toISOString()}>
-              {article.data.pubDate.toLocaleDateString('en', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}
-            </time>
-          </div>
-        </header>
-        
-        <div class="prose prose-lg max-w-none">
-          <Content />
-        </div>
-        
-        <div class="mt-12 pt-8 border-t border-primary-100">
-          <a 
-            href="/en/articles/"
-            class="inline-block px-6 py-3 bg-accent-100 text-primary-900 rounded-md font-alexandria hover:bg-accent-200 transition-colors"
-          >
-            ← Back to Articles
-          </a>
-        </div>
+<TreehouseLayout
+  title={`${article.data.title} | Umaru Creative`}
+  description={article.data.description}
+  canonical={`https://umaru-creative.com/en/articles/${article.slug}/`}
+>
+  <div class="read-progress" aria-hidden="true"><span data-read-progress></span></div>
+
+  <article class="post-page">
+    <header class="wrap post-page__head">
+      <nav class="mono post-page__crumbs" aria-label="Breadcrumb">
+        <a href="/en/">Home</a> / <a href="/en/articles/">Blog</a>
+      </nav>
+      <p class="eyebrow">{article.data.author} · <time datetime={article.data.pubDate.toISOString()}>{date}</time></p>
+      <h1 class="post-page__title" data-split>{article.data.title}</h1>
+      <p class="lede" data-reveal>{article.data.description}</p>
+    </header>
+
+    {article.data.image && (
+      <div class="wrap post-page__hero" data-reveal="scale">
+        <img src={article.data.image} alt="" />
       </div>
-    </article>
-  </main>
-  
-  <NewFooter />
-</Layout>
+    )}
+
+    <div class="wrap">
+      <div class="prose-th">
+        <Content />
+      </div>
+      <p class="post-page__back"><a href="/en/articles/" class="link-arrow">← Back to all articles</a></p>
+    </div>
+  </article>
+
+  <CtaBand />
+</TreehouseLayout>
+
+<style>
+  .read-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 120; }
+  .read-progress span { display: block; height: 100%; background: var(--lantern); transform-origin: 0 50%; transform: scaleX(0); }
+
+  .post-page { padding: calc(var(--header-h) + clamp(48px, 8vw, 100px)) 0 clamp(80px, 10vw, 140px); }
+  .post-page__head { max-width: 900px; }
+  .post-page__crumbs { font-size: 11px; opacity: 0.7; margin-bottom: 28px; }
+  .post-page__crumbs a { text-decoration: none; }
+  .post-page__title { font-size: clamp(38px, 5.4vw, 72px); font-weight: 400; margin-bottom: 26px; }
+  .post-page__head .lede { max-width: 60ch; }
+  .post-page__hero { margin-top: 48px; margin-bottom: 64px; }
+  .post-page__hero img { width: 100%; max-height: 620px; object-fit: cover; border-radius: var(--radius); }
+
+  .prose-th { max-width: 700px; margin-inline: auto; font-size: 18px; line-height: 1.75; color: var(--ink-soft); }
+  .prose-th :global(h2) { font-size: clamp(28px, 3vw, 38px); color: var(--ink); margin: 2.2em 0 0.6em; }
+  .prose-th :global(h3) { font-size: 24px; color: var(--ink); margin: 1.8em 0 0.5em; }
+  .prose-th :global(p) { margin: 0 0 1.3em; }
+  .prose-th :global(a) { color: var(--moss); text-underline-offset: 3px; }
+  .prose-th :global(strong) { color: var(--ink); }
+  .prose-th :global(ul), .prose-th :global(ol) { padding-left: 1.3em; margin: 0 0 1.4em; }
+  .prose-th :global(li) { margin-bottom: 0.5em; }
+  .prose-th :global(blockquote) { margin: 2em 0; padding: 4px 0 4px 24px; border-left: 3px solid var(--lantern); font-family: var(--font-display); font-size: 22px; color: var(--ink); }
+  .prose-th :global(img) { max-width: 100%; height: auto; border-radius: 16px; margin: 2em auto; }
+  .prose-th :global(table) { width: 100%; border-collapse: collapse; font-size: 15px; margin: 2em 0; display: block; overflow-x: auto; }
+  .prose-th :global(th), .prose-th :global(td) { border-bottom: 1px solid var(--line); padding: 10px 12px; text-align: left; }
+  .prose-th :global(code) { font-family: var(--font-mono); font-size: 0.88em; background: var(--paper-2); padding: 2px 6px; border-radius: 6px; }
+  .prose-th :global(hr) { border: 0; border-top: 1px solid var(--line); margin: 3em 0; }
+  .post-page__back { max-width: 700px; margin: 56px auto 0; }
+  .post-page__back a { color: var(--moss); }
+</style>
+
+<script>
+  const bar = document.querySelector<HTMLElement>("[data-read-progress]");
+  if (bar) {
+    const update = () => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+    };
+    addEventListener("scroll", update, { passive: true });
+    update();
+  }
+</script>
