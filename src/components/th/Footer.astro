@@ -1,8 +1,15 @@
 ---
+import { useI18n, langs } from "../../i18n";
+const { t, l, blog } = useI18n(Astro.url);
 const year = new Date().getFullYear();
+
+// Social links. Instagram removed. LinkedIn is kept but hidden until the profile is ready:
+// set showLinkedIn to true and put the real profile address in linkedInUrl.
+const showLinkedIn = false;
+const linkedInUrl = "https://www.linkedin.com/";
 ---
 
-<footer class="th-footer" data-night data-floor="Ground · your land" data-altitude="0">
+<footer class="th-footer" data-night data-floor={t.footer.floor} data-altitude="0">
   <svg class="th-footer__roots" viewBox="0 0 1440 260" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
     <g fill="none" stroke="#5a3e2b" stroke-linecap="round" data-roots>
       <path d="M720 0 C 716 60, 690 90, 640 120 S 520 170, 430 230" stroke-width="7" />
@@ -25,55 +32,54 @@ const year = new Date().getFullYear();
 
   <div class="wrap">
     <div class="th-footer__big">
-      <p class="mono">Ground level · 0 m</p>
-      <h2 class="h2">Your land.<br /><em>Your rules.</em></h2>
-      <a href="/en/contact/" class="btn btn--lantern" data-magnetic>Claim your plot <span class="btn-arrow">→</span></a>
+      <p class="mono">{t.footer.ground}</p>
+      <h2 class="h2" set:html={t.footer.title} />
+      <a href={l("/contact/")} class="btn btn--lantern" data-magnetic>{t.footer.claim} <span class="btn-arrow">→</span></a>
     </div>
 
     <div class="th-footer__grid">
       <div>
-        <a href="/en/" class="th-footer__logo">
+        <a href={l("/")} class="th-footer__logo">
           <img src="/Umaru-Creative-Dango-blue.png" alt="" width="40" height="40" />
           <span>Umaru Creative</span>
         </a>
-        <p class="th-footer__tag">Websites crafted with care, inspired by millefeuille, lakeside walks and small, good things.</p>
-        <p class="mono th-footer__loc">Based in Jyväskylä, Central Finland</p>
+        <p class="th-footer__tag">{t.footer.tagline}</p>
+        <p class="mono th-footer__loc">{t.footer.based}</p>
       </div>
-      <nav aria-label="Footer services">
-        <h3 class="mono">Rooms</h3>
+      <nav aria-label={t.footer.servicesLabel}>
+        <h3 class="mono">{t.footer.rooms}</h3>
         <ul>
-          <li><a href="/en/services/web-design/">Web Design</a></li>
-          <li><a href="/en/services/content-creation/">Digital Content</a></li>
-          <li><a href="/en/services/google-my-business/">Google Business Profile</a></li>
-          <li><a href="/en/services/weekly-reports/">Weekly Reports</a></li>
-          <li><a href="/en/pricing/">Pricing</a></li>
+          <li><a href={l("/services/web-design/")}>{t.nav.web.label}</a></li>
+          <li><a href={l("/services/content-creation/")}>{t.nav.content.label}</a></li>
+          <li><a href={l("/services/google-my-business/")}>{t.nav.gbp.label}</a></li>
+          <li><a href={l("/services/weekly-reports/")}>{t.nav.reports.label}</a></li>
+          <li><a href={l("/pricing/")}>{t.common.pricing}</a></li>
         </ul>
       </nav>
-      <nav aria-label="Footer studio">
-        <h3 class="mono">Studio</h3>
+      <nav aria-label={t.footer.studioLabel}>
+        <h3 class="mono">{t.footer.studio}</h3>
         <ul>
-          <li><a href="/en/#founder">About</a></li>
-          <li><a href="/en/#security">Security</a></li>
-          <li><a href="/en/articles/">Blog</a></li>
-          <li><a href="/en/contact/">Contact</a></li>
+          <li><a href={l("/#founder")}>{t.common.about}</a></li>
+          <li><a href={l("/#security")}>{t.common.security}</a></li>
+          <li><a href={blog()}>{t.common.blog}</a></li>
+          <li><a href={l("/contact/")}>{t.common.contact}</a></li>
         </ul>
       </nav>
       <div>
-        <h3 class="mono">Knock</h3>
+        <h3 class="mono">{t.footer.knock}</h3>
         <ul>
           <li><a href="mailto:umaru.creative@gmail.com">umaru.creative@gmail.com</a></li>
-          <li><a href="https://www.instagram.com/" rel="noopener">Instagram</a></li>
-          <li><a href="https://www.linkedin.com/" rel="noopener">LinkedIn</a></li>
+          {showLinkedIn && <li><a href={linkedInUrl} rel="noopener">LinkedIn</a></li>}
         </ul>
       </div>
     </div>
 
     <div class="th-footer__base">
-      <p>© {year} Umaru Creative. All rights reserved.</p>
+      <p>© {year} Umaru Creative. {t.footer.rights}</p>
       <p class="th-footer__langs">
-        <a href="/en/">EN</a><a href="/fi/">FI</a><a href="/sv/">SV</a><a href="/fr/">FR</a><a href="/no/">NO</a>
+        {langs.map((code) => <a href={code === "en" ? "/" : `/${code}/`} hreflang={code}>{code.toUpperCase()}</a>)}
       </p>
-      <p><a href="/en/contact/">Privacy Policy</a> · <a href="/en/contact/">Terms of Service</a></p>
+      <p><a href={l("/contact/")}>{t.footer.privacy}</a> · <a href={l("/contact/")}>{t.footer.terms}</a></p>
     </div>
   </div>
 </footer>

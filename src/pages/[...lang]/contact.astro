@@ -1,0 +1,20 @@
+---
+import TreehouseLayout from "../../layouts/TreehouseLayout.astro";
+import Contact from "../../components/th/Contact.astro";
+import Faq from "../../components/th/Faq.astro";
+import { getStaticLangPaths, useI18n } from "../../i18n";
+
+export const getStaticPaths = getStaticLangPaths;
+const { t, abs } = useI18n(Astro.url);
+---
+
+<TreehouseLayout title={t.meta.contact.title} description={t.meta.contact.description} canonical={abs("/contact/")}>
+  <div class="contact-page">
+    <Contact as="h1" />
+  </div>
+  <Faq set="contact" />
+</TreehouseLayout>
+
+<style>
+  .contact-page :global(.contact) { padding-top: calc(var(--header-h) + clamp(60px, 9vw, 120px)); }
+</style>

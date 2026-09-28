@@ -1,0 +1,139 @@
+---
+import TreehouseLayout from "../../layouts/TreehouseLayout.astro";
+import PageHero from "../../components/th/PageHero.astro";
+import CtaBand from "../../components/th/CtaBand.astro";
+import { getStaticLangPaths, useI18n } from "../../i18n";
+
+export const getStaticPaths = getStaticLangPaths;
+const { t, l, abs } = useI18n(Astro.url);
+const pp = t.pricingPage;
+
+// Structure (ids, highlighted plans, links) lives here; words and prices come from the language file
+const order = ["websites", "reports", "care", "video", "local"] as const;
+const popular: Record<string, number> = { websites: 1, reports: 2 };
+const groups = order.map((id) => {
+  const g = pp.groups[id];
+  return {
+    id,
+    ...g,
+    plans: g.plans.map((p, i) => ({
+      ...p,
+      popular: popular[id] === i,
+      href: id === "reports" ? l("/contact/?service=reports") : l("/contact/"),
+    })),
+  };
+});
+---
+
+<TreehouseLayout title={t.meta.pricing.title} description={t.meta.pricing.description} canonical={abs("/pricing/")}>
+  <PageHero
+    eyebrow={pp.eyebrow}
+    title={pp.title}
+    lede={pp.lede}
+    crumbs={[{ label: t.common.home, href: l("/") }, { label: t.common.pricing }]}
+    primary={{ label: pp.consult, href: l("/contact/") }}
+  />
+
+  <nav class="pnav" aria-label={pp.navLabel}>
+    <ul class="wrap">
+      {groups.map((g) => <li><a href={`#${g.id}`}>{g.nav}</a></li>)}
+    </ul>
+  </nav>
+
+  {groups.map((g, gi) => (
+    <section id={g.id} class:list={["section", "pgroup", gi % 2 ? "section--birch" : ""]}>
+      <div class="wrap">
+        <div class="section-head section-head--split">
+          <div>
+            <p class="eyebrow">{g.kicker}</p>
+            <h2 class="h2" data-split set:html={g.title} />
+          </div>
+          {g.note && <p class="lede" data-reveal>{g.note}</p>}
+        </div>
+        <ul class="plans" data-stagger>
+          {g.plans.map((p) => (
+            <li class:list={["plan", { "plan--popular": p.popular }]}>
+              {p.popular && <span class="plan__badge mono">{g.id === "reports" ? pp.bestView : pp.popular}</span>}
+              <h3>{p.name}</h3>
+              <p class="plan__sub">{p.sub}</p>
+              <p class="plan__price">{p.price}</p>
+              {p.items && <ul class="plan__items">{p.items.map((i) => <li>{i}</li>)}</ul>}
+              <a href={p.href} class="btn plan__cta">{"cta" in p && p.cta ? p.cta : pp.getStarted} <span class="btn-arrow">→</span></a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
+
+  <CtaBand
+    title={pp.ctaTitle}
+    body={pp.ctaBody}
+    primary={{ label: pp.consult, href: l("/contact/") }}
+    secondary={{ label: pp.seeWork, href: l("/#portfolio") }}
+  />
+</TreehouseLayout>
+
+<style>
+  .pnav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-block: 1px solid var(--line);
+  }
+  .pnav ul { display: flex; gap: 6px; list-style: none; margin: 0 auto; padding-block: 12px; overflow-x: auto; scrollbar-width: none; }
+  .pnav a {
+    display: block;
+    white-space: nowrap;
+    padding: 9px 16px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.3s;
+  }
+  .pnav a:hover { background: var(--sage); }
+  .pgroup { padding-block: clamp(72px, 9vw, 130px); }
+  .pgroup .section-head { margin-bottom: clamp(36px, 5vw, 64px); }
+
+  .plans { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .plan {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(26px, 3vw, 38px);
+    border-radius: var(--radius);
+    background: var(--birch);
+    border: 1px solid var(--line);
+    transition: transform 0.6s var(--ease-out), box-shadow 0.6s var(--ease-out);
+  }
+  .section--birch .plan { background: var(--paper); }
+  .plan:hover { transform: translateY(-6px); box-shadow: 0 40px 70px -46px rgba(27, 38, 32, 0.55); }
+  .plan--popular { background: var(--night) !important; color: var(--night-ink); border-color: transparent; }
+  .plan__badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: var(--lantern);
+    color: var(--night);
+    font-size: 10.5px;
+  }
+  .plan h3 { font-size: 26px; margin-bottom: 8px; padding-right: 90px; }
+  .plan__sub { color: var(--ink-soft); font-size: 15px; }
+  .plan--popular .plan__sub { color: var(--night-muted); }
+  .plan__price { font-family: var(--font-display); font-size: clamp(34px, 3.4vw, 46px); line-height: 1.1; margin: 10px 0 22px !important; letter-spacing: -0.02em; }
+  .plan--popular .plan__price { color: var(--lantern); }
+  .plan__items { list-style: none; margin: 0 0 28px; padding: 22px 0 0; border-top: 1px dashed var(--line); display: grid; gap: 10px; font-size: 15px; }
+  .plan--popular .plan__items { border-color: rgba(233, 228, 214, 0.15); }
+  .plan__items li { display: flex; gap: 10px; align-items: baseline; }
+  .plan__items li::before { content: "✓"; color: var(--fern); font-weight: 600; }
+  .plan--popular .plan__items li::before { color: var(--lantern); }
+  .plan__cta { margin-top: auto; align-self: flex-start; }
+  .plan--popular .plan__cta { --btn-bg: var(--lantern); --btn-fg: var(--night); }
+  .plan--popular .plan__cta::before { background: var(--birch); }
+</style>

@@ -1,31 +1,26 @@
 ---
-const facts = [
-  { k: "Based in", v: "Jyväskylä, Central Finland" },
-  { k: "Before that", v: "Ten years in France" },
-  { k: "Studio founded", v: "2025" },
-  { k: "Works with", v: "Cafés, makers and creatives" },
-];
+import { useI18n } from "../../i18n";
+const { t } = useI18n(Astro.url);
+const facts = t.founder.facts;
 ---
 
-<section id="founder" class="section founder" data-floor="Builder · about" aria-labelledby="founder-title">
+<section id="founder" class="section founder" data-floor={t.founder.floor} aria-labelledby="founder-title">
   <div class="wrap founder__grid">
     <div class="founder__art" data-reveal="scale">
       <div class="founder__ring">
         <svg viewBox="0 0 200 200" aria-hidden="true" class="founder__text">
           <defs><path id="circle-path" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
-          <text><textPath href="#circle-path">Calmly crafted · designed to last · owned by you · </textPath></text>
+          <text><textPath href="#circle-path">{t.founder.ring}</textPath></text>
         </svg>
-        <img src="/Umaru-Creative-Dango-blue.png" alt="Umaru Creative dango logo" width="160" height="160" />
+        <img src="/Umaru-Creative-Dango-blue.png" alt={t.founder.logoAlt} width="160" height="160" />
       </div>
     </div>
 
     <div class="founder__copy">
-      <p class="eyebrow">About the founder</p>
-      <h2 id="founder-title" class="h2" data-split>Hello, I’m <em>Yatzu.</em></h2>
+      <p class="eyebrow">{t.founder.eyebrow}</p>
+      <h2 id="founder-title" class="h2" data-split set:html={t.founder.title} />
       <div class="founder__body" data-reveal>
-        <p>Ten years in France, long enough to take bakeries seriously. Now based in Jyväskylä, where the forests and lakes are a better commute.</p>
-        <p>I started Umaru Creative because small businesses deserve websites that actually work: honest structure, clean code, and content that both people and AI tools can understand. And because nobody should have to rent their home from a platform.</p>
-        <p>Every site I build gets the same attention I’d give a good recipe. Nothing generic, nothing rushed. Just like a well made millefeuille: simple, solid and made with care.</p>
+        {t.founder.body.map((para) => <p>{para}</p>)}
       </div>
       <dl class="founder__facts" data-stagger>
         {facts.map((f) => (

@@ -1,69 +1,24 @@
 ---
-const rooms = [
-  {
-    id: "cabin",
-    no: "01",
-    room: "The cabin",
-    title: "Web Design",
-    body: "Custom websites built for clarity. Easy for visitors to navigate, easy for you to manage, and structured so search engines and AI tools read them accurately. Static, fast and very hard to break.",
-    chips: ["Landing pages", "Multi page sites", "Online shops", "Multilingual"],
-    price: "From €990",
-    href: "/en/services/web-design/",
-  },
-  {
-    id: "window",
-    no: "02",
-    room: "The window",
-    title: "Digital Content",
-    body: "Short videos, social visuals, promotional materials and email campaigns that tell your story without noise. Made to match your site’s voice, and to lead people home to it.",
-    chips: ["Reels and shorts", "Mini documentaries", "Email campaigns"],
-    price: "From €270",
-    href: "/en/services/content-creation/",
-  },
-  {
-    id: "lookout",
-    no: "03",
-    room: "The lookout",
-    title: "Weekly Reports",
-    body: "Bespoke weekly market research and web analytics reports. See what competitors are doing, what your buyers search for and how your own site really performs, written in plain English with a clear action list.",
-    chips: ["Market research", "Web analytics", "Action list"],
-    price: "Bespoke · quote on request",
-    href: "/en/services/weekly-reports/",
-    isNew: true,
-  },
-  {
-    id: "sign",
-    no: "04",
-    room: "The signpost",
-    title: "Google Business Profile",
-    body: "Your Google profile set up and optimised so nearby customers find you first, on Maps and in Search, with the right hours, photos and categories.",
-    chips: ["Setup and verification", "Photos", "Review strategy"],
-    price: "From €450",
-    href: "/en/services/google-my-business/",
-  },
-  {
-    id: "shed",
-    no: "05",
-    room: "The toolshed",
-    title: "Website Care",
-    body: "Updates, tweaks and improvements whenever you need them. Already have a site built elsewhere? I can make it clearer, faster and easier to trust.",
-    chips: ["Hourly support €60/h", "Improvements from €590", "6 month care plan"],
-    price: "From €60/hour",
-    href: "/en/pricing/",
-  },
+import { useI18n } from "../../i18n";
+const { t, l } = useI18n(Astro.url);
+const meta = [
+  { id: "cabin", no: "01", href: l("/services/web-design/") },
+  { id: "window", no: "02", href: l("/services/content-creation/") },
+  { id: "lookout", no: "03", href: l("/services/weekly-reports/"), isNew: true },
+  { id: "sign", no: "04", href: l("/services/google-my-business/") },
+  { id: "shed", no: "05", href: l("/pricing/") },
 ];
+const rooms = meta.map((m, i) => ({ ...m, ...t.rooms.items[i] }));
 ---
 
-<section id="rooms" class="section rooms" data-rooms data-floor="Rooms · services" aria-labelledby="rooms-title">
+<section id="rooms" class="section rooms" data-rooms data-floor={t.rooms.floor} aria-labelledby="rooms-title">
   <div class="wrap">
     <div class="section-head section-head--split">
       <div>
-        <p class="eyebrow">Services</p>
-        <h2 id="rooms-title" class="h2" data-split>Five rooms, <em>one</em> treehouse.</h2>
+        <p class="eyebrow">{t.rooms.eyebrow}</p>
+        <h2 id="rooms-title" class="h2" data-split set:html={t.rooms.title} />
       </div>
-      <p class="lede" data-reveal>
-        Everything you need to be found, trusted and chosen, built on foundations you own. Pick one room or move into all of them.
-      </p>
+      <p class="lede" data-reveal>{t.rooms.lede}</p>
     </div>
 
     <div class="rooms__grid">
@@ -94,7 +49,7 @@ const rooms = [
               <rect class="lamp" x="290" y="84" width="42" height="24" rx="2" />
               <rect x="186" y="118" width="172" height="9" rx="2" fill="#6b4a31" />
               <rect x="350" y="80" width="46" height="11" rx="4" fill="#37261a" transform="rotate(-16 350 86)" />
-              <text class="zone-label" x="410" y="60">03 · Lookout</text>
+              <text class="zone-label" x="410" y="60">{t.rooms.labels.lookout}</text>
             </g>
 
             <!-- CABIN -->
@@ -107,7 +62,7 @@ const rooms = [
               </g>
               <path class="lamp" d="M318 336 V270 a20 20 0 0 1 40 0 V336 Z" />
               <circle class="lamp" cx="270" cy="192" r="11" />
-              <text class="zone-label" x="410" y="250">01 · Cabin</text>
+              <text class="zone-label" x="410" y="250">{t.rooms.labels.cabin}</text>
             </g>
 
             <!-- WINDOW (content) -->
@@ -116,7 +71,7 @@ const rooms = [
               <rect class="lamp" x="170" y="246" width="84" height="56" rx="3" />
               <rect x="166" y="242" width="92" height="64" rx="5" fill="none" stroke="#37261a" stroke-width="5" />
               <path class="zone-play" d="M204 262 L226 274 L204 286 Z" />
-              <text class="zone-label" x="20" y="230">02 · Window</text>
+              <text class="zone-label" x="20" y="230">{t.rooms.labels.window}</text>
             </g>
 
             <!-- platform and railing -->
@@ -137,7 +92,7 @@ const rooms = [
               <rect x="60" y="446" width="98" height="46" fill="#9c6e48" />
               <rect class="lamp" x="72" y="456" width="26" height="20" rx="2" />
               <g stroke="#37261a" stroke-width="4" stroke-linecap="round"><line x1="118" y1="476" x2="138" y2="456" /><circle cx="140" cy="454" r="5" fill="none" /></g>
-              <text class="zone-label" x="20" y="410">05 · Toolshed</text>
+              <text class="zone-label" x="20" y="410">{t.rooms.labels.shed}</text>
             </g>
 
             <!-- SIGN (Google profile) -->
@@ -147,10 +102,10 @@ const rooms = [
               <path class="lamp" d="M96 528 H196 L212 546 L196 564 H96 Z" />
               <path d="M96 528 H196 L212 546 L196 564 H96 Z" fill="none" stroke="#6b4a31" stroke-width="3" />
               <path d="M128 537 a8 8 0 0 1 16 0 c0 6 -8 14 -8 14 s-8 -8 -8 -14z" fill="#37261a" />
-              <text class="zone-label" x="20" y="624">04 · Signpost</text>
+              <text class="zone-label" x="20" y="624">{t.rooms.labels.sign}</text>
             </g>
           </svg>
-          <p class="rooms__caption mono">Hover or scroll a room to light it</p>
+          <p class="rooms__caption mono">{t.rooms.caption}</p>
         </div>
       </figure>
 
@@ -159,7 +114,7 @@ const rooms = [
           <li class="room card" data-room={r.id} data-reveal>
             <div class="room__meta mono">
               <span>{r.no}</span><span>{r.room}</span>
-              {r.isNew && <span class="chip chip--new">New</span>}
+              {r.isNew && <span class="chip chip--new">{t.common.newBadge}</span>}
             </div>
             <h3 class="h3">{r.title}</h3>
             <p>{r.body}</p>
@@ -168,7 +123,7 @@ const rooms = [
             </ul>
             <div class="room__foot">
               <span class="room__price">{r.price}</span>
-              <a class="link-arrow" href={r.href}>Step inside <span aria-hidden="true">→</span></a>
+              <a class="link-arrow" href={r.href}>{t.rooms.enter} <span aria-hidden="true">→</span></a>
             </div>
           </li>
         ))}

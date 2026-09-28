@@ -1,85 +1,83 @@
 ---
+import { useI18n, switchPath, langs } from "../../i18n";
+const { lang, t, l, blog } = useI18n(Astro.url);
+
 const services = [
-  { href: "/en/services/web-design/", label: "Web Design", note: "The cabin" },
-  { href: "/en/services/content-creation/", label: "Digital Content", note: "The window" },
-  { href: "/en/services/google-my-business/", label: "Google Business Profile", note: "The signpost" },
-  { href: "/en/services/weekly-reports/", label: "Weekly Reports", note: "The lookout", isNew: true },
+  { href: l("/services/web-design/"), ...t.nav.web },
+  { href: l("/services/content-creation/"), ...t.nav.content },
+  { href: l("/services/google-my-business/"), ...t.nav.gbp },
+  { href: l("/services/weekly-reports/"), ...t.nav.reports, isNew: true },
 ];
-const langs = [
-  { code: "EN", href: "/en/" },
-  { code: "FI", href: "/fi/" },
-  { code: "SV", href: "/sv/" },
-  { code: "FR", href: "/fr/" },
-  { code: "NO", href: "/no/" },
-];
+const langLinks = langs.map((code) => ({ code: code.toUpperCase(), lang: code, href: switchPath(Astro.url, code) }));
+const blogSuffix = lang === "en" ? "" : " (EN)";
 ---
 
 <header class="th-header" data-header>
   <div class="th-header__inner">
-    <a href="/en/" class="th-logo" aria-label="Umaru Creative, home">
+    <a href={l("/")} class="th-logo" aria-label="Umaru Creative">
       <img src="/Umaru-Creative-Dango-blue.png" alt="" width="34" height="34" />
       <span>Umaru<em>Creative</em></span>
     </a>
 
-    <nav class="th-nav" aria-label="Main">
+    <nav class="th-nav" aria-label={t.common.mainNav}>
       <ul>
         <li class="th-nav__drop">
           <button type="button" aria-expanded="false" aria-controls="th-services-menu" data-drop>
-            Services
+            {t.common.services}
             <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3.5l4 3 4-3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
           </button>
           <div class="th-drop" id="th-services-menu">
             {services.map((s) => (
               <a href={s.href}>
-                <span class="th-drop__label">{s.label}{s.isNew && <span class="chip chip--new">New</span>}</span>
+                <span class="th-drop__label">{s.label}{s.isNew && <span class="chip chip--new">{t.common.newBadge}</span>}</span>
                 <span class="th-drop__note mono">{s.note}</span>
               </a>
             ))}
           </div>
         </li>
-        <li><a href="/en/services/weekly-reports/">Reports</a></li>
-        <li><a href="/en/#security">Security</a></li>
-        <li><a href="/en/pricing/">Pricing</a></li>
-        <li><a href="/en/articles/">Blog</a></li>
-        <li><a href="/en/#founder">About</a></li>
+        <li><a href={l("/services/weekly-reports/")}>{t.common.reports}</a></li>
+        <li><a href={l("/#security")}>{t.common.security}</a></li>
+        <li><a href={l("/pricing/")}>{t.common.pricing}</a></li>
+        <li><a href={blog()}>{t.common.blog}</a></li>
+        <li><a href={l("/#founder")}>{t.common.about}</a></li>
       </ul>
     </nav>
 
     <div class="th-header__end">
-      <div class="th-lang" aria-label="Language">
-        {langs.map((l) => (
-          <a href={l.href} aria-current={l.code === "EN" ? "true" : undefined} lang={l.code.toLowerCase()}>{l.code}</a>
+      <nav class="th-lang" aria-label={t.common.language}>
+        {langLinks.map((x) => (
+          <a href={x.href} aria-current={x.lang === lang ? "true" : undefined} hreflang={x.lang} lang={x.lang}>{x.code}</a>
         ))}
-      </div>
-      <a href="/en/contact/" class="btn btn--lantern th-header__cta" data-magnetic>
-        Start a project
+      </nav>
+      <a href={l("/contact/")} class="btn btn--lantern th-header__cta" data-magnetic>
+        {t.common.startProject}
       </a>
-      <button class="th-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="th-mobile" data-burger>
+      <button class="th-burger" type="button" aria-label={t.common.openMenu} data-open={t.common.openMenu} data-close={t.common.closeMenu} aria-expanded="false" aria-controls="th-mobile" data-burger>
         <span></span><span></span>
       </button>
     </div>
   </div>
 
   <div class="th-mobile" id="th-mobile" data-mobile hidden>
-    <nav aria-label="Mobile">
+    <nav aria-label={t.common.mobileNav}>
       <ul>
-        <li><a href="/en/">Home</a></li>
+        <li><a href={l("/")}>{t.common.home}</a></li>
         {services.map((s) => (
-          <li><a href={s.href}>{s.label}{s.isNew && <span class="chip chip--new">New</span>}</a></li>
+          <li><a href={s.href}>{s.label}{s.isNew && <span class="chip chip--new">{t.common.newBadge}</span>}</a></li>
         ))}
-        <li><a href="/en/#security">Security</a></li>
-        <li><a href="/en/pricing/">Pricing</a></li>
-        <li><a href="/en/articles/">Blog</a></li>
-        <li><a href="/en/contact/">Contact</a></li>
+        <li><a href={l("/#security")}>{t.common.security}</a></li>
+        <li><a href={l("/pricing/")}>{t.common.pricing}</a></li>
+        <li><a href={blog()}>{t.common.blog}{blogSuffix}</a></li>
+        <li><a href={l("/contact/")}>{t.common.contact}</a></li>
       </ul>
     </nav>
     <div class="th-mobile__foot">
-      <div class="th-lang">
-        {langs.map((l) => (
-          <a href={l.href} aria-current={l.code === "EN" ? "true" : undefined}>{l.code}</a>
+      <nav class="th-lang" aria-label={t.common.language}>
+        {langLinks.map((x) => (
+          <a href={x.href} aria-current={x.lang === lang ? "true" : undefined} hreflang={x.lang} lang={x.lang}>{x.code}</a>
         ))}
-      </div>
-      <p class="mono">Jyväskylä · Central Finland</p>
+      </nav>
+      <p class="mono">{t.common.location}</p>
     </div>
   </div>
 </header>
@@ -288,7 +286,7 @@ const langs = [
     function setMenu(open: boolean) {
       if (!burger || !mobile) return;
       burger.setAttribute("aria-expanded", String(open));
-      burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      burger.setAttribute("aria-label", (open ? burger.dataset.close : burger.dataset.open) ?? "");
       if (open) mobile.hidden = false;
       requestAnimationFrame(() => mobile.classList.toggle("is-open", open));
       document.documentElement.classList.toggle("menu-open", open);

@@ -1,9 +1,11 @@
 ---
+import { useI18n } from "../../i18n";
+const { t } = useI18n(Astro.url);
 // A rope ladder that tracks how far down the tree you are.
 // Rungs are built at runtime from every [data-floor] section on the page.
 ---
 
-<aside class="rail" data-rail aria-label="Page sections">
+<aside class="rail" data-rail aria-label={t.common.sections} data-goto={t.common.goTo}>
   <div class="rail__alt mono" aria-hidden="true"><span data-rail-alt>18.0</span> m</div>
   <div class="rail__rope" aria-hidden="true">
     <span class="rail__rope-l"></span><span class="rail__rope-r"></span>

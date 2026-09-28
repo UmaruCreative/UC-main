@@ -1,4 +1,6 @@
 ---
+import { useI18n } from "../../i18n";
+const { t, blog } = useI18n(Astro.url);
 const cols = 6;
 const rows = 11;
 const windows = Array.from({ length: cols * rows }, (_, i) => ({
@@ -8,43 +10,30 @@ const windows = Array.from({ length: cols * rows }, (_, i) => ({
 }));
 const yours = 6 * 7 + 2;
 
-const stamps = [
-  { text: "Algorithm changed", sub: "Reach down overnight", pos: "top: 8%; left: -6%;" },
-  { text: "Pay to be seen", sub: "Boost this post?", pos: "top: 32%; right: -10%;" },
-  { text: "Account under review", sub: "Access restricted", pos: "top: 56%; left: -12%;" },
-  { text: "Terms updated", sub: "Your content, their licence", pos: "top: 78%; right: -4%;" },
-];
-
-const owned = [
-  { title: "Your domain, in your name", body: "The address people remember belongs to you, not to a platform." },
-  { title: "Your code and content", body: "Every file handed over. Export it, move it, keep it forever." },
-  { title: "Your customer relationships", body: "Enquiries land in your inbox. No middleman decides who sees you." },
-  { title: "Your analytics, your data", body: "Numbers you can read, measured without selling your visitors on." },
-];
+const positions = ["top: 8%; left: -6%;", "top: 32%; right: -10%;", "top: 56%; left: -12%;", "top: 78%; right: -4%;"];
+const stamps = t.rent.stamps.map((s, i) => ({ ...s, pos: positions[i] }));
+const owned = t.rent.owned;
 ---
 
-<section id="rent" class="rent" data-rent data-floor="Rented or owned" aria-labelledby="rent-title">
+<section id="rent" class="rent" data-rent data-floor={t.rent.floor} aria-labelledby="rent-title">
   <div class="wrap rent__grid">
     <div class="rent__intro">
-      <p class="eyebrow">Rented vs owned</p>
-      <h2 id="rent-title" class="h2" data-split>Don’t be held <em>hostage</em> by platforms.</h2>
-      <p class="lede" data-reveal>
-        Social platforms are rented rooms in someone else’s tower. The landlord sets the rent, changes the locks and decides who finds your door.
-        A website is a treehouse on your own land.
-      </p>
+      <p class="eyebrow">{t.rent.eyebrow}</p>
+      <h2 id="rent-title" class="h2" data-split set:html={t.rent.title} />
+      <p class="lede" data-reveal>{t.rent.lede}</p>
       <div class="rent__meter" aria-hidden="true">
-        <span class="mono">Who holds the keys</span>
+        <span class="mono">{t.rent.keys}</span>
         <div class="rent__meter-track"><span data-rent-meter></span></div>
-        <div class="rent__meter-ends mono"><span>Them</span><span>You</span></div>
+        <div class="rent__meter-ends mono"><span>{t.rent.them}</span><span>{t.rent.you}</span></div>
       </div>
       <p class="rent__note" data-reveal>
-        Keep your socials. Just make sure they lead home.
-        <a class="link-arrow" href="/en/articles/en/2025-instagram-ban-wave/">Read: the 2025 Instagram ban wave →</a>
+        {t.rent.note}
+        <a class="link-arrow" href={blog("/articles/2025-instagram-ban-wave/")}>{t.rent.read}</a>
       </p>
     </div>
 
     <figure class="rent__panel rent__panel--tower">
-      <figcaption class="mono">Rented · the platform tower</figcaption>
+      <figcaption class="mono">{t.rent.towerCaption}</figcaption>
       <div class="rent__tower">
         <svg viewBox="0 0 248 470" aria-hidden="true">
           <rect x="18" y="40" width="212" height="430" fill="#c9cbc4" />
@@ -60,7 +49,7 @@ const owned = [
           )}
           <rect x="104" y="436" width="40" height="34" fill="#a9aca4" />
         </svg>
-        <span class="rent__you mono" aria-hidden="true">You are here</span>
+        <span class="rent__you mono" aria-hidden="true">{t.rent.youAreHere}</span>
         {stamps.map((s) => (
           <p class="stamp" style={s.pos} data-stamp>
             <strong>{s.text}</strong>
@@ -71,7 +60,7 @@ const owned = [
     </figure>
 
     <figure class="rent__panel rent__panel--own">
-      <figcaption class="mono">Owned · your treehouse</figcaption>
+      <figcaption class="mono">{t.rent.ownCaption}</figcaption>
       <div class="rent__house">
         <svg viewBox="0 0 220 180" aria-hidden="true">
           <circle cx="110" cy="92" r="90" fill="#f3a738" opacity="0.25" data-house-glow />

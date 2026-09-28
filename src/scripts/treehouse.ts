@@ -104,7 +104,7 @@ function initRail() {
     li.style.top = `${(i / (floors.length - 1)) * 100}%`;
     const btn = document.createElement("button");
     btn.type = "button";
-    btn.setAttribute("aria-label", `Go to ${floor.dataset.floor}`);
+    btn.setAttribute("aria-label", `${rail.dataset.goto ?? "Go to"} ${floor.dataset.floor}`);
     btn.addEventListener("click", () => scrollToTarget(floor));
     const tip = document.createElement("span");
     tip.className = "rail__tip";
@@ -231,7 +231,7 @@ function initCounts() {
     const decimals = parseInt(el.dataset.decimals ?? "0", 10);
     const obj = { v: 0 };
     const fmt = (v: number) =>
-      v.toLocaleString("en-GB", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+      v.toLocaleString(document.documentElement.lang || "en-GB", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
     el.textContent = fmt(0);
     gsap.to(obj, {
       v: end,

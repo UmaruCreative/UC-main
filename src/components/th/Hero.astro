@@ -1,4 +1,7 @@
 ---
+import { useI18n } from "../../i18n";
+const { t, l } = useI18n(Astro.url);
+
 // Seeded random so the forest is the same on every build
 let seed = 7;
 const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
@@ -24,7 +27,7 @@ const rungs = Array.from({ length: 15 }, (_, i) => 506 + i * 27);
 const posts = [1032, 1056, 1300, 1324, 1348];
 ---
 
-<section class="hero" data-hero data-floor="Canopy · 18 m" aria-labelledby="hero-title">
+<section class="hero" data-hero data-floor={t.hero.floor} aria-labelledby="hero-title">
   <svg width="0" height="0" class="sr-only" aria-hidden="true">
     <defs>
       <symbol id="pine" viewBox="0 0 100 300">
@@ -160,7 +163,7 @@ const posts = [1032, 1056, 1300, 1324, 1348];
       <g class="hero__sign">
         <rect x="1052" y="790" width="7" height="110" fill="#46301f" />
         <path d="M1000 792 H1106 L1120 810 L1106 828 H1000 Z" fill="#c9996a" stroke="#6b4a31" stroke-width="3" />
-        <text x="1054" y="815" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" letter-spacing="1.5" fill="#37261a">YOUR LAND</text>
+        <text x="1054" y="815" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" letter-spacing="1.5" fill="#37261a">{t.hero.sign}</text>
       </g>
     </svg>
   </div>
@@ -182,27 +185,22 @@ const posts = [1032, 1056, 1300, 1324, 1348];
   <div class="hero__mist" aria-hidden="true"></div>
 
   <div class="hero__copy wrap" data-hero-copy>
-    <p class="eyebrow" data-hero-in>Web studio · Jyväskylä, Finland</p>
-    <h1 id="hero-title" class="display" data-split>Build on land <em>you&nbsp;own.</em></h1>
-    <p class="lede" data-hero-in>
-      Handcrafted websites, plus bespoke weekly market research and web analytics reports, for small businesses across Finland.
-      Your domain, your code, your data. Nobody else’s rules.
-    </p>
+    <p class="eyebrow" data-hero-in>{t.hero.eyebrow}</p>
+    <h1 id="hero-title" class="display" data-split set:html={t.hero.title} />
+    <p class="lede" data-hero-in>{t.hero.lede}</p>
     <div class="hero__ctas" data-hero-in>
-      <a href="/en/contact/" class="btn" data-magnetic>Start your treehouse <span class="btn-arrow">→</span></a>
-      <a href="#rooms" class="btn btn--ghost" data-magnetic>Explore the rooms</a>
+      <a href={l("/contact/")} class="btn" data-magnetic>{t.hero.cta} <span class="btn-arrow">→</span></a>
+      <a href="#rooms" class="btn btn--ghost" data-magnetic>{t.hero.explore}</a>
     </div>
   </div>
 
   <div class="hero__foot wrap" data-hero-in>
     <ul class="hero__facts mono">
-      <li>Static &amp; secure</li>
-      <li>Owned, not rented</li>
-      <li>Weekly reports</li>
+      {t.hero.facts.map((f) => <li>{f}</li>)}
     </ul>
     <a href="#rent" class="hero__cue mono">
       <span class="hero__cue-rope" aria-hidden="true"></span>
-      Climb down
+      {t.hero.climb}
     </a>
   </div>
 </section>
@@ -281,6 +279,8 @@ const posts = [1032, 1056, 1300, 1324, 1348];
     position: relative;
   }
   .hero__copy .display { max-width: 9.5ch; margin-bottom: 30px; }
+  /* Finnish words run long: give the headline room for two lines instead of three */
+  :global(html:lang(fi)) .hero__copy .display { max-width: 13.5ch; }
   .hero__copy .display em { color: var(--moss); }
   .hero__copy .lede { max-width: 44ch; color: var(--ink); margin-bottom: 36px; }
   .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; }

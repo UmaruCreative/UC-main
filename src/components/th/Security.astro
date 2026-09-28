@@ -1,43 +1,8 @@
 ---
-const planks = [
-  {
-    no: "01",
-    title: "No database to break into",
-    body: "I build static websites: plain, pre-built files. There is no admin login or database sitting on the server waiting to be guessed or hacked.",
-  },
-  {
-    no: "02",
-    title: "No plugin sprawl",
-    body: "Fewer moving parts means fewer unlocked doors. No stack of third party plugins that need patching every other week.",
-  },
-  {
-    no: "03",
-    title: "Encrypted by default",
-    body: "HTTPS everywhere, sensible security headers, and forms that send straight to your inbox rather than through a data broker.",
-  },
-  {
-    no: "04",
-    title: "Analytics without surveillance",
-    body: "Your weekly numbers are measured with privacy first tools. Your visitors are counted, not tracked across the web or sold on.",
-  },
-  {
-    no: "05",
-    title: "You hold the deeds",
-    body: "Domain in your name, code in your hands, logins in your password manager. Nothing is held back, and nothing is held hostage.",
-  },
-  {
-    no: "06",
-    title: "Leave whenever you like",
-    body: "Everything is portable. If you ever move on, you take the whole treehouse with you. No exit fees, no lock in.",
-  },
-];
-const deed = [
-  "Domain registered in your name",
-  "Complete source code and content",
-  "Hosting and account access",
-  "Analytics data, exportable",
-  "Plain English handbook",
-];
+import { useI18n } from "../../i18n";
+const { t } = useI18n(Astro.url);
+const planks = t.security.planks.map((p, i) => ({ ...p, no: String(i + 1).padStart(2, "0") }));
+const deed = t.security.deed;
 const rungs = Array.from({ length: 34 }, (_, i) => 20 + i * 28);
 ---
 
@@ -47,7 +12,7 @@ const rungs = Array.from({ length: 34 }, (_, i) => 20 + i * 28);
   data-night
   data-ladder
   data-lantern-field
-  data-floor="Ladder · security"
+  data-floor={t.security.floor}
   style="--lx: 900; --ly: 300;"
   aria-labelledby="security-title"
 >
@@ -80,16 +45,14 @@ const rungs = Array.from({ length: 34 }, (_, i) => 20 + i * 28);
             </svg>
           </div>
         </div>
-        <p class="security__status mono" data-ladder-status data-up="Ladder up · locked">Scroll to pull the ladder up</p>
+        <p class="security__status mono" data-ladder-status data-up={t.security.statusUp}>{t.security.statusDown}</p>
       </div>
     </div>
 
     <div class="security__content">
-      <p class="eyebrow">Data security</p>
-      <h2 id="security-title" class="h2" data-split>Pull up the ladder. <em>Keep what’s yours safe.</em></h2>
-      <p class="lede" data-reveal>
-        Security isn’t an add on. It’s how the treehouse is built, from the roots up, so you can stop worrying about who else has a key.
-      </p>
+      <p class="eyebrow">{t.security.eyebrow}</p>
+      <h2 id="security-title" class="h2" data-split set:html={t.security.title} />
+      <p class="lede" data-reveal>{t.security.lede}</p>
 
       <ol class="security__planks">
         {planks.map((p) => (
@@ -104,12 +67,12 @@ const rungs = Array.from({ length: 34 }, (_, i) => 20 + i * 28);
       </ol>
 
       <aside class="deed" data-reveal data-tilt aria-labelledby="deed-title">
-        <p class="mono deed__kicker">Title deed</p>
-        <h3 id="deed-title">What you receive at handover</h3>
+        <p class="mono deed__kicker">{t.security.deedKicker}</p>
+        <h3 id="deed-title">{t.security.deedTitle}</h3>
         <ul>
           {deed.map((d) => <li>{d}</li>)}
         </ul>
-        <p class="deed__sign">Signed over to you, in full.</p>
+        <p class="deed__sign">{t.security.deedSign}</p>
         <span class="deed__seal" aria-hidden="true">UC</span>
       </aside>
     </div>

@@ -1,29 +1,32 @@
 ---
 import { getCollection } from "astro:content";
+import { useI18n } from "../../i18n";
+const { t, blog } = useI18n(Astro.url);
 
+// Articles are written in English for now
 const articles = (await getCollection("articles", ({ data }) => data.lang === "en"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
-const fmt = (d: Date) => d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+const fmt = (d: Date) => d.toLocaleDateString(t.locale, { day: "numeric", month: "long", year: "numeric" });
 ---
 
-<section id="blog" class="section notes" data-floor="Field notes · blog" aria-labelledby="notes-title">
+<section id="blog" class="section notes" data-floor={t.notes.floor} aria-labelledby="notes-title">
   <div class="wrap">
     <div class="section-head section-head--split">
       <div>
-        <p class="eyebrow">Blog</p>
-        <h2 id="notes-title" class="h2" data-split>Field notes from <em>the lookout.</em></h2>
+        <p class="eyebrow">{t.notes.eyebrow}</p>
+        <h2 id="notes-title" class="h2" data-split set:html={t.notes.title} />
       </div>
       <div class="notes__side" data-reveal>
-        <p class="lede">Practical thinking on search, AI and owning your corner of the web.</p>
-        <a href="/en/articles/" class="btn btn--ghost" data-magnetic>All articles <span class="btn-arrow">→</span></a>
+        <p class="lede">{t.notes.lede}</p>
+        <a href={blog()} class="btn btn--ghost" data-magnetic>{t.notes.all} <span class="btn-arrow">→</span></a>
       </div>
     </div>
 
     <ul class="notes__grid" data-stagger>
       {articles.map((a) => (
         <li>
-          <a href={`/en/articles/${a.slug}/`} class="note">
+          <a href={blog(`/articles/${a.slug.replace(/^en\//, "")}/`)} class="note" lang="en">
             <div class="note__img">
               {a.data.image && <img src={a.data.image} alt="" loading="lazy" />}
             </div>

@@ -1,0 +1,98 @@
+---
+import TreehouseLayout from "../../../layouts/TreehouseLayout.astro";
+import PageHero from "../../../components/th/PageHero.astro";
+import Lookout from "../../../components/th/Lookout.astro";
+import Faq from "../../../components/th/Faq.astro";
+import CtaBand from "../../../components/th/CtaBand.astro";
+import { getStaticLangPaths, useI18n } from "../../../i18n";
+
+export const getStaticPaths = getStaticLangPaths;
+const { t, l, abs } = useI18n(Astro.url);
+const r = t.reportsPage;
+const sample = l("/contact/?service=reports");
+---
+
+<TreehouseLayout
+  title={t.meta.reports.title}
+  description={t.meta.reports.description}
+  canonical={abs("/services/weekly-reports/")}
+>
+  <PageHero
+    tone="dusk"
+    eyebrow={r.eyebrow}
+    title={r.heroTitle}
+    lede={r.heroLede}
+    crumbs={[{ label: t.common.home, href: l("/") }, { label: t.servicePage.services, href: l("/#rooms") }, { label: r.crumb }]}
+    primary={{ label: r.sample, href: sample }}
+    secondary={{ label: r.inside, href: "#lookout" }}
+  />
+
+  <Lookout compact />
+
+  <section class="section section--birch">
+    <div class="wrap">
+      <div class="section-head section-head--split">
+        <div>
+          <p class="eyebrow">{r.howEyebrow}</p>
+          <h2 class="h2" data-split set:html={r.howTitle} />
+        </div>
+        <p class="lede" data-reveal>{r.howLede}</p>
+      </div>
+      <ol class="steps3" data-stagger>
+        {r.steps.map((s) => (
+          <li>
+            <p class="mono">{s.label}</p>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--night" data-night>
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">{r.privacyEyebrow}</p>
+        <h2 class="h2" data-split set:html={r.privacyTitle} />
+        <p class="lede" data-reveal>{r.privacyLede}</p>
+      </div>
+      <ul class="ticks" data-stagger>
+        {r.privacy.map((p) => <li><span><strong>{p.strong}</strong> {p.text}</span></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--sage">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">{r.forEyebrow}</p>
+        <h2 class="h2" data-split set:html={r.forTitle} />
+        <p class="lede" data-reveal>{r.forLede}</p>
+        <ul class="ticks" data-stagger>
+          {r.forList.map((f) => <li>{f}</li>)}
+        </ul>
+      </div>
+      <div class="card" data-reveal>
+        <p class="mono" style="color: var(--fern); margin-bottom: 14px;">{r.priceKicker}</p>
+        <h3 class="h3" style="margin-bottom: 14px;">{r.priceTitle}</h3>
+        <p style="color: var(--ink-soft);">{r.priceIntro}</p>
+        <ul class="ticks">
+          {r.priceList.map((p) => <li>{p}</li>)}
+        </ul>
+        <div style="margin-top: 28px;">
+          <a href={sample} class="btn" data-magnetic>{r.quote} <span class="btn-arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Faq set="reports" />
+
+  <CtaBand
+    title={r.ctaTitle}
+    body={r.ctaBody}
+    primary={{ label: r.sample, href: sample }}
+    secondary={{ label: r.allServices, href: l("/#rooms") }}
+  />
+</TreehouseLayout>

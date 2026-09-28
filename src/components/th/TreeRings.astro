@@ -1,4 +1,6 @@
 ---
+import { useI18n } from "../../i18n";
+const { t } = useI18n(Astro.url);
 // Each ring is one week of visits. Busier weeks grow wider rings, like a real tree.
 const weeks = [420, 380, 510, 560, 490, 640, 700, 660, 812, 860, 930, 1284];
 const cx = 200;
@@ -9,17 +11,17 @@ const rings = weeks.map((v, i) => {
   const pts: string[] = [];
   const n = 72;
   for (let k = 0; k <= n; k++) {
-    const t = (k / n) * Math.PI * 2;
-    const wobble = 1 + 0.035 * Math.sin(3 * t + i * 0.9) + 0.02 * Math.sin(7 * t + i * 1.7) + 0.012 * Math.cos(11 * t + i);
+    const ang = (k / n) * Math.PI * 2;
+    const wobble = 1 + 0.035 * Math.sin(3 * ang + i * 0.9) + 0.02 * Math.sin(7 * ang + i * 1.7) + 0.012 * Math.cos(11 * ang + i);
     const rr = r * wobble;
-    pts.push(`${(cx + rr * Math.cos(t)).toFixed(1)},${(cy + rr * Math.sin(t) * 0.94).toFixed(1)}`);
+    pts.push(`${(cx + rr * Math.cos(ang)).toFixed(1)},${(cy + rr * Math.sin(ang) * 0.94).toFixed(1)}`);
   }
   return { d: `M${pts.join(" L")} Z`, w: 1.2 + (v / 1284) * 2.4, o: 0.45 + (i / weeks.length) * 0.5 };
 });
 ---
 
 <figure class="rings">
-  <svg viewBox="0 0 400 400" data-rings role="img" aria-label="Tree ring chart: twelve weekly rings, the widest and newest ring is this week with 1,284 visits">
+  <svg viewBox="0 0 400 400" data-rings role="img" aria-label={t.rings.aria}>
     <circle cx={cx} cy={cy} r={r + 16} fill="#e7d3b3" />
     <circle cx={cx} cy={cy} r={r + 16} fill="none" stroke="#5a3e2b" stroke-width="10" />
     <circle cx={cx} cy={cy} r="24" fill="#c9996a" data-ring-core />
@@ -30,8 +32,8 @@ const rings = weeks.map((v, i) => {
     <circle cx={cx} cy={cy} r="4" fill="#5a3e2b" />
   </svg>
   <figcaption>
-    <p class="mono">Week <span data-ring-week>12</span> of 12</p>
-    <p class="rings__cap">Every week adds a ring. Wider rings, busier weeks. Growth you can see, measured without surveillance.</p>
+    <p class="mono">{t.rings.week} <span data-ring-week>12</span> {t.rings.of}</p>
+    <p class="rings__cap">{t.rings.caption}</p>
   </figcaption>
 </figure>
 

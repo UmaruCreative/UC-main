@@ -3,6 +3,7 @@ import "../styles/treehouse.css";
 import Header from "../components/th/Header.astro";
 import Footer from "../components/th/Footer.astro";
 import LadderRail from "../components/th/LadderRail.astro";
+import { useI18n, switchPath, langs } from "../i18n";
 
 interface Props {
   title: string;
@@ -11,16 +12,19 @@ interface Props {
   rail?: boolean;
 }
 
-const {
-  title,
-  description = "Umaru Creative builds secure, handcrafted websites and bespoke weekly market research and web analytics reports for small businesses in Jyväskylä and across Finland.",
-  canonical,
-  rail = false,
-} = Astro.props;
+const { lang, t } = useI18n(Astro.url);
+const { title, description = t.meta.home.description, canonical, rail = false } = Astro.props;
+
+const htmlLang = lang === "no" ? "nb" : lang;
+const ogLocale = { en: "en_GB", fi: "fi_FI", sv: "sv_SE", fr: "fr_FR", no: "nb_NO" }[lang];
+const site = "https://umaru-creative.com";
+// Articles exist in English only, so they don't advertise translations
+const isArticle = Astro.url.pathname.includes("/articles/");
+const alternates = isArticle ? [] : langs.map((code) => ({ code, href: site + switchPath(Astro.url, code) }));
 ---
 
 <!doctype html>
-<html lang="en" class="th">
+<html lang={htmlLang} class="th">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -41,16 +45,13 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content={ogLocale} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
 
-    <link rel="alternate" hreflang="en" href="https://umaru-creative.com/en/" />
-    <link rel="alternate" hreflang="fi" href="https://umaru-creative.com/fi/" />
-    <link rel="alternate" hreflang="sv" href="https://umaru-creative.com/sv/" />
-    <link rel="alternate" hreflang="fr" href="https://umaru-creative.com/fr/" />
-    <link rel="alternate" hreflang="no" href="https://umaru-creative.com/no/" />
-    <link rel="alternate" hreflang="x-default" href="https://umaru-creative.com/en/" />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.code} href={a.href} />)}
+    {alternates.length > 0 && <link rel="alternate" hreflang="x-default" href={alternates[0].href} />}
 
     <!-- Motion is opt in: without JS, or with reduced motion, everything renders in its final state -->
     <script is:inline>
@@ -62,7 +63,7 @@ const {
     <slot name="head" />
   </head>
   <body class="th-body">
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">{t.common.skip}</a>
     <Header />
     {rail && <LadderRail />}
     <main id="main">

@@ -1,50 +1,19 @@
 ---
+import { useI18n } from "../../i18n";
 interface Props {
-  items?: { q: string; a: string }[];
-  title?: string;
-  floor?: string;
+  set?: "home" | "reports" | "contact";
 }
-
-const defaults = [
-  {
-    q: "What is in a weekly report?",
-    a: "The market research report covers competitor moves, what your buyers are searching for, your visibility in Google and AI answers, and local or seasonal signals. The web analytics report explains how your own site performed: visits, sources, the pages that lead to enquiries and the searches that found you. Both end with a short, prioritised action list, and every claim is sourced.",
-  },
-  {
-    q: "How are the reports priced?",
-    a: "Each report is bespoke, so the price depends on your market, how many competitors and questions we track, and whether you want one report or both. Tell me about your business and I’ll send a clear quote. No long contracts.",
-  },
-  {
-    q: "Who owns my website and my data?",
-    a: "You do, completely. The domain is registered in your name, you receive the full source code and content, and your analytics data can be exported at any time. If you ever move on, you take everything with you.",
-  },
-  {
-    q: "Is a static website really more secure?",
-    a: "For most small businesses, yes. A static site is a set of pre-built files, so there is no database or admin login on the server for anyone to break into, and no pile of plugins waiting for security patches. It is also faster and cheaper to host.",
-  },
-  {
-    q: "How long does a typical project take?",
-    a: "Most websites are finished within two to four weeks, depending on scope and how ready your content is. You get clear milestones, so you always know what is happening and when your site will go live.",
-  },
-  {
-    q: "Can I update the website myself after launch?",
-    a: "Yes. You’ll be able to update everyday content such as text, photos, menus and opening hours, and I provide documentation and training so you feel confident. For bigger changes, hourly support is always there.",
-  },
-  {
-    q: "Do you also handle content and copywriting?",
-    a: "Yes. If your content isn’t ready, I help structure your message, sharpen what makes you different and write clear copy in your voice, so the site communicates as well as it looks.",
-  },
-];
-
-const { items = defaults, title = "Questions from the ground", floor = "Questions · FAQ" } = Astro.props;
+const { set = "home" } = Astro.props;
+const { t, l } = useI18n(Astro.url);
+const { title, items } = t.faq[set];
 ---
 
-<section id="faq" class="section faq" data-floor={floor} aria-labelledby="faq-title">
+<section id="faq" class="section faq" data-floor={t.faq.floor} aria-labelledby="faq-title">
   <div class="wrap faq__grid">
     <div>
-      <p class="eyebrow">FAQ</p>
+      <p class="eyebrow">{t.faq.eyebrow}</p>
       <h2 id="faq-title" class="h2" data-split>{title}</h2>
-      <p class="lede faq__lede" data-reveal>Can’t find your answer? <a href="/en/contact/" class="link-arrow">Knock on the door →</a></p>
+      <p class="lede faq__lede" data-reveal>{t.faq.cantFind} <a href={l("/contact/")} class="link-arrow">{t.faq.knock}</a></p>
     </div>
     <div class="faq__list" data-stagger="0.06">
       {items.map((f) => (

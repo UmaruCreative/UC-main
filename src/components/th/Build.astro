@@ -1,40 +1,17 @@
 ---
-const steps = [
-  {
-    no: "01",
-    phase: "Discovery",
-    title: "Survey the land",
-    body: "We start with a conversation about your business, your customers and what makes you different. I look at your market too, so the site is built around how people actually find you.",
-  },
-  {
-    no: "02",
-    phase: "Design",
-    title: "Draw the plans",
-    body: "I create a design concept that reflects your brand. We refine it together until it feels just right, before a single beam goes up.",
-  },
-  {
-    no: "03",
-    phase: "Development",
-    title: "Raise the beams",
-    body: "Once the plans are approved, I build your site with clean, efficient code that loads quickly, reads clearly to search engines and AI tools, and is very hard to break.",
-  },
-  {
-    no: "04",
-    phase: "Launch and support",
-    title: "Hand over the keys",
-    body: "After testing and review, we launch. You receive the deeds, documentation and training, so you can look after your treehouse with confidence.",
-  },
-];
+import { useI18n } from "../../i18n";
+const { t } = useI18n(Astro.url);
+const steps = t.build.steps.map((s, i) => ({ ...s, no: String(i + 1).padStart(2, "0") }));
 ---
 
-<section id="process" class="section build" data-build data-floor="Workshop · process" aria-labelledby="build-title">
+<section id="process" class="section build" data-build data-floor={t.build.floor} aria-labelledby="build-title">
   <div class="wrap">
     <div class="section-head section-head--split">
       <div>
-        <p class="eyebrow">Process</p>
-        <h2 id="build-title" class="h2" data-split>How we build it, <em>together.</em></h2>
+        <p class="eyebrow">{t.build.eyebrow}</p>
+        <h2 id="build-title" class="h2" data-split set:html={t.build.title} />
       </div>
-      <p class="lede" data-reveal>A clear, personal process in four steps. Most projects are finished in two to four weeks, depending on scope and how ready your content is.</p>
+      <p class="lede" data-reveal>{t.build.lede}</p>
     </div>
 
     <div class="build__grid">
@@ -97,7 +74,7 @@ const steps = [
               <path d="M314 470 H352 M340 470 V482 M350 470 V480" stroke="#d4622e" stroke-width="4" />
             </g>
           </svg>
-          <p class="mono build__caption">Plan view · not to scale</p>
+          <p class="mono build__caption">{t.build.caption}</p>
         </div>
       </figure>
     </div>

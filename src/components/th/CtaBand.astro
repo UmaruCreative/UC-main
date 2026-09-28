@@ -1,15 +1,17 @@
 ---
+import { useI18n } from "../../i18n";
 interface Props {
   title?: string;
   body?: string;
   primary?: { label: string; href: string };
   secondary?: { label: string; href: string };
 }
+const { t, l } = useI18n(Astro.url);
 const {
-  title = "Ready to build on <em>your own land?</em>",
-  body = "Tell me about your business. I’ll reply within two business days with honest advice and a clear plan.",
-  primary = { label: "Start a project", href: "/en/contact/" },
-  secondary = { label: "See pricing", href: "/en/pricing/" },
+  title = t.cta.title,
+  body = t.cta.body,
+  primary = { label: t.common.startProject, href: l("/contact/") },
+  secondary = { label: t.common.seePricing, href: l("/pricing/") },
 } = Astro.props;
 ---
 

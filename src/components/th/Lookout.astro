@@ -1,38 +1,25 @@
 ---
 import SampleReport from "./SampleReport.astro";
 import TreeRings from "./TreeRings.astro";
+import { useI18n } from "../../i18n";
 
 interface Props {
   compact?: boolean;
 }
 const { compact = false } = Astro.props;
 
-const reports = [
-  {
-    kicker: "Report one",
-    title: "Weekly Market Research",
-    body: "What moved in your market this week, checked against your competitors and your customers, not a generic industry template.",
-    items: ["Competitor moves: prices, menus, launches, content", "What your buyers are searching for right now", "Your visibility in Google and in AI answers", "Local and seasonal signals worth acting on"],
-  },
-  {
-    kicker: "Report two",
-    title: "Weekly Web Analytics",
-    body: "How your own website really performed, translated from numbers into plain English and a short list of fixes.",
-    items: ["Visits and where they came from", "Which pages turn visitors into enquiries", "The searches that found you", "Week on week change, explained"],
-  },
-];
+const { t, l } = useI18n(Astro.url);
+const reports = t.lookout.reports;
 ---
 
-<section id="lookout" class="section lookout" data-floor="Lookout · reports" aria-labelledby="lookout-title">
+<section id="lookout" class="section lookout" data-floor={t.lookout.floor} aria-labelledby="lookout-title">
   <div class="wrap">
     <div class="section-head section-head--split">
       <div>
-        <p class="eyebrow">Weekly reports <span class="chip chip--new">New</span></p>
-        <h2 id="lookout-title" class="h2" data-split>See over the canopy, <em>every week.</em></h2>
+        <p class="eyebrow">{t.lookout.eyebrow} <span class="chip chip--new">{t.common.newBadge}</span></p>
+        <h2 id="lookout-title" class="h2" data-split set:html={t.lookout.title} />
       </div>
-      <p class="lede" data-reveal>
-        Two bespoke reports, researched for your business and delivered to your inbox. No dashboard to log into, no data sold on, and every claim sourced.
-      </p>
+      <p class="lede" data-reveal>{t.lookout.lede}</p>
     </div>
 
     <div class="lookout__reports" data-stagger>
@@ -59,13 +46,10 @@ const reports = [
 
     {!compact && (
       <div class="lookout__cta" data-reveal>
-        <p>
-          Best suited to brands competing in a defined search category or retail channel, where being absent has a direct cost.
-          Priced to your scope.
-        </p>
+        <p>{t.lookout.suited}</p>
         <div class="lookout__btns">
-          <a href="/en/services/weekly-reports/" class="btn" data-magnetic>Explore the reports <span class="btn-arrow">→</span></a>
-          <a href="/en/contact/?service=reports" class="btn btn--ghost" data-magnetic>Request a sample</a>
+          <a href={l("/services/weekly-reports/")} class="btn" data-magnetic>{t.lookout.explore} <span class="btn-arrow">→</span></a>
+          <a href={l("/contact/?service=reports")} class="btn btn--ghost" data-magnetic>{t.lookout.sample}</a>
         </div>
       </div>
     )}

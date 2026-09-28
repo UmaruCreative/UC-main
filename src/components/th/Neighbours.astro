@@ -1,35 +1,12 @@
 ---
-const neighbours = [
-  {
-    title: "Independent cafés and bakeries",
-    body: "Coffee shops and bakeries that need a simple, effective home online to show what’s fresh and bring people through the door.",
-    icon: "cup",
-  },
-  {
-    title: "Local food makers",
-    body: "Artisan producers who want to share their story and connect with customers, shops and restaurants.",
-    icon: "wheat",
-  },
-  {
-    title: "Small businesses with craft",
-    body: "Local businesses that take pride in their work and need a website that reflects the same care and attention to detail.",
-    icon: "hammer",
-  },
-  {
-    title: "Creatives and people with purpose",
-    body: "Artists, designers and purpose driven people who want to communicate their vision without an algorithm in the way.",
-    icon: "brush",
-  },
-  {
-    title: "Brands in a crowded category",
-    body: "Businesses competing in a defined search category or retail channel, where the weekly reports show exactly where you stand.",
-    icon: "scope",
-  },
-];
-const words = ["Cafés", "Bakeries", "Local food makers", "Craft businesses", "Creatives", "Purpose driven brands", "Jyväskylä", "Across Finland"];
+import { useI18n } from "../../i18n";
+const { t } = useI18n(Astro.url);
+const icons = ["cup", "wheat", "hammer", "brush", "scope"];
+const neighbours = t.neighbours.items.map((n, i) => ({ ...n, icon: icons[i] }));
+const words = t.neighbours.words;
 ---
 
-<section id="clients" class="section neighbours" data-floor="Neighbours · clients" aria-labelledby="clients-title">
+<section id="clients" class="section neighbours" data-floor={t.neighbours.floor} aria-labelledby="clients-title">
   <div class="neighbours__marquee" aria-hidden="true">
     <div class="neighbours__track" data-marquee="46">
       {[0, 1].map(() => (
@@ -43,10 +20,10 @@ const words = ["Cafés", "Bakeries", "Local food makers", "Craft businesses", "C
   <div class="wrap">
     <div class="section-head section-head--split">
       <div>
-        <p class="eyebrow">Who I work with</p>
-        <h2 id="clients-title" class="h2" data-split>Neighbours I <em>build for.</em></h2>
+        <p class="eyebrow">{t.neighbours.eyebrow}</p>
+        <h2 id="clients-title" class="h2" data-split set:html={t.neighbours.title} />
       </div>
-      <p class="lede" data-reveal>Small businesses and creatives in Jyväskylä and across Finland. If you value clarity, sustainability and quiet creativity, I’d love to work with you.</p>
+      <p class="lede" data-reveal>{t.neighbours.lede}</p>
     </div>
 
     <ul class="neighbours__grid" data-stagger>

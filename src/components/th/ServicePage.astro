@@ -2,43 +2,35 @@
 import TreehouseLayout from "../../layouts/TreehouseLayout.astro";
 import PageHero from "./PageHero.astro";
 import CtaBand from "./CtaBand.astro";
+import { useI18n } from "../../i18n";
 
-interface Feature { title: string; body: string; items: string[] }
-interface Price { name: string; detail: string; price: string }
 interface Props {
-  meta: { title: string; description: string; canonical: string };
-  room: string;
-  crumb: string;
-  heroTitle: string;
-  heroLede: string;
-  featuresTitle: string;
-  featuresLede: string;
-  features: Feature[];
-  whyTitle: string;
-  whyLede: string;
-  why: string[];
-  prices: Price[];
-  priceNote?: string;
+  kind: "web" | "content" | "gbp";
+  slug: string;
   service: string;
 }
-const p = Astro.props;
+const { kind, slug, service } = Astro.props;
+const { t, l, abs } = useI18n(Astro.url);
+const p = t[kind];
+const meta = t.meta[kind];
+const sp = t.servicePage;
 ---
 
-<TreehouseLayout title={p.meta.title} description={p.meta.description} canonical={p.meta.canonical}>
+<TreehouseLayout title={meta.title} description={meta.description} canonical={abs(`/services/${slug}/`)}>
   <PageHero
     eyebrow={p.room}
     title={p.heroTitle}
     lede={p.heroLede}
-    crumbs={[{ label: "Home", href: "/en/" }, { label: "Services", href: "/en/#rooms" }, { label: p.crumb }]}
-    primary={{ label: "Start a project", href: `/en/contact/?service=${p.service}` }}
-    secondary={{ label: "See pricing", href: "#prices" }}
+    crumbs={[{ label: t.common.home, href: l("/") }, { label: sp.services, href: l("/#rooms") }, { label: t.nav[kind].label }]}
+    primary={{ label: t.common.startProject, href: l(`/contact/?service=${service}`) }}
+    secondary={{ label: t.common.seePricing, href: "#prices" }}
   />
 
   <section class="section section--birch">
     <div class="wrap">
       <div class="section-head section-head--split">
         <div>
-          <p class="eyebrow">What you get</p>
+          <p class="eyebrow">{sp.whatYouGet}</p>
           <h2 class="h2" data-split set:html={p.featuresTitle} />
         </div>
         <p class="lede" data-reveal>{p.featuresLede}</p>
@@ -59,7 +51,7 @@ const p = Astro.props;
   <section class="section section--night" data-night>
     <div class="wrap split">
       <div>
-        <p class="eyebrow">Built on your land</p>
+        <p class="eyebrow">{sp.builtOnLand}</p>
         <h2 class="h2" data-split set:html={p.whyTitle} />
         <p class="lede" data-reveal>{p.whyLede}</p>
       </div>
@@ -73,10 +65,10 @@ const p = Astro.props;
     <div class="wrap">
       <div class="section-head section-head--split">
         <div>
-          <p class="eyebrow">Pricing</p>
-          <h2 class="h2" data-split>Clear prices, <em>no surprises.</em></h2>
+          <p class="eyebrow">{sp.pricing}</p>
+          <h2 class="h2" data-split set:html={sp.clearPrices} />
         </div>
-        <p class="lede" data-reveal>{p.priceNote ?? "Transparent starting prices. Your final quote depends on scope, and you’ll see it before any work begins."}</p>
+        <p class="lede" data-reveal>{p.priceNote || sp.priceNote}</p>
       </div>
       <ul class="features" data-stagger>
         {p.prices.map((pr) => (
@@ -87,9 +79,9 @@ const p = Astro.props;
           </li>
         ))}
       </ul>
-      <p style="margin-top: 32px;" data-reveal><a class="link-arrow" href="/en/pricing/" style="color: var(--moss);">See all plans and prices →</a></p>
+      <p style="margin-top: 32px;" data-reveal><a class="link-arrow" href={l("/pricing/")} style="color: var(--moss);">{sp.seeAll}</a></p>
     </div>
   </section>
 
-  <CtaBand primary={{ label: "Start a project", href: `/en/contact/?service=${p.service}` }} />
+  <CtaBand primary={{ label: t.common.startProject, href: l(`/contact/?service=${service}`) }} />
 </TreehouseLayout>

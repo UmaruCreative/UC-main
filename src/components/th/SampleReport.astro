@@ -1,4 +1,8 @@
 ---
+import { useI18n } from "../../i18n";
+const { t } = useI18n(Astro.url);
+const r = t.report;
+const num = (n: number) => n.toLocaleString(t.locale);
 const uid = Math.random().toString(36).slice(2, 7);
 const spark = [812, 860, 845, 930, 1010, 980, 1146, 1284];
 const max = Math.max(...spark);
@@ -6,48 +10,42 @@ const min = Math.min(...spark);
 const pts = spark
   .map((v, i) => `${(i / (spark.length - 1)) * 220},${58 - ((v - min) / (max - min)) * 50}`)
   .join(" ");
-const sources = [
-  { label: "Google Search", v: 46 },
-  { label: "Google Maps", v: 21 },
-  { label: "Instagram", v: 14 },
-  { label: "Direct", v: 12 },
-  { label: "AI assistants", v: 7 },
-];
+const sources = [46, 21, 14, 12, 7].map((v, i) => ({ label: r.sourceLabels[i], v }));
 ---
 
-<article class="report" data-report aria-label="Sample weekly report">
+<article class="report" data-report aria-label={r.aria}>
   <header class="report__head">
     <div>
-      <p class="mono report__kicker">Weekly report · Week 39</p>
-      <p class="report__client">Kahvila Aalto <span>(sample client)</span></p>
+      <p class="mono report__kicker">{r.kicker}</p>
+      <p class="report__client">Kahvila Aalto <span>{r.sampleClient}</span></p>
     </div>
-    <div class="report__tabs" role="tablist" aria-label="Report type">
-      <button role="tab" id={`t-an-${uid}`} aria-controls={`p-an-${uid}`} aria-selected="true" data-tab>Web analytics</button>
-      <button role="tab" id={`t-mk-${uid}`} aria-controls={`p-mk-${uid}`} aria-selected="false" tabindex="-1" data-tab>Market research</button>
+    <div class="report__tabs" role="tablist" aria-label={r.tabsLabel}>
+      <button role="tab" id={`t-an-${uid}`} aria-controls={`p-an-${uid}`} aria-selected="true" data-tab>{r.tabAnalytics}</button>
+      <button role="tab" id={`t-mk-${uid}`} aria-controls={`p-mk-${uid}`} aria-selected="false" tabindex="-1" data-tab>{r.tabMarket}</button>
     </div>
   </header>
 
   <div class="report__panel" role="tabpanel" id={`p-an-${uid}`} aria-labelledby={`t-an-${uid}`}>
     <div class="report__kpis" data-report-row>
       <div>
-        <p class="mono">Visits</p>
-        <p class="report__num"><span data-count="1284">1,284</span></p>
-        <p class="report__delta up">+12% vs last week</p>
+        <p class="mono">{r.visits}</p>
+        <p class="report__num"><span data-count="1284">{num(1284)}</span></p>
+        <p class="report__delta up">{r.visitsDelta}</p>
       </div>
       <div>
-        <p class="mono">Enquiries</p>
+        <p class="mono">{r.enquiries}</p>
         <p class="report__num"><span data-count="23">23</span></p>
-        <p class="report__delta up">+4 vs last week</p>
+        <p class="report__delta up">{r.enquiriesDelta}</p>
       </div>
       <div class="report__spark">
-        <p class="mono">Last 8 weeks</p>
+        <p class="mono">{r.weeks}</p>
         <svg viewBox="-4 -4 228 70" aria-hidden="true" data-draw>
           <polyline points={pts} fill="none" stroke="#5b7c48" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </div>
     </div>
     <div class="report__sources" data-report-row>
-      <p class="mono">Where visitors came from</p>
+      <p class="mono">{r.sources}</p>
       <ul data-bars>
         {sources.map((s) => (
           <li>
@@ -59,44 +57,31 @@ const sources = [
       </ul>
     </div>
     <p class="report__insight" data-report-row>
-      <span class="mono">Plain English</span>
-      Most new visitors found you by searching “cinnamon buns jyväskylä”. Your menu page keeps them longest, but only 1 in 9 reaches the contact button.
+      <span class="mono">{r.plainLabel}</span>
+      {r.plain}
     </p>
   </div>
 
   <div class="report__panel" role="tabpanel" id={`p-mk-${uid}`} aria-labelledby={`t-mk-${uid}`} hidden>
     <ul class="report__findings">
-      <li data-report-row>
-        <span class="mono">Competitors</span>
-        <p>Café Lumo added a weekend brunch menu and later Sunday opening hours.</p>
-        <cite>Source: their website, 22 Sep</cite>
-      </li>
-      <li data-report-row>
-        <span class="mono">Buyer searches</span>
-        <p>Searches for “gluten free pastries” in Central Finland rose again this week.</p>
-        <cite>Source: Google Trends</cite>
-      </li>
-      <li data-report-row>
-        <span class="mono">AI visibility</span>
-        <p>You appear in AI answers for 2 of 6 tracked questions about cafés in Jyväskylä.</p>
-        <cite>Source: checks in ChatGPT and Gemini</cite>
-      </li>
-      <li data-report-row>
-        <span class="mono">Season</span>
-        <p>Korvapuustipäivä is on 4 October. Interest in cinnamon buns usually climbs the week before.</p>
-        <cite>Source: calendar and last year’s trend</cite>
-      </li>
+      {r.findings.map((f) => (
+        <li data-report-row>
+          <span class="mono">{f.label}</span>
+          <p>{f.text}</p>
+          <cite>{f.source}</cite>
+        </li>
+      ))}
     </ul>
   </div>
 
   <footer class="report__actions" data-report-row>
-    <p class="mono">What to do next</p>
+    <p class="mono">{r.next}</p>
     <ol>
-      <li><span class="tag tag--urgent">Urgent</span> Add brunch hours to your Google profile before the weekend.</li>
-      <li><span class="tag">This week</span> Publish a cinnamon bun page ahead of 4 October.</li>
-      <li><span class="tag tag--calm">Strategic</span> Answer the questions AI tools ask about you on your About page.</li>
+      {r.actions.map((a, i) => (
+        <li><span class={["tag tag--urgent", "tag", "tag tag--calm"][i]}>{a.tag}</span> {a.text}</li>
+      ))}
     </ol>
-    <p class="report__disclaimer">Illustrative sample. Real reports are written for your business and your market.</p>
+    <p class="report__disclaimer">{r.disclaimer}</p>
   </footer>
 </article>
 
