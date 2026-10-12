@@ -24,7 +24,7 @@ const reports = t.lookout.reports;
 
     <div class="lookout__reports" data-stagger>
       {reports.map((r) => (
-        <article class="card lookout__card">
+        <article class="card lookout__card" data-spotlight>
           <p class="mono lookout__kicker">{r.kicker}</p>
           <h3 class="h3">{r.title}</h3>
           <p>{r.body}</p>

@@ -1,54 +1,57 @@
 ---
 import { getCollection } from "astro:content";
-import TreehouseLayout from "../../layouts/TreehouseLayout.astro";
-import PageHero from "../../components/th/PageHero.astro";
-import CtaBand from "../../components/th/CtaBand.astro";
+import TreehouseLayout from "../../../layouts/TreehouseLayout.astro";
+import PageHero from "../../../components/th/PageHero.astro";
+import CtaBand from "../../../components/th/CtaBand.astro";
+import { getStaticLangPaths, useI18n, articlePath } from "../../../i18n";
 
-const articles = (await getCollection("articles", ({ data }) => data.lang === "en")).sort(
+export const getStaticPaths = getStaticLangPaths;
+const { t, l, lang, abs } = useI18n(Astro.url);
+
+// Each language lists only its own published articles
+const articles = (await getCollection("articles", ({ data }) => data.lang === lang && !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
-const fmt = (d: Date) => d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+const fmt = (d: Date) => d.toLocaleDateString(t.locale, { day: "numeric", month: "long", year: "numeric" });
 const [first, ...rest] = articles;
 ---
 
-<TreehouseLayout
-  title="Blog | Umaru Creative"
-  description="Field notes on web design, search, AI and owning your corner of the web, from Umaru Creative in Jyväskylä."
-  canonical="https://umaru-creative.com/articles/"
->
+<TreehouseLayout title={t.notes.metaTitle} description={t.notes.metaDescription} canonical={abs("/articles/")}>
   <PageHero
-    eyebrow="Blog"
-    title="Field notes from <em>the lookout.</em>"
-    lede="Practical thinking on search, AI, security and owning your corner of the web."
-    crumbs={[{ label: "Home", href: "/" }, { label: "Blog" }]}
+    eyebrow={t.notes.eyebrow}
+    title={t.notes.title}
+    lede={t.notes.lede}
+    crumbs={[{ label: t.common.home, href: l("/") }, { label: t.common.blog }]}
   />
 
   <section class="section section--birch blog">
     <div class="wrap">
       {first && (
-        <a href={`/articles/${first.slug.replace(/^en\//, "")}/`} class="lead" data-reveal>
-          <div class="lead__img">{first.data.image && <img src={first.data.image} alt="" />}</div>
+        <a href={articlePath(lang, first.slug)} class="lead" data-reveal>
+          <div class="lead__img" data-reveal="wipe">{first.data.image && <img src={first.data.image} alt="" />}</div>
           <div>
-            <p class="mono lead__meta">Latest · <time datetime={first.data.pubDate.toISOString()}>{fmt(first.data.pubDate)}</time></p>
+            <p class="mono lead__meta">{t.notes.latest} · <time datetime={first.data.pubDate.toISOString()}>{fmt(first.data.pubDate)}</time></p>
             <h2 class="h3 lead__title">{first.data.title}</h2>
             <p class="lead__desc">{first.data.description}</p>
-            <span class="link-arrow">Read the article →</span>
+            <span class="link-arrow">{t.notes.read}</span>
           </div>
         </a>
       )}
 
-      <ul class="posts">
-        {rest.map((a) => (
-          <li data-reveal>
-            <a href={`/articles/${a.slug.replace(/^en\//, "")}/`} class="post">
-              <div class="post__img">{a.data.image && <img src={a.data.image} alt="" loading="lazy" />}</div>
-              <p class="mono post__date"><time datetime={a.data.pubDate.toISOString()}>{fmt(a.data.pubDate)}</time></p>
-              <h2>{a.data.title}</h2>
-              <p class="post__desc">{a.data.description}</p>
-            </a>
-          </li>
-        ))}
-      </ul>
+      {rest.length > 0 && (
+        <ul class="posts">
+          {rest.map((a) => (
+            <li data-reveal>
+              <a href={articlePath(lang, a.slug)} class="post">
+                <div class="post__img" data-reveal="wipe">{a.data.image && <img src={a.data.image} alt="" loading="lazy" />}</div>
+                <p class="mono post__date"><time datetime={a.data.pubDate.toISOString()}>{fmt(a.data.pubDate)}</time></p>
+                <h2>{a.data.title}</h2>
+                <p class="post__desc">{a.data.description}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   </section>
 

@@ -14,11 +14,19 @@ const { t, l, abs } = useI18n(Astro.url);
 const p = t[kind];
 const meta = t.meta[kind];
 const sp = t.servicePage;
+
+// Small symbols, muted by CSS to sit quietly with the palette (content page only for now)
+const symbols: Partial<Record<typeof kind, { features: string[]; what: string; land: string; price: string; room: string }>> = {
+  content: { features: ["🎞️", "🎐", "📜"], what: "🍃", land: "🪵", price: "🧮", room: "🪟" },
+};
+const sym = symbols[kind];
+const eyebrow = (emoji: string | undefined, text: string) => (emoji ? `<span class="emoji emoji--eyebrow" aria-hidden="true">${emoji}</span>${text}` : text);
 ---
 
 <TreehouseLayout title={meta.title} description={meta.description} canonical={abs(`/services/${slug}/`)}>
   <PageHero
     eyebrow={p.room}
+    eyebrowIcon={sym?.room}
     title={p.heroTitle}
     lede={p.heroLede}
     crumbs={[{ label: t.common.home, href: l("/") }, { label: sp.services, href: l("/#rooms") }, { label: t.nav[kind].label }]}
@@ -30,16 +38,19 @@ const sp = t.servicePage;
     <div class="wrap">
       <div class="section-head section-head--split">
         <div>
-          <p class="eyebrow">{sp.whatYouGet}</p>
+          <p class="eyebrow" set:html={eyebrow(sym?.what, sp.whatYouGet)} />
           <h2 class="h2" data-split set:html={p.featuresTitle} />
         </div>
         <p class="lede" data-reveal>{p.featuresLede}</p>
       </div>
       <ul class="features" data-stagger>
         {p.features.map((f, i) => (
-          <li class="card feature">
+          <li class="card feature" data-spotlight>
             <span class="mono feature__no">0{i + 1}</span>
-            <h3>{f.title}</h3>
+            <h3 class="feature__title">
+              {sym && <span class="emoji emoji--tile" aria-hidden="true">{sym.features[i]}</span>}
+              <span>{f.title}</span>
+            </h3>
             <p>{f.body}</p>
             <ul>{f.items.map((it) => <li>{it}</li>)}</ul>
           </li>
@@ -51,7 +62,7 @@ const sp = t.servicePage;
   <section class="section section--night" data-night>
     <div class="wrap split">
       <div>
-        <p class="eyebrow">{sp.builtOnLand}</p>
+        <p class="eyebrow" set:html={eyebrow(sym?.land, sp.builtOnLand)} />
         <h2 class="h2" data-split set:html={p.whyTitle} />
         <p class="lede" data-reveal>{p.whyLede}</p>
       </div>
@@ -65,14 +76,14 @@ const sp = t.servicePage;
     <div class="wrap">
       <div class="section-head section-head--split">
         <div>
-          <p class="eyebrow">{sp.pricing}</p>
+          <p class="eyebrow" set:html={eyebrow(sym?.price, sp.pricing)} />
           <h2 class="h2" data-split set:html={sp.clearPrices} />
         </div>
         <p class="lede" data-reveal>{p.priceNote || sp.priceNote}</p>
       </div>
       <ul class="features" data-stagger>
         {p.prices.map((pr) => (
-          <li class="card feature">
+          <li class="card feature" data-spotlight>
             <span class="mono feature__no">{pr.name}</span>
             <h3>{pr.price}</h3>
             <p>{pr.detail}</p>

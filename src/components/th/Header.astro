@@ -1,5 +1,9 @@
 ---
 import { useI18n, switchPath, langs } from "../../i18n";
+interface Props {
+  alternates?: Partial<Record<string, string>>;
+}
+const { alternates } = Astro.props;
 const { lang, t, l, blog } = useI18n(Astro.url);
 
 const services = [
@@ -8,8 +12,7 @@ const services = [
   { href: l("/services/google-my-business/"), ...t.nav.gbp },
   { href: l("/services/weekly-reports/"), ...t.nav.reports, isNew: true },
 ];
-const langLinks = langs.map((code) => ({ code: code.toUpperCase(), lang: code, href: switchPath(Astro.url, code) }));
-const blogSuffix = lang === "en" ? "" : " (EN)";
+const langLinks = langs.map((code) => ({ code: code.toUpperCase(), lang: code, href: alternates?.[code] ?? switchPath(Astro.url, code) }));
 ---
 
 <header class="th-header" data-header>
@@ -67,7 +70,7 @@ const blogSuffix = lang === "en" ? "" : " (EN)";
         ))}
         <li><a href={l("/#security")}>{t.common.security}</a></li>
         <li><a href={l("/pricing/")}>{t.common.pricing}</a></li>
-        <li><a href={blog()}>{t.common.blog}{blogSuffix}</a></li>
+        <li><a href={blog()}>{t.common.blog}</a></li>
         <li><a href={l("/contact/")}>{t.common.contact}</a></li>
       </ul>
     </nav>
@@ -111,12 +114,12 @@ const blogSuffix = lang === "en" ? "" : " (EN)";
     backdrop-filter: blur(14px) saturate(1.2);
     -webkit-backdrop-filter: blur(14px) saturate(1.2);
     border-color: var(--line);
-    box-shadow: 0 10px 40px -20px rgba(27, 38, 32, 0.35);
+    box-shadow: 0 10px 40px -20px color-mix(in srgb, var(--ink) 35%, transparent);
   }
   .th-header.is-night .th-header__inner { color: var(--night-ink); }
   .th-header.is-night.is-scrolled .th-header__inner {
     background: color-mix(in srgb, var(--night-2) 80%, transparent);
-    border-color: rgba(233, 228, 214, 0.1);
+    border-color: color-mix(in srgb, var(--night-ink) 10%, transparent);
   }
 
   .th-logo {
@@ -166,7 +169,7 @@ const blogSuffix = lang === "en" ? "" : " (EN)";
     color: var(--ink);
     border: 1px solid var(--line);
     border-radius: 18px;
-    box-shadow: 0 30px 60px -30px rgba(27, 38, 32, 0.45);
+    box-shadow: 0 30px 60px -30px color-mix(in srgb, var(--ink) 45%, transparent);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-8px);
@@ -245,7 +248,7 @@ const blogSuffix = lang === "en" ? "" : " (EN)";
     font-family: var(--font-display);
     font-size: clamp(28px, 8vw, 40px);
     text-decoration: none;
-    border-bottom: 1px solid rgba(233, 228, 214, 0.08);
+    border-bottom: 1px solid color-mix(in srgb, var(--night-ink) 8%, transparent);
   }
   .th-mobile__foot { display: flex; justify-content: space-between; align-items: center; color: var(--night-muted); }
   .th-mobile__foot p { margin: 0; }

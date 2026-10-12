@@ -1,33 +1,43 @@
 ---
 import { getCollection } from "astro:content";
-import TreehouseLayout from "../../layouts/TreehouseLayout.astro";
-import CtaBand from "../../components/th/CtaBand.astro";
+import TreehouseLayout from "../../../layouts/TreehouseLayout.astro";
+import CtaBand from "../../../components/th/CtaBand.astro";
+import { useI18n, articlePath, langs, SITE, type Lang } from "../../../i18n";
 
 export async function getStaticPaths() {
-  const articles = await getCollection("articles");
-  return articles
-    .filter((article) => article.data.lang === "en")
-    // Content files live in content/articles/en/, but the address drops that folder: /articles/<name>/
-    .map((article) => ({ params: { slug: article.slug.replace(/^en\//, "") }, props: { article } }));
+  const all = (await getCollection("articles")).filter((a) => !a.data.draft);
+  const bare = (slug: string) => slug.replace(/^(en|fi|sv|fr|no)\//, "");
+  // Only translations that really exist count (older articles list some that were never written)
+  const exists = new Set(all.map((a) => `${a.data.lang}:${bare(a.slug)}`));
+  return all.map((article) => {
+    const own = article.data.lang as Lang;
+    const alternates: Partial<Record<Lang, string>> = { [own]: articlePath(own, article.slug) };
+    for (const [code, slug] of Object.entries(article.data.translations ?? {})) {
+      if (langs.includes(code as Lang) && exists.has(`${code}:${slug}`)) alternates[code as Lang] = articlePath(code as Lang, slug);
+    }
+    return {
+      params: { lang: own === "en" ? undefined : own, slug: bare(article.slug) },
+      props: { article, alternates },
+    };
+  });
 }
 
-const { article } = Astro.props;
-const slug = article.slug.replace(/^en\//, "");
+const { article, alternates } = Astro.props;
+const { t, l } = useI18n(Astro.url);
 const { Content } = await article.render();
-const date = article.data.pubDate.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+const date = article.data.pubDate.toLocaleDateString(t.locale, { day: "numeric", month: "long", year: "numeric" });
 ---
 
 <TreehouseLayout
   title={`${article.data.title} | Umaru Creative`}
   description={article.data.description}
-  canonical={`https://umaru-creative.com/articles/${slug}/`}
+  canonical={`${SITE}${articlePath(article.data.lang as Lang, article.slug)}`}
+  alternates={alternates}
 >
-  <div class="read-progress" aria-hidden="true"><span data-read-progress></span></div>
-
   <article class="post-page">
     <header class="wrap post-page__head">
-      <nav class="mono post-page__crumbs" aria-label="Breadcrumb">
-        <a href="/">Home</a> / <a href="/articles/">Blog</a>
+      <nav class="mono post-page__crumbs" aria-label={t.common.breadcrumb}>
+        <a href={l("/")}>{t.common.home}</a> / <a href={l("/articles/")}>{t.common.blog}</a>
       </nav>
       <p class="eyebrow">{article.data.author} · <time datetime={article.data.pubDate.toISOString()}>{date}</time></p>
       <h1 class="post-page__title" data-split>{article.data.title}</h1>
@@ -35,7 +45,7 @@ const date = article.data.pubDate.toLocaleDateString("en-GB", { day: "numeric", 
     </header>
 
     {article.data.image && (
-      <div class="wrap post-page__hero" data-reveal="scale">
+      <div class="wrap post-page__hero" data-reveal="wipe">
         <img src={article.data.image} alt="" />
       </div>
     )}
@@ -44,7 +54,7 @@ const date = article.data.pubDate.toLocaleDateString("en-GB", { day: "numeric", 
       <div class="prose-th">
         <Content />
       </div>
-      <p class="post-page__back"><a href="/articles/" class="link-arrow">← Back to all articles</a></p>
+      <p class="post-page__back"><a href={l("/articles/")} class="link-arrow">{t.notes.back}</a></p>
     </div>
   </article>
 
@@ -52,9 +62,6 @@ const date = article.data.pubDate.toLocaleDateString("en-GB", { day: "numeric", 
 </TreehouseLayout>
 
 <style>
-  .read-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 120; }
-  .read-progress span { display: block; height: 100%; background: var(--lantern); transform-origin: 0 50%; transform: scaleX(0); }
-
   .post-page { padding: calc(var(--header-h) + clamp(48px, 8vw, 100px)) 0 clamp(80px, 10vw, 140px); }
   .post-page__head { max-width: 900px; }
   .post-page__crumbs { font-size: 11px; opacity: 0.7; margin-bottom: 28px; }
@@ -82,14 +89,3 @@ const date = article.data.pubDate.toLocaleDateString("en-GB", { day: "numeric", 
   .post-page__back a { color: var(--moss); }
 </style>
 
-<script>
-  const bar = document.querySelector<HTMLElement>("[data-read-progress]");
-  if (bar) {
-    const update = () => {
-      const max = document.documentElement.scrollHeight - innerHeight;
-      bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
-    };
-    addEventListener("scroll", update, { passive: true });
-    update();
-  }
-</script>

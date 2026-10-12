@@ -1,15 +1,16 @@
 ---
 import { getCollection } from "astro:content";
-import { useI18n } from "../../i18n";
-const { t, blog } = useI18n(Astro.url);
+import { useI18n, articlePath } from "../../i18n";
+const { t, blog, lang } = useI18n(Astro.url);
 
-// Articles are written in English for now
-const articles = (await getCollection("articles", ({ data }) => data.lang === "en"))
+// The latest articles in this page's language
+const articles = (await getCollection("articles", ({ data }) => data.lang === lang && !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 const fmt = (d: Date) => d.toLocaleDateString(t.locale, { day: "numeric", month: "long", year: "numeric" });
 ---
 
+{articles.length > 0 && (
 <section id="blog" class="section notes" data-floor={t.notes.floor} aria-labelledby="notes-title">
   <div class="wrap">
     <div class="section-head section-head--split">
@@ -26,8 +27,8 @@ const fmt = (d: Date) => d.toLocaleDateString(t.locale, { day: "numeric", month:
     <ul class="notes__grid" data-stagger>
       {articles.map((a) => (
         <li>
-          <a href={blog(`/articles/${a.slug.replace(/^en\//, "")}/`)} class="note" lang="en">
-            <div class="note__img">
+          <a href={articlePath(lang, a.slug)} class="note">
+            <div class="note__img" data-reveal="wipe">
               {a.data.image && <img src={a.data.image} alt="" loading="lazy" />}
             </div>
             <p class="mono note__date"><time datetime={a.data.pubDate.toISOString()}>{fmt(a.data.pubDate)}</time></p>
@@ -39,6 +40,7 @@ const fmt = (d: Date) => d.toLocaleDateString(t.locale, { day: "numeric", month:
     </ul>
   </div>
 </section>
+)}
 
 <style>
   .notes { background: var(--birch); }

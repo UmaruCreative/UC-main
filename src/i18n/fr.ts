@@ -22,7 +22,7 @@ const fr: Dict = {
       description: "Des sites statiques sur mesure, rapides, sécurisés et entièrement à vous. Création de sites artisanale pour cafés, artisans, petites entreprises et marques indépendantes.",
     },
     content: {
-      title: "Contenu digital et vidéo courte pour petites entreprises | Umaru Creative",
+      title: "Contenu pour les réseaux sociaux et vidéo courte pour petites entreprises | Umaru Creative",
       description: "Vidéos courtes, visuels pour les réseaux sociaux, supports promotionnels et campagnes emailing, conçus pour ramener vos clients vers un site qui vous appartient.",
     },
     gbp: {
@@ -372,8 +372,13 @@ const fr: Dict = {
     floor: "Carnet de terrain · blog",
     eyebrow: "Blog",
     title: "Carnet de terrain <em>depuis la vigie.</em>",
-    lede: "Des réflexions pratiques sur la recherche, l’IA et le fait de posséder son coin de web. Les articles sont en anglais.",
+    lede: "Des réflexions pratiques sur la recherche, l’IA et le fait de posséder son coin de web.",
     all: "Tous les articles",
+    latest: "Dernier article",
+    read: "Lire l’article →",
+    back: "← Retour à tous les articles",
+    metaTitle: "Blog | Umaru Creative",
+    metaDescription: "Carnet de terrain sur la création de sites, la recherche, l’IA et le fait de posséder son coin de web.",
   },
 
   contact: {
@@ -442,17 +447,17 @@ const fr: Dict = {
   content: {
     room: "Pièce 02 · La fenêtre",
     heroTitle: "Du contenu qui <em>ramène les gens chez vous.</em>",
-    heroLede: "Vidéos courtes, visuels pour les réseaux, supports promotionnels et campagnes emailing qui racontent votre histoire sans bruit, dans le ton de votre site.",
+    heroLede: "Vidéos courtes, visuels pour les réseaux sociaux, supports promotionnels et campagnes emailing qui racontent votre histoire sans bruit, dans le ton de votre site.",
     featuresTitle: "Des histoires qui <em>arrêtent le pouce.</em>",
-    featuresLede: "Utilisez les plateformes pour ce qu’elles font de mieux : être vu. Puis renvoyez chaque publication vers le lieu qui vous appartient.",
+    featuresLede: "Utilisez les réseaux sociaux pour ce qu’ils font de mieux : vous rendre visible. Puis renvoyez chaque publication vers le lieu qui vous appartient.",
     features: [
-      { title: "Vidéo courte", body: "Des vidéos courtes et captivantes qui montrent vos produits, votre équipe et ce qui se passe derrière le comptoir.", items: ["Reels et Stories Instagram", "TikTok et YouTube Shorts", "Démonstrations produits", "Coulisses"] },
+      { title: "Vidéo courte", body: "Des vidéos courtes et captivantes pour les réseaux sociaux, qui montrent vos produits, votre équipe et ce qui se passe derrière le comptoir.", items: ["Reels et Stories Instagram", "TikTok et YouTube Shorts", "Démonstrations produits", "Coulisses"] },
       { title: "Contenu promotionnel", body: "Des supports accrocheurs qui mettent en avant votre offre et donnent envie d’agir.", items: ["Visuels pour les réseaux sociaux", "Vidéos promotionnelles", "Campagnes emailing et newsletters", "Annonces d’événements"] },
       { title: "Contenu explicatif", body: "Des contenus clairs et utiles qui répondent aux questions de vos clients et des assistants IA.", items: ["Vidéos tutoriels", "Explications de vos méthodes", "Contenus FAQ", "Publications pédagogiques"] },
     ],
     whyTitle: "Louez l’audience. <em>Possédez la maison.</em>",
     whyLede: "Les réseaux sociaux peuvent changer les règles du jour au lendemain. Un contenu pensé avec un vrai chez-soi en tête continue de fonctionner, quoi que fasse l’algorithme.",
-    why: ["Chaque contenu renvoie vers votre propre site", "Vous recevez les fichiers bruts à garder et réutiliser", "Les campagnes emailing constituent une liste de clients qui vous appartient", "Rédigé dans le ton et la structure de votre site"],
+    why: ["Chaque publication sur les réseaux sociaux renvoie vers votre propre site", "Vous recevez les fichiers bruts à garder et réutiliser", "Les campagnes emailing constituent une liste de clients qui vous appartient", "Rédigé dans le ton et la structure de votre site"],
     prices: [
       { name: "Court et percutant", price: "Dès 270 €", detail: "Moins de 30 secondes, montage de vos images. Tournage sur place dès 390 €. Idéal pour les publicités, reels ou teasers." },
       { name: "Histoire captivante", price: "Dès 450 €", detail: "De 30 à 60 secondes, montage de vos images. Tournage sur place dès 590 €. Idéal pour les publications Instagram et Facebook ou la présentation de produits." },

@@ -21,8 +21,8 @@ const en = {
       description: "Custom, static websites that are fast, secure and fully yours. Handcrafted web design for cafés, makers, small businesses and independent brands.",
     },
     content: {
-      title: "Digital Content and Short Video for Small Businesses | Umaru Creative",
-      description: "Short videos, social visuals, promotional materials and email campaigns for small businesses, made to lead people back to a website you own.",
+      title: "Social Media Content and Short Video for Small Businesses | Umaru Creative",
+      description: "Short videos, social media visuals, promotional materials and email campaigns for small businesses, made to lead people back to a website you own.",
     },
     gbp: {
       title: "Google Business Profile Optimisation | Umaru Creative",
@@ -373,6 +373,11 @@ const en = {
     title: "Field notes from <em>the lookout.</em>",
     lede: "Practical thinking on search, AI and owning your corner of the web.",
     all: "All articles",
+    latest: "Latest",
+    read: "Read the article →",
+    back: "← Back to all articles",
+    metaTitle: "Blog | Umaru Creative",
+    metaDescription: "Field notes on web design, search, AI and owning your corner of the web, from Umaru Creative.",
   },
 
   contact: {
@@ -441,17 +446,17 @@ const en = {
   content: {
     room: "Room 02 · The window",
     heroTitle: "Content that <em>leads people home.</em>",
-    heroLede: "Short videos, social visuals, promotional materials and email campaigns that tell your story without noise, made to match your site’s voice.",
+    heroLede: "Short videos, social media visuals, promotional materials and email campaigns that tell your story without noise, made to match your site’s voice.",
     featuresTitle: "Stories worth <em>stopping for.</em>",
-    featuresLede: "Use the platforms for what they’re good at: being seen. Then point every post back to the place you own.",
+    featuresLede: "Use social media for what it does best: getting you seen. Then point every post back to the place you own.",
     features: [
-      { title: "Short video", body: "Engaging short form videos that show your products, your people and what happens behind the counter.", items: ["Instagram Reels and Stories", "TikTok and YouTube Shorts", "Product demonstrations", "Behind the scenes"] },
+      { title: "Short video", body: "Engaging short form videos for social media that show your products, your people and what happens behind the counter.", items: ["Instagram Reels and Stories", "TikTok and YouTube Shorts", "Product demonstrations", "Behind the scenes"] },
       { title: "Promotional content", body: "Eye catching materials that highlight your offer and move people to act.", items: ["Social media graphics", "Promotional videos", "Email campaigns and newsletters", "Event announcements"] },
       { title: "Explanatory content", body: "Clear, helpful content that answers the questions your customers and AI assistants ask.", items: ["How to videos", "Process explanations", "FAQ content", "Educational posts"] },
     ],
     whyTitle: "Rent the reach. <em>Own the home.</em>",
     whyLede: "Social platforms can change the rules overnight. Content made with a home base in mind keeps working whatever the algorithm does next.",
-    why: ["Every piece links back to your own website", "Your raw files are delivered to you to keep and reuse", "Email campaigns build a customer list that belongs to you", "Written to match your website’s voice and structure"],
+    why: ["Every social media post links back to your own website", "Your raw files are delivered to you to keep and reuse", "Email campaigns build a customer list that belongs to you", "Written to match your website’s voice and structure"],
     prices: [
       { name: "Short and snappy", price: "From €270", detail: "Less than 30 seconds, editing footage you provide. Filmed on location from €390. Perfect for ads, reels or teasers." },
       { name: "Engaging story", price: "From €450", detail: "30 to 60 seconds, editing footage you provide. Filmed on location from €590. Perfect for Instagram and Facebook posts or product showcases." },

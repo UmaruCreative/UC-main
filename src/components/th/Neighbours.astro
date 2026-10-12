@@ -93,14 +93,14 @@ const words = t.neighbours.words;
     padding: 26px 22px 24px;
     border-radius: 14px;
     background:
-      repeating-linear-gradient(0deg, rgba(55, 38, 26, 0.05) 0 1px, transparent 1px 16px),
-      linear-gradient(180deg, #e7c9a0, #d8b384);
+      repeating-linear-gradient(0deg, color-mix(in srgb, var(--bark-dark) 5%, transparent) 0 1px, transparent 1px 16px),
+      linear-gradient(180deg, var(--sign-1), var(--sign-2));
     color: var(--bark-dark);
     transform-origin: 50% -18px;
     transition: transform 0.9s var(--ease-out), box-shadow 0.6s;
-    box-shadow: 0 16px 30px -22px rgba(55, 38, 26, 0.7);
+    box-shadow: 0 16px 30px -22px color-mix(in srgb, var(--bark-dark) 70%, transparent);
   }
-  .sign:hover .sign__board { animation: swing 1.6s var(--ease-out); box-shadow: 0 26px 40px -24px rgba(55, 38, 26, 0.8); }
+  .sign:hover .sign__board { animation: swing 1.6s var(--ease-out); box-shadow: 0 26px 40px -24px color-mix(in srgb, var(--bark-dark) 80%, transparent); }
   @keyframes swing {
     20% { transform: rotate(3.5deg); }
     45% { transform: rotate(-2.4deg); }
@@ -118,5 +118,5 @@ const words = t.neighbours.words;
     margin-bottom: 18px;
   }
   .sign h3 { font-size: 21px; margin-bottom: 10px; }
-  .sign p { font-size: 14.5px; line-height: 1.5; color: #5d4634; }
+  .sign p { font-size: 14.5px; line-height: 1.5; color: var(--sign-ink); }
 </style>

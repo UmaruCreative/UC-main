@@ -28,7 +28,7 @@ const owned = t.rent.owned;
       </div>
       <p class="rent__note" data-reveal>
         {t.rent.note}
-        <a class="link-arrow" href={blog("/articles/2025-instagram-ban-wave/")}>{t.rent.read}</a>
+        <a class="link-arrow" href="/articles/2025-instagram-ban-wave/">{t.rent.read}</a>
       </p>
     </div>
 
@@ -42,7 +42,7 @@ const owned = t.rent.owned;
           <line x1="124" y1="0" x2="124" y2="-20" stroke="#a9aca4" stroke-width="3" />
           {windows.map((w) =>
             w.i === yours ? (
-              <rect x={w.x} y={w.y} width="20" height="22" rx="2" fill="#f3a738" data-your-window />
+              <rect x={w.x} y={w.y} width="20" height="22" rx="2" style="fill: var(--lantern)" data-your-window />
             ) : (
               <rect x={w.x} y={w.y} width="20" height="22" rx="2" fill="#e9eae4" data-tower-window />
             )
@@ -63,7 +63,7 @@ const owned = t.rent.owned;
       <figcaption class="mono">{t.rent.ownCaption}</figcaption>
       <div class="rent__house">
         <svg viewBox="0 0 220 180" aria-hidden="true">
-          <circle cx="110" cy="92" r="90" fill="#f3a738" opacity="0.25" data-house-glow />
+          <circle cx="110" cy="92" r="90" style="fill: var(--glow)" opacity="0.25" data-house-glow />
           <rect x="102" y="96" width="16" height="84" fill="#5a3e2b" />
           <rect x="44" y="94" width="132" height="8" rx="2" fill="#6b4a31" />
           <rect x="62" y="44" width="96" height="50" fill="#a0714b" />
@@ -107,7 +107,7 @@ const owned = t.rent.owned;
   .rent__meter { margin-bottom: 28px; max-width: 340px; }
   .rent__meter > .mono { color: var(--muted); font-size: 11px; }
   .rent__meter-track { height: 6px; border-radius: 6px; background: var(--paper-2); margin: 10px 0 8px; overflow: hidden; }
-  .rent__meter-track span { display: block; height: 100%; background: linear-gradient(90deg, var(--ember), var(--lantern), var(--fern)); transform-origin: 0 50%; }
+  .rent__meter-track span { display: block; height: 100%; background: linear-gradient(90deg, var(--ember), var(--lantern), var(--glow)); transform-origin: 0 50%; }
   .rent__meter-ends { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); }
   .rent__note { color: var(--ink-soft); font-size: 15px; display: grid; gap: 6px; justify-items: start; }
   .rent__note a { color: var(--moss); }
@@ -141,7 +141,7 @@ const owned = t.rent.owned;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     line-height: 1.25;
-    box-shadow: 0 12px 30px -18px rgba(212, 98, 46, 0.7);
+    box-shadow: 0 12px 30px -18px color-mix(in srgb, var(--ember) 70%, transparent);
     display: grid;
     white-space: nowrap;
   }

@@ -38,18 +38,23 @@ export function useI18n(url: URL) {
     l,
     /** Absolute address of a page in the current language, for canonical tags and structured data */
     abs: (path: string) => `${SITE}${l(path)}`,
-    /** Blog articles only exist in English for now */
-    blog: (path = "/articles/") => path,
+    /** Blog paths in the current language: /articles/ (English) or /fi/articles/ … */
+    blog: (path = "/articles/") => l(path),
   };
 }
 
-/** The same page in another language. Articles fall back to that language's homepage. */
+/** The same page in another language. An article without a translation falls back to that language's blog. */
 export function switchPath(url: URL, target: Lang) {
   const parts = url.pathname.split("/").filter(Boolean);
   if (parts.length && langs.includes(parts[0] as Lang)) parts.shift();
   const rest = parts.length ? `${parts.join("/")}/` : "";
-  if (rest.startsWith("articles")) return target === "en" ? url.pathname : `${prefix(target)}/`;
+  if (rest.startsWith("articles/") && rest !== "articles/") return `${prefix(target)}/articles/`;
   return `${prefix(target)}/${rest}`;
+}
+
+/** Address of a blog article: content/articles/fi/foo.md → /fi/articles/foo/ (a front-matter slug wins) */
+export function articlePath(lang: Lang, slug: string) {
+  return `${prefix(lang)}/articles/${slug.replace(/^(en|fi|sv|fr|no)\//, "")}/`;
 }
 
 /** Paths for the [...lang] routes: undefined gives the unprefixed English page */

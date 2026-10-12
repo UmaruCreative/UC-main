@@ -3,32 +3,34 @@ import "../styles/treehouse.css";
 import Header from "../components/th/Header.astro";
 import Footer from "../components/th/Footer.astro";
 import LadderRail from "../components/th/LadderRail.astro";
-import { useI18n, switchPath, langs } from "../i18n";
+import { useI18n, switchPath, langs, type Lang } from "../i18n";
 
 interface Props {
   title: string;
   description?: string;
   canonical?: string;
   rail?: boolean;
+  /** Translations of this page, when they differ from the usual same-path rule (articles) */
+  alternates?: Partial<Record<Lang, string>>;
 }
 
 const { lang, t } = useI18n(Astro.url);
-const { title, description = t.meta.home.description, canonical, rail = false } = Astro.props;
+const { title, description = t.meta.home.description, canonical, rail = false, alternates: given } = Astro.props;
 
 const htmlLang = lang === "no" ? "nb" : lang;
 const ogLocale = { en: "en_GB", fi: "fi_FI", sv: "sv_SE", fr: "fr_FR", no: "nb_NO" }[lang];
 const site = "https://umaru-creative.com";
-// Articles exist in English only, so they don't advertise translations
-const isArticle = Astro.url.pathname.includes("/articles/");
-const alternates = isArticle ? [] : langs.map((code) => ({ code, href: site + switchPath(Astro.url, code) }));
+const alternates = given
+  ? langs.filter((code) => given[code]).map((code) => ({ code, href: site + given[code] }))
+  : langs.map((code) => ({ code, href: site + switchPath(Astro.url, code) }));
 ---
 
 <!doctype html>
-<html lang={htmlLang} class="th">
+<html lang={htmlLang} class="th" data-palette="dango-cyan-logo">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f3eee2" />
+    <meta name="theme-color" content="#eef2f4" />
     <link rel="icon" type="image/png" href="/Umaru-Creative-Dango-blue.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
@@ -51,7 +53,7 @@ const alternates = isArticle ? [] : langs.map((code) => ({ code, href: site + sw
     <meta name="twitter:description" content={description} />
 
     {alternates.map((a) => <link rel="alternate" hreflang={a.code} href={a.href} />)}
-    {alternates.length > 0 && <link rel="alternate" hreflang="x-default" href={alternates[0].href} />}
+    {alternates.length > 1 && alternates[0].code === "en" && <link rel="alternate" hreflang="x-default" href={alternates[0].href} />}
 
     <!-- Motion is opt in: without JS, or with reduced motion, everything renders in its final state -->
     <script is:inline>
@@ -64,8 +66,8 @@ const alternates = isArticle ? [] : langs.map((code) => ({ code, href: site + sw
   </head>
   <body class="th-body">
     <a class="skip-link" href="#main">{t.common.skip}</a>
-    <Header />
-    {rail && <LadderRail />}
+    <Header alternates={given} />
+    {rail ? <LadderRail /> : <div class="scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>}
     <main id="main">
       <slot />
     </main>

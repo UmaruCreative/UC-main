@@ -84,7 +84,7 @@ const { t } = useI18n(Astro.url);
     transition: opacity 0.4s, background 0.4s, transform 0.4s var(--ease-out);
   }
   .rail__rungs :global(button:hover)::before { opacity: 0.8; transform: scaleX(1.25); }
-  .rail__rungs :global(li.is-active button)::before { background: var(--lantern); opacity: 1; }
+  .rail__rungs :global(li.is-active button)::before { background: var(--glow); opacity: 1; box-shadow: 0 0 10px var(--glow); }
   .rail__rungs :global(.rail__tip) {
     position: absolute;
     right: 40px;
@@ -125,7 +125,7 @@ const { t } = useI18n(Astro.url);
     height: 64px;
     margin: -32px 0 0 -32px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(243, 167, 56, 0.55), rgba(243, 167, 56, 0) 65%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--lamp-deep) 55%, transparent), color-mix(in srgb, var(--lamp-deep) 0%, transparent) 65%);
     animation: flicker 3.2s infinite ease-in-out;
   }
   @keyframes flicker {

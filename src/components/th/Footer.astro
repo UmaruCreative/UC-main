@@ -11,7 +11,7 @@ const linkedInUrl = "https://www.linkedin.com/";
 
 <footer class="th-footer" data-night data-floor={t.footer.floor} data-altitude="0">
   <svg class="th-footer__roots" viewBox="0 0 1440 260" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
-    <g fill="none" stroke="#5a3e2b" stroke-linecap="round" data-roots>
+    <g fill="none" stroke="#5a3e2b" stroke-linecap="round" data-roots data-draw>
       <path d="M720 0 C 716 60, 690 90, 640 120 S 520 170, 430 230" stroke-width="7" />
       <path d="M720 0 C 726 70, 760 100, 820 130 S 960 170, 1060 240" stroke-width="7" />
       <path d="M720 0 C 720 80, 716 140, 724 260" stroke-width="6" />
@@ -24,7 +24,7 @@ const linkedInUrl = "https://www.linkedin.com/";
       <path d="M290 150 C 240 160, 190 190, 130 200" stroke-width="1.6" />
       <path d="M1210 150 C 1260 170, 1300 190, 1360 196" stroke-width="1.6" />
     </g>
-    <g fill="#f3a738" data-root-lights>
+    <g style="fill: var(--lantern)" data-root-lights>
       <circle cx="430" cy="230" r="3" /><circle cx="1060" cy="240" r="3" /><circle cx="724" cy="258" r="3" />
       <circle cx="290" cy="150" r="2.4" /><circle cx="1210" cy="150" r="2.4" /><circle cx="130" cy="200" r="2" /><circle cx="1360" cy="196" r="2" />
     </g>
@@ -98,7 +98,7 @@ const linkedInUrl = "https://www.linkedin.com/";
     gap: 28px;
     justify-items: start;
     padding: clamp(40px, 6vw, 80px) 0 clamp(56px, 8vw, 110px);
-    border-bottom: 1px solid rgba(233, 228, 214, 0.1);
+    border-bottom: 1px solid color-mix(in srgb, var(--night-ink) 10%, transparent);
   }
   .th-footer__big .mono { color: var(--lantern); margin: 0; }
   .th-footer__big .h2 { font-size: clamp(52px, 10vw, 150px); line-height: 0.92; }
@@ -133,7 +133,7 @@ const linkedInUrl = "https://www.linkedin.com/";
     justify-content: space-between;
     gap: 12px 24px;
     padding-top: 24px;
-    border-top: 1px solid rgba(233, 228, 214, 0.1);
+    border-top: 1px solid color-mix(in srgb, var(--night-ink) 10%, transparent);
     font-size: 14px;
     color: var(--night-muted);
   }

@@ -144,9 +144,9 @@ const rooms = meta.map((m, i) => ({ ...m, ...t.rooms.items[i] }));
   .rooms__sticky svg { width: 100%; max-height: 560px; display: block; overflow: visible; }
   .rooms__caption { color: var(--muted); font-size: 11px; text-align: center; margin-top: 14px; }
 
-  .zone .lamp { fill: #5f574a; transition: fill 0.6s var(--ease-out); }
+  .zone .lamp { fill: var(--c-lamp-off); transition: fill 0.6s var(--ease-out); }
   .zone .halo { opacity: 0; transition: opacity 0.8s var(--ease-out); }
-  .zone .zone-play { fill: #37261a; opacity: 0; transition: opacity 0.6s; }
+  .zone .zone-play { fill: var(--bark-dark); opacity: 0; transition: opacity 0.6s; }
   .zone .zone-label {
     font: 500 13px var(--font-mono);
     letter-spacing: 0.08em;
@@ -156,7 +156,7 @@ const rooms = meta.map((m, i) => ({ ...m, ...t.rooms.items[i] }));
     transition: opacity 0.5s, transform 0.6s var(--ease-out);
     transform: translateX(-6px);
   }
-  .zone.is-lit .lamp { fill: #f7c56b; }
+  .zone.is-lit .lamp { fill: var(--lamp); }
   .zone.is-lit .halo { opacity: 1; }
   .zone.is-lit .zone-play { opacity: 0.9; }
   .zone.is-lit .zone-label { opacity: 1; transform: none; }
@@ -170,8 +170,8 @@ const rooms = meta.map((m, i) => ({ ...m, ...t.rooms.items[i] }));
   }
   .room.is-active {
     border-color: color-mix(in srgb, var(--lantern) 70%, transparent);
-    box-shadow: 0 30px 70px -40px rgba(212, 98, 46, 0.55);
-    background: #fffdf7;
+    box-shadow: 0 30px 70px -40px color-mix(in srgb, var(--ember) 55%, transparent);
+    background: var(--card-lit);
   }
   .room__meta { display: flex; align-items: center; gap: 14px; color: var(--fern); font-size: 11px; margin-bottom: 18px; }
   .room__meta span:first-child { color: var(--lantern); }

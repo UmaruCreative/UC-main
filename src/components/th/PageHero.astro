@@ -1,6 +1,7 @@
 ---
 interface Props {
   eyebrow: string;
+  eyebrowIcon?: string;
   title: string;
   lede?: string;
   crumbs?: { label: string; href?: string }[];
@@ -8,13 +9,22 @@ interface Props {
   secondary?: { label: string; href: string };
   tone?: "day" | "dusk";
 }
-const { eyebrow, title, lede, crumbs = [], primary, secondary, tone = "day" } = Astro.props;
+const { eyebrow, eyebrowIcon, title, lede, crumbs = [], primary, secondary, tone = "day" } = Astro.props;
 import { useI18n } from "../../i18n";
 const breadcrumbLabel = useI18n(Astro.url).t.common.breadcrumb;
 
 let seed = 11;
 const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
 const back = Array.from({ length: 34 }, (_, i) => ({ x: i * 44 - 30 + rand() * 20, s: 0.28 + rand() * 0.18 }));
+// A few slow falling leaves: position, size, duration and delay vary per leaf
+const leaves = Array.from({ length: 7 }, (_, i) => ({
+  left: 8 + rand() * 84,
+  size: 10 + rand() * 10,
+  dur: 16 + rand() * 12,
+  delay: -rand() * 24,
+  sway: 30 + rand() * 50,
+  tone: ["var(--fern)", "var(--lichen)", "var(--moss)", "var(--plank)"][i % 4],
+}));
 const front = Array.from({ length: 16 }, (_, i) => ({ x: i * 96 - 40 + rand() * 40, s: 0.42 + rand() * 0.26 }));
 ---
 
@@ -29,7 +39,7 @@ const front = Array.from({ length: 16 }, (_, i) => ({ x: i * 96 - 40 + rand() * 
         </ol>
       </nav>
     )}
-    <p class="eyebrow">{eyebrow}</p>
+    <p class="eyebrow">{eyebrowIcon && <span class="emoji emoji--eyebrow" aria-hidden="true">{eyebrowIcon}</span>}{eyebrow}</p>
     <h1 class="display phero__title" data-split set:html={title} />
     {lede && <p class="lede" data-reveal>{lede}</p>}
     {(primary || secondary) && (
@@ -38,6 +48,17 @@ const front = Array.from({ length: 16 }, (_, i) => ({ x: i * 96 - 40 + rand() * 
         {secondary && <a href={secondary.href} class="btn btn--ghost" data-magnetic>{secondary.label}</a>}
       </div>
     )}
+  </div>
+
+  <div class="phero__leaves" aria-hidden="true">
+    {leaves.map((leaf) => (
+      <span
+        class="phero__leaf"
+        style={`left:${leaf.left}%;--size:${leaf.size}px;--dur:${leaf.dur}s;--delay:${leaf.delay}s;--sway:${leaf.sway}px;color:${leaf.tone}`}
+      >
+        <svg viewBox="0 0 20 20"><path d="M10 1 C 15 5, 16 12, 10 19 C 4 12, 5 5, 10 1 Z M10 3 V 18" fill="currentColor" stroke="rgba(0,0,0,0.12)" stroke-width="0.8" /></svg>
+      </span>
+    ))}
   </div>
 
   <div class="phero__forest" aria-hidden="true">
@@ -65,13 +86,13 @@ const front = Array.from({ length: 16 }, (_, i) => ({ x: i * 96 - 40 + rand() * 
     position: relative;
     overflow: hidden;
     padding: calc(var(--header-h) + clamp(56px, 10vw, 120px)) 0 clamp(170px, 20vw, 260px);
-    background: linear-gradient(180deg, #e8ecdf 0%, var(--paper) 70%);
+    background: linear-gradient(180deg, var(--sky-1) 0%, var(--paper) 70%);
   }
-  .phero--dusk { background: linear-gradient(180deg, #16231e 0%, #22342c 100%); color: var(--night-ink); }
+  .phero--dusk { background: linear-gradient(180deg, var(--night-2) 0%, var(--dusk) 100%); color: var(--night-ink); }
   .phero--dusk .lede { color: var(--night-muted); }
   .phero--dusk .eyebrow { color: var(--lantern); }
   .phero--dusk .display em { color: var(--lantern); }
-  .phero--dusk .btn { --btn-bg: var(--lantern); --btn-fg: var(--night); }
+  .phero--dusk .btn { --btn-bg: var(--lantern); --btn-fg: var(--lantern-ink); }
   .phero--dusk .btn--ghost { --btn-bg: transparent; --btn-fg: var(--night-ink); }
 
   .phero__copy { position: relative; z-index: 1; }
@@ -84,10 +105,31 @@ const front = Array.from({ length: 16 }, (_, i) => ({ x: i * 96 - 40 + rand() * 
   .phero .lede { max-width: 48ch; margin-bottom: 34px; }
   .phero__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
 
+  .phero__leaves { position: absolute; inset: 0; overflow: hidden; pointer-events: none; display: none; }
+  :global(.motion) .phero__leaves { display: block; }
+  .phero__leaf {
+    position: absolute;
+    top: -40px;
+    width: var(--size);
+    height: var(--size);
+    opacity: 0.55;
+    animation: leaf-fall var(--dur) linear var(--delay) infinite;
+  }
+  .phero__leaf svg { display: block; width: 100%; height: 100%; animation: leaf-sway calc(var(--dur) / 4) ease-in-out var(--delay) infinite alternate; }
+  @keyframes leaf-fall {
+    0% { transform: translate3d(0, 0, 0); opacity: 0; }
+    8% { opacity: 0.55; }
+    85% { opacity: 0.5; }
+    100% { transform: translate3d(var(--sway), 110vh, 0); opacity: 0; }
+  }
+  @keyframes leaf-sway {
+    from { transform: rotate(-35deg) translateX(-14px); }
+    to { transform: rotate(40deg) translateX(14px); }
+  }
   .phero__forest { position: absolute; left: 0; right: 0; bottom: 0; height: clamp(150px, 18vw, 240px); pointer-events: none; }
   .phero__forest svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .phero__back { fill: #a9b8a0; }
-  .phero__front { fill: #4b6840; }
-  .phero--dusk .phero__back { fill: #2b4136; }
-  .phero--dusk .phero__front { fill: #0d1613; }
+  .phero__back { fill: var(--c-forest-300); }
+  .phero__front { fill: var(--c-forest-800); }
+  .phero--dusk .phero__back { fill: var(--c-dusk-pine); }
+  .phero--dusk .phero__front { fill: var(--night); }
 </style>

@@ -20,10 +20,14 @@ const oldEnglishPages = {
 
 // Each English article moved from /en/articles/en/<name>/ to /articles/<name>/.
 // Articles with their own `slug:` in the front matter used to live at /en/articles/<slug>/.
+// Only articles published before the move (28 Sep 2026) ever had an old address.
 const articlesDir = new URL('./src/content/articles/en/', import.meta.url);
 for (const file of readdirSync(articlesDir)) {
   if (!/\.mdx?$/.test(file)) continue;
-  const custom = readFileSync(new URL(file, articlesDir), 'utf8').match(/^slug:\s*["']?([^"'\n]+?)["']?\s*$/m);
+  const source = readFileSync(new URL(file, articlesDir), 'utf8');
+  const published = source.match(/^pubDate:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1] ?? '2000-01-01';
+  if (published >= '2026-09-28') continue;
+  const custom = source.match(/^slug:\s*["']?([^"'\n]+?)["']?\s*$/m);
   const name = custom ? custom[1] : slug(file.replace(/\.mdx?$/, ''));
   const from = custom ? `/en/articles/${name}` : `/en/articles/en/${name}`;
   oldEnglishPages[from] = `/articles/${name}/`;

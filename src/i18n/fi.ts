@@ -22,8 +22,8 @@ const fi: Dict = {
       description: "Räätälöidyt, staattiset verkkosivut, jotka ovat nopeat, turvalliset ja kokonaan sinun. Käsin tehtyä verkkosuunnittelua kahviloille, tekijöille ja pienyrityksille.",
     },
     content: {
-      title: "Digisisällöt ja lyhytvideot pienyrityksille | Umaru Creative",
-      description: "Lyhytvideot, somekuvat, markkinointimateriaalit ja sähköpostikampanjat pienyrityksille, jotka ohjaavat ihmiset takaisin omille sivuillesi.",
+      title: "Sosiaalisen median sisällöt ja lyhytvideot pienyrityksille | Umaru Creative",
+      description: "Lyhytvideot, sosiaalisen median kuvat, markkinointimateriaalit ja sähköpostikampanjat pienyrityksille, jotka ohjaavat ihmiset takaisin omille sivuillesi.",
     },
     gbp: {
       title: "Google Yritysprofiilin optimointi | Umaru Creative",
@@ -372,8 +372,13 @@ const fi: Dict = {
     floor: "Kenttämuistiinpanot · blogi",
     eyebrow: "Blogi",
     title: "Kenttämuistiinpanoja <em>näköalapaikalta.</em>",
-    lede: "Käytännön ajatuksia hausta, tekoälystä ja oman kolkan omistamisesta verkossa. Artikkelit ovat englanniksi.",
+    lede: "Käytännön ajatuksia hausta, tekoälystä ja oman kolkan omistamisesta verkossa.",
     all: "Kaikki artikkelit",
+    latest: "Uusin",
+    read: "Lue artikkeli →",
+    back: "← Takaisin kaikkiin artikkeleihin",
+    metaTitle: "Blogi | Umaru Creative",
+    metaDescription: "Kenttämuistiinpanoja verkkosuunnittelusta, hausta, tekoälystä ja oman kolkan omistamisesta verkossa.",
   },
 
   contact: {
@@ -442,17 +447,17 @@ const fi: Dict = {
   content: {
     room: "Huone 02 · Ikkuna",
     heroTitle: "Sisältöä, joka <em>ohjaa ihmiset kotiin.</em>",
-    heroLede: "Lyhytvideot, somekuvat, markkinointimateriaalit ja sähköpostikampanjat, jotka kertovat tarinasi ilman melua, sivustosi äänellä.",
+    heroLede: "Lyhytvideot, sosiaalisen median kuvat, markkinointimateriaalit ja sähköpostikampanjat, jotka kertovat tarinasi ilman melua, sivustosi äänellä.",
     featuresTitle: "Tarinoita, joiden äärelle <em>pysähtyy.</em>",
-    featuresLede: "Käytä alustoja siihen, missä ne ovat hyviä: näkymiseen. Ohjaa sitten jokainen julkaisu takaisin paikkaan, jonka omistat.",
+    featuresLede: "Käytä sosiaalista mediaa siihen, missä se on parhaimmillaan: näkymiseen. Ohjaa sitten jokainen julkaisu takaisin paikkaan, jonka omistat.",
     features: [
-      { title: "Lyhytvideo", body: "Mukaansatempaavat lyhytvideot, jotka esittelevät tuotteesi, ihmisesi ja sen, mitä tiskin takana tapahtuu.", items: ["Instagram Reels ja Stories", "TikTok ja YouTube Shorts", "Tuote-esittelyt", "Kulissien takaa"] },
+      { title: "Lyhytvideo", body: "Mukaansatempaavat lyhytvideot sosiaaliseen mediaan: tuotteesi, ihmisesi ja se, mitä tiskin takana tapahtuu.", items: ["Instagram Reels ja Stories", "TikTok ja YouTube Shorts", "Tuote-esittelyt", "Kulissien takaa"] },
       { title: "Markkinointisisällöt", body: "Huomiota herättäviä materiaaleja, jotka nostavat tarjouksesi esiin ja saavat ihmiset toimimaan.", items: ["Somegrafiikat", "Mainosvideot", "Sähköpostikampanjat ja uutiskirjeet", "Tapahtumailmoitukset"] },
       { title: "Selittävät sisällöt", body: "Selkeää ja hyödyllistä sisältöä, joka vastaa asiakkaidesi ja tekoälyavustajien kysymyksiin.", items: ["Opastusvideot", "Prosessien esittelyt", "UKK-sisällöt", "Opettavat julkaisut"] },
     ],
     whyTitle: "Vuokraa näkyvyys. <em>Omista koti.</em>",
     whyLede: "Somealustat voivat muuttaa sääntöjä yhdessä yössä. Sisältö, joka on tehty oma koti mielessä, toimii, teki algoritmi mitä tahansa.",
-    why: ["Jokainen sisältö linkittää omille sivuillesi", "Saat raakatiedostot pidettäväksi ja uudelleenkäytettäväksi", "Sähköpostikampanjat kasvattavat omaa asiakasrekisteriäsi", "Kirjoitettu sivustosi äänellä ja rakenteella"],
+    why: ["Jokainen sosiaalisen median julkaisu linkittää omille sivuillesi", "Saat raakatiedostot pidettäväksi ja uudelleenkäytettäväksi", "Sähköpostikampanjat kasvattavat omaa asiakasrekisteriäsi", "Kirjoitettu sivustosi äänellä ja rakenteella"],
     prices: [
       { name: "Lyhyt ja napakka", price: "Alk. 270 €", detail: "Alle 30 sekuntia, editointi toimittamastasi materiaalista. Paikan päällä kuvattuna alk. 390 €. Sopii mainoksiin, reelseihin ja teasereihin." },
       { name: "Koukuttava tarina", price: "Alk. 450 €", detail: "30 sekunnista minuuttiin, editointi toimittamastasi materiaalista. Paikan päällä kuvattuna alk. 590 €. Sopii Instagram- ja Facebook-julkaisuihin tai tuote-esittelyihin." },

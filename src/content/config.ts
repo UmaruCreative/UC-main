@@ -11,6 +11,8 @@ const articles = defineCollection({
     tags: z.array(z.string()).optional(),
     lang: z.enum(['en', 'fi', 'sv', 'fr', 'no']),
     translations: z.record(z.string()).optional(),
+    // Drafts stay in the project but are never published
+    draft: z.boolean().optional(),
   }),
 });
 

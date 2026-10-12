@@ -24,6 +24,7 @@ export function initMotion() {
   if (motion) initSmoothScroll();
   initAnchors();
   initRail();
+  initScrollProgress();
 
   if (!motion) return;
 
@@ -42,6 +43,8 @@ export function initMotion() {
   initLanternField();
   initBuild();
   initMarquee();
+  initEyebrows();
+  initSpotlight();
 
   // Fonts shift line heights; recalculate once they land
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
@@ -201,7 +204,15 @@ function initSplit() {
    -------------------------------------------------------------------------- */
 
 function initReveals() {
-  $$("[data-reveal]").forEach((el) => {
+  // Images unveil from the bottom like a sliding screen, settling from a slight zoom
+  $$("[data-reveal='wipe']").forEach((el) => {
+    const img = el.querySelector("img");
+    const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: "top 88%", once: true } });
+    tl.fromTo(el, { clipPath: "inset(100% 0% 0% 0% round 22px)" }, { clipPath: "inset(0% 0% 0% 0% round 22px)", duration: 1.5, ease: "expo.inOut" });
+    if (img) tl.from(img, { scale: 1.18, duration: 2, ease: "expo.out" }, 0.1);
+  });
+
+  $$("[data-reveal]:not([data-reveal='wipe'])").forEach((el) => {
     const delay = parseFloat(el.dataset.delay ?? "0");
     gsap.to(el, {
       opacity: 1,
@@ -712,4 +723,53 @@ function initMarquee() {
       },
     });
   });
+}
+
+/* --------------------------------------------------------------------------
+   Eyebrows: the little rule draws in and the letters settle
+   -------------------------------------------------------------------------- */
+
+function initEyebrows() {
+  ScrollTrigger.batch(":is(.display, .h2, .phero__title) em", {
+    start: "top 88%",
+    once: true,
+    onEnter: (els) => els.forEach((el) => el.classList.add("is-in")),
+  });
+
+  ScrollTrigger.batch(".eyebrow", {
+    start: "top 92%",
+    once: true,
+    onEnter: (els) => els.forEach((el, i) => setTimeout(() => el.classList.add("is-in"), i * 80)),
+  });
+}
+
+/* --------------------------------------------------------------------------
+   Cards: soft light follows the pointer
+   -------------------------------------------------------------------------- */
+
+function initSpotlight() {
+  if (!canHover()) return;
+  $$("[data-spotlight]").forEach((el) => {
+    el.addEventListener("pointermove", (e) => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      el.style.setProperty("--my", `${e.clientY - r.top}px`);
+    });
+  });
+}
+
+/* --------------------------------------------------------------------------
+   Thin progress line on inner pages
+   -------------------------------------------------------------------------- */
+
+function initScrollProgress() {
+  const bar = document.querySelector<HTMLElement>("[data-scroll-progress]");
+  if (!bar) return;
+  const update = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
+  };
+  addEventListener("scroll", update, { passive: true });
+  addEventListener("resize", update);
+  update();
 }

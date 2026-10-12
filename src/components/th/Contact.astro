@@ -64,13 +64,13 @@ const services = keys.map((value, i) => ({ value, label: c.services[i] }));
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background: radial-gradient(circle 460px at calc(var(--lx) * 1px) calc(var(--ly) * 1px), rgba(243, 167, 56, 0.14), transparent 70%);
+    background: radial-gradient(circle 460px at calc(var(--lx) * 1px) calc(var(--ly) * 1px), color-mix(in srgb, var(--lantern) 14%, transparent), transparent 70%);
   }
   .contact__grid { display: grid; gap: 56px; }
   @media (min-width: 960px) { .contact__grid { grid-template-columns: 0.95fr 1.05fr; gap: 96px; } }
   .contact__intro .h2 { margin-bottom: 26px; }
   .contact__facts { list-style: none; margin: 40px 0 0; padding: 0; display: grid; gap: 18px; }
-  .contact__facts li { display: grid; gap: 4px; padding-top: 16px; border-top: 1px solid rgba(233, 228, 214, 0.12); color: var(--night-ink); }
+  .contact__facts li { display: grid; gap: 4px; padding-top: 16px; border-top: 1px solid color-mix(in srgb, var(--night-ink) 12%, transparent); color: var(--night-ink); }
   .contact__facts .mono { color: var(--night-muted); font-size: 11px; }
   .contact__facts a { text-decoration: none; color: var(--lantern); }
 
@@ -80,7 +80,7 @@ const services = keys.map((value, i) => ({ value, label: c.services[i] }));
     padding: clamp(24px, 3.5vw, 44px);
     border-radius: var(--radius);
     background: var(--night-2);
-    border: 1px solid rgba(233, 228, 214, 0.08);
+    border: 1px solid color-mix(in srgb, var(--night-ink) 8%, transparent);
   }
   .field { display: grid; gap: 8px; border: 0; margin: 0; padding: 0; min-width: 0; }
   .field label,
@@ -91,17 +91,17 @@ const services = keys.map((value, i) => ({ value, label: c.services[i] }));
     box-sizing: border-box;
     padding: 14px 16px;
     border-radius: 12px;
-    border: 1px solid rgba(233, 228, 214, 0.14);
-    background: rgba(13, 22, 19, 0.6);
+    border: 1px solid color-mix(in srgb, var(--night-ink) 14%, transparent);
+    background: color-mix(in srgb, var(--night) 60%, transparent);
     color: var(--night-ink);
     font: 400 16px var(--font-body);
     transition: border-color 0.3s, box-shadow 0.3s;
   }
   .field textarea { resize: vertical; min-height: 130px; }
   .field input:focus,
-  .field textarea:focus { outline: none; border-color: var(--lantern); box-shadow: 0 0 0 4px rgba(243, 167, 56, 0.15); }
+  .field textarea:focus { outline: none; border-color: var(--lantern); box-shadow: 0 0 0 4px color-mix(in srgb, var(--lantern) 15%, transparent); }
   .field [aria-invalid="true"] { border-color: var(--ember); }
-  .field textarea::placeholder { color: rgba(154, 167, 157, 0.7); }
+  .field textarea::placeholder { color: color-mix(in srgb, var(--night-muted) 70%, transparent); }
 
   .chips { display: flex; flex-wrap: wrap; gap: 8px; }
   .pick { position: relative; cursor: pointer; }
@@ -110,13 +110,13 @@ const services = keys.map((value, i) => ({ value, label: c.services[i] }));
     display: inline-block;
     padding: 9px 14px;
     border-radius: 999px;
-    border: 1px solid rgba(233, 228, 214, 0.18);
+    border: 1px solid color-mix(in srgb, var(--night-ink) 18%, transparent);
     font-size: 14px;
     color: var(--night-ink);
     transition: background 0.3s, color 0.3s, border-color 0.3s;
   }
   .pick:hover span { border-color: var(--lantern); }
-  .pick input:checked + span { background: var(--lantern); border-color: var(--lantern); color: var(--night); }
+  .pick input:checked + span { background: var(--lantern); border-color: var(--lantern); color: var(--lantern-ink); }
   .pick input:focus-visible + span { outline: 2px solid var(--lantern); outline-offset: 3px; }
 
   .contact__submit { display: grid; gap: 14px; justify-items: start; }

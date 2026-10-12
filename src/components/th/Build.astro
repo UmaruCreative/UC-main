@@ -89,7 +89,7 @@ const steps = t.build.steps.map((s, i) => ({ ...s, no: String(i + 1).padStart(2,
   .build__steps { position: relative; list-style: none; margin: 0; padding: 0 0 0 36px; display: grid; gap: 22px; }
   @media (min-width: 960px) { .build__steps { gap: 26vh; padding-block: 8vh 20vh; } }
   .build__track { position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: var(--paper-2); }
-  .build__track span { display: block; height: 100%; background: var(--lantern); transform-origin: 50% 0; }
+  .build__track span { display: block; height: 100%; background: linear-gradient(180deg, var(--lantern), var(--glow)); transform-origin: 50% 0; }
   :global(html:not(.motion)) .build__track span { transform: none; }
 
   .build__step { position: relative; transition: opacity 0.5s; }

@@ -52,7 +52,7 @@ const groups = order.map((id) => {
         </div>
         <ul class="plans" data-stagger>
           {g.plans.map((p) => (
-            <li class:list={["plan", { "plan--popular": p.popular }]}>
+            <li class:list={["plan", { "plan--popular": p.popular }]} data-spotlight>
               {p.popular && <span class="plan__badge mono">{g.id === "reports" ? pp.bestView : pp.popular}</span>}
               <h3>{p.name}</h3>
               <p class="plan__sub">{p.sub}</p>
@@ -120,7 +120,7 @@ const groups = order.map((id) => {
     padding: 6px 10px;
     border-radius: 999px;
     background: var(--lantern);
-    color: var(--night);
+    color: var(--lantern-ink);
     font-size: 10.5px;
   }
   .plan h3 { font-size: 26px; margin-bottom: 8px; padding-right: 90px; }
@@ -134,6 +134,6 @@ const groups = order.map((id) => {
   .plan__items li::before { content: "✓"; color: var(--fern); font-weight: 600; }
   .plan--popular .plan__items li::before { color: var(--lantern); }
   .plan__cta { margin-top: auto; align-self: flex-start; }
-  .plan--popular .plan__cta { --btn-bg: var(--lantern); --btn-fg: var(--night); }
+  .plan--popular .plan__cta { --btn-bg: var(--lantern); --btn-fg: var(--lantern-ink); }
   .plan--popular .plan__cta::before { background: var(--birch); }
 </style>

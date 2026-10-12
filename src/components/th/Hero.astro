@@ -97,7 +97,7 @@ const posts = [1032, 1056, 1300, 1324, 1348];
       <!-- lookout -->
       <g class="hero__lookout">
         <line x1="1180" y1="118" x2="1180" y2="46" stroke="#37261a" stroke-width="3" />
-        <path class="hero__flag" d="M1182 48 L1226 58 L1182 70 Z" fill="#f3a738" />
+        <path class="hero__flag" d="M1182 48 L1226 58 L1182 70 Z" style="fill: var(--lantern)" />
         <path d="M1128 158 L1180 120 L1232 158 Z" fill="#37261a" />
         <rect x="1136" y="158" width="88" height="34" fill="none" stroke="#37261a" stroke-width="3" />
         <line x1="1150" y1="158" x2="1150" y2="192" stroke="#37261a" stroke-width="3" />
@@ -141,7 +141,7 @@ const posts = [1032, 1056, 1300, 1324, 1348];
       </g>
       <!-- door -->
       <path d="M1204 478 V398 a22 22 0 0 1 44 0 V478 Z" fill="#37261a" />
-      <circle cx="1238" cy="440" r="3" fill="#f3a738" />
+      <circle cx="1238" cy="440" r="3" style="fill: var(--lantern)" />
 
       <!-- hanging lantern -->
       <g class="hero__lantern">
@@ -219,7 +219,7 @@ const posts = [1032, 1056, 1300, 1324, 1348];
     position: absolute;
     inset: 0;
     z-index: -2;
-    background: linear-gradient(180deg, #e7ebdf 0%, #f1e8d2 42%, #f5d7a6 70%, #f2c287 100%);
+    background: linear-gradient(180deg, var(--sky-1) 0%, var(--sky-2) 42%, var(--sky-3) 70%, var(--sky-4) 100%);
   }
   .hero__sun {
     position: absolute;
@@ -228,7 +228,7 @@ const posts = [1032, 1056, 1300, 1324, 1348];
     width: clamp(160px, 18vw, 280px);
     aspect-ratio: 1;
     border-radius: 50%;
-    background: radial-gradient(circle, #fff3d6 0%, #fbd79a 45%, rgba(251, 215, 154, 0) 70%);
+    background: radial-gradient(circle, var(--sun-1) 0%, var(--sun-2) 45%, color-mix(in srgb, var(--sun-2) 0%, transparent) 70%);
     transform: translate(-50%, -50%);
   }
   .hero__layer {
@@ -246,7 +246,7 @@ const posts = [1032, 1056, 1300, 1324, 1348];
     right: -10%;
     z-index: -1;
     pointer-events: none;
-    background: linear-gradient(180deg, rgba(243, 238, 226, 0), rgba(243, 238, 226, 0.75) 50%, rgba(243, 238, 226, 0));
+    background: linear-gradient(180deg, color-mix(in srgb, var(--paper) 0%, transparent), color-mix(in srgb, var(--paper) 75%, transparent) 50%, color-mix(in srgb, var(--paper) 0%, transparent));
     animation: drift 28s ease-in-out infinite alternate;
   }
   .hero__fog--1 { bottom: 20%; height: 18%; }
@@ -260,7 +260,7 @@ const posts = [1032, 1056, 1300, 1324, 1348];
     z-index: -1;
     opacity: 0;
     pointer-events: none;
-    background: linear-gradient(180deg, rgba(13, 22, 19, 0.2), rgba(13, 22, 19, 0.75));
+    background: linear-gradient(180deg, color-mix(in srgb, var(--night) 20%, transparent), color-mix(in srgb, var(--night) 75%, transparent));
   }
 
   /* Morning mist behind the copy: keeps text readable at every screen size */
@@ -270,8 +270,8 @@ const posts = [1032, 1056, 1300, 1324, 1348];
     z-index: -1;
     pointer-events: none;
     background:
-      radial-gradient(ellipse 58% 62% at 20% 44%, rgba(243, 238, 226, 0.9) 0%, rgba(243, 238, 226, 0.78) 45%, rgba(243, 238, 226, 0) 100%),
-      linear-gradient(90deg, rgba(243, 238, 226, 0.55) 0%, rgba(243, 238, 226, 0) 55%);
+      radial-gradient(ellipse 58% 62% at 20% 44%, color-mix(in srgb, var(--paper) 90%, transparent) 0%, color-mix(in srgb, var(--paper) 78%, transparent) 45%, color-mix(in srgb, var(--paper) 0%, transparent) 100%),
+      linear-gradient(90deg, color-mix(in srgb, var(--paper) 55%, transparent) 0%, color-mix(in srgb, var(--paper) 0%, transparent) 55%);
   }
 
   .hero__copy {
@@ -299,11 +299,11 @@ const posts = [1032, 1056, 1300, 1324, 1348];
     gap: 8px;
     padding: 7px 12px;
     border-radius: 999px;
-    background: rgba(13, 22, 19, 0.55);
+    background: color-mix(in srgb, var(--night) 55%, transparent);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
   }
-  .hero__facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--lantern); }
+  .hero__facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--glow); box-shadow: 0 0 8px var(--glow); }
   .hero__cue {
     display: flex;
     align-items: center;
@@ -311,7 +311,7 @@ const posts = [1032, 1056, 1300, 1324, 1348];
     text-decoration: none;
     padding: 6px 14px 6px 10px;
     border-radius: 999px;
-    background: rgba(13, 22, 19, 0.55);
+    background: color-mix(in srgb, var(--night) 55%, transparent);
   }
   .hero__cue-rope {
     width: 1.5px;
@@ -334,7 +334,7 @@ const posts = [1032, 1056, 1300, 1324, 1348];
   @keyframes shimmer { 50% { opacity: 0.2; transform: translateX(10px); } }
 
   /* Hero ghost button gets a soft backing so it reads over the scene */
-  .hero__ctas .btn--ghost { background: rgba(243, 238, 226, 0.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  .hero__ctas .btn--ghost { background: color-mix(in srgb, var(--paper) 72%, transparent); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
 
   /* Portrait tablets: keep the treehouse below and to the right of the copy */
   @media (max-width: 1080px) and (orientation: portrait) {
@@ -346,7 +346,7 @@ const posts = [1032, 1056, 1300, 1324, 1348];
     .hero__copy .lede { font-size: 17px; }
     .hero__layer--house { left: 24%; top: 46%; }
     .hero__mist {
-      background: linear-gradient(180deg, rgba(243, 238, 226, 0.92) 0%, rgba(243, 238, 226, 0.86) 52%, rgba(243, 238, 226, 0) 76%);
+      background: linear-gradient(180deg, color-mix(in srgb, var(--paper) 92%, transparent) 0%, color-mix(in srgb, var(--paper) 86%, transparent) 52%, color-mix(in srgb, var(--paper) 0%, transparent) 76%);
     }
     .hero__sun { left: 70%; top: 66%; }
     .hero__foot { flex-direction: column; align-items: flex-start; gap: 18px; }

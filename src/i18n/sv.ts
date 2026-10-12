@@ -22,7 +22,7 @@ const sv: Dict = {
       description: "Skräddarsydda, statiska webbplatser som är snabba, säkra och helt dina. Handgjord webbdesign för kaféer, hantverkare, småföretag och oberoende varumärken.",
     },
     content: {
-      title: "Digitalt innehåll och kortvideo för småföretag | Umaru Creative",
+      title: "Innehåll för sociala medier och kortvideo för småföretag | Umaru Creative",
       description: "Kortvideor, bilder för sociala medier, marknadsmaterial och e-postkampanjer för småföretag, gjorda för att leda folk tillbaka till en webbplats du äger.",
     },
     gbp: {
@@ -372,8 +372,13 @@ const sv: Dict = {
     floor: "Fältanteckningar · blogg",
     eyebrow: "Blogg",
     title: "Fältanteckningar från <em>utkiken.</em>",
-    lede: "Praktiska tankar om sök, AI och att äga sin egen plats på webben. Artiklarna är på engelska.",
+    lede: "Praktiska tankar om sök, AI och att äga sin egen plats på webben.",
     all: "Alla artiklar",
+    latest: "Senaste",
+    read: "Läs artikeln →",
+    back: "← Tillbaka till alla artiklar",
+    metaTitle: "Blogg | Umaru Creative",
+    metaDescription: "Fältanteckningar om webbdesign, sök, AI och att äga sin egen plats på webben.",
   },
 
   contact: {
@@ -444,15 +449,15 @@ const sv: Dict = {
     heroTitle: "Innehåll som <em>leder folk hem.</em>",
     heroLede: "Kortvideor, bilder för sociala medier, marknadsmaterial och e-postkampanjer som berättar din historia utan brus, i din webbplats ton.",
     featuresTitle: "Berättelser värda <em>att stanna för.</em>",
-    featuresLede: "Använd plattformarna till det de är bra på: att synas. Peka sedan varje inlägg tillbaka till platsen du äger.",
+    featuresLede: "Använd sociala medier till det de är bra på: att synas. Peka sedan varje inlägg tillbaka till platsen du äger.",
     features: [
-      { title: "Kortvideo", body: "Engagerande kortvideor som visar dina produkter, dina människor och vad som händer bakom disken.", items: ["Instagram Reels och Stories", "TikTok och YouTube Shorts", "Produktdemonstrationer", "Bakom kulisserna"] },
+      { title: "Kortvideo", body: "Engagerande kortvideor för sociala medier som visar dina produkter, dina människor och vad som händer bakom disken.", items: ["Instagram Reels och Stories", "TikTok och YouTube Shorts", "Produktdemonstrationer", "Bakom kulisserna"] },
       { title: "Marknadsinnehåll", body: "Iögonfallande material som lyfter fram ditt erbjudande och får folk att agera.", items: ["Grafik för sociala medier", "Reklamvideor", "E-postkampanjer och nyhetsbrev", "Evenemangsnyheter"] },
       { title: "Förklarande innehåll", body: "Tydligt och hjälpsamt innehåll som svarar på frågorna dina kunder och AI-assistenter ställer.", items: ["Instruktionsvideor", "Processförklaringar", "FAQ-innehåll", "Lärorika inlägg"] },
     ],
     whyTitle: "Hyr räckvidden. <em>Äg hemmet.</em>",
     whyLede: "Sociala plattformar kan ändra reglerna över en natt. Innehåll som görs med ett eget hem i åtanke fortsätter att fungera, vad algoritmen än gör härnäst.",
-    why: ["Varje del länkar tillbaka till din egen webbplats", "Du får råfilerna att behålla och återanvända", "E-postkampanjer bygger en kundlista som tillhör dig", "Skrivet i din webbplats ton och struktur"],
+    why: ["Varje inlägg i sociala medier länkar tillbaka till din egen webbplats", "Du får råfilerna att behålla och återanvända", "E-postkampanjer bygger en kundlista som tillhör dig", "Skrivet i din webbplats ton och struktur"],
     prices: [
       { name: "Kort och kärnfullt", price: "Från 270 €", detail: "Under 30 sekunder, redigering av material du tillhandahåller. Filmat på plats från 390 €. Perfekt för annonser, reels eller teasers." },
       { name: "Engagerande berättelse", price: "Från 450 €", detail: "30 till 60 sekunder, redigering av material du tillhandahåller. Filmat på plats från 590 €. Perfekt för inlägg på Instagram och Facebook eller produktvisningar." },
