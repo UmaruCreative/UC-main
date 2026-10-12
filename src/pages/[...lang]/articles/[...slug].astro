@@ -40,7 +40,7 @@ const date = article.data.pubDate.toLocaleDateString(t.locale, { day: "numeric",
         <a href={l("/")}>{t.common.home}</a> / <a href={l("/articles/")}>{t.common.blog}</a>
       </nav>
       <p class="eyebrow">{article.data.author} · <time datetime={article.data.pubDate.toISOString()}>{date}</time></p>
-      <h1 class="post-page__title" data-split>{article.data.title}</h1>
+      <h1 class="post-page__title" data-split>{article.data.emoji && <span class="title-emoji" aria-hidden="true">{article.data.emoji}</span>}{article.data.title}</h1>
       <p class="lede" data-reveal>{article.data.description}</p>
     </header>
 

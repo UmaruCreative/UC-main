@@ -31,7 +31,7 @@ const [first, ...rest] = articles;
           <div class="lead__img" data-reveal="wipe">{first.data.image && <img src={first.data.image} alt="" />}</div>
           <div>
             <p class="mono lead__meta">{t.notes.latest} · <time datetime={first.data.pubDate.toISOString()}>{fmt(first.data.pubDate)}</time></p>
-            <h2 class="h3 lead__title">{first.data.title}</h2>
+            <h2 class="h3 lead__title">{first.data.emoji && <span class="title-emoji" aria-hidden="true">{first.data.emoji}</span>}{first.data.title}</h2>
             <p class="lead__desc">{first.data.description}</p>
             <span class="link-arrow">{t.notes.read}</span>
           </div>
@@ -45,7 +45,7 @@ const [first, ...rest] = articles;
               <a href={articlePath(lang, a.slug)} class="post">
                 <div class="post__img" data-reveal="wipe">{a.data.image && <img src={a.data.image} alt="" loading="lazy" />}</div>
                 <p class="mono post__date"><time datetime={a.data.pubDate.toISOString()}>{fmt(a.data.pubDate)}</time></p>
-                <h2>{a.data.title}</h2>
+                <h2>{a.data.emoji && <span class="title-emoji" aria-hidden="true">{a.data.emoji}</span>}{a.data.title}</h2>
                 <p class="post__desc">{a.data.description}</p>
               </a>
             </li>

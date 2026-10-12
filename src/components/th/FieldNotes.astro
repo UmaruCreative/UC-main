@@ -32,7 +32,7 @@ const fmt = (d: Date) => d.toLocaleDateString(t.locale, { day: "numeric", month:
               {a.data.image && <img src={a.data.image} alt="" loading="lazy" />}
             </div>
             <p class="mono note__date"><time datetime={a.data.pubDate.toISOString()}>{fmt(a.data.pubDate)}</time></p>
-            <h3>{a.data.title}</h3>
+            <h3>{a.data.emoji && <span class="title-emoji" aria-hidden="true">{a.data.emoji}</span>}{a.data.title}</h3>
             <p class="note__desc">{a.data.description}</p>
           </a>
         </li>

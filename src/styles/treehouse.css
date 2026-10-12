@@ -801,3 +801,6 @@ body.th-body {
 .motion :is(.display, .h2, .phero__title) em.is-in { background-size: 100% 100%; }
 /* On dark sections the italic words are already cyan, so no stroke */
 :is(.section--night, .th-footer, .phero--dusk) :is(.display, .h2, .phero__title) em { background-image: none; }
+
+/* Emoji in front of an article title */
+.title-emoji { margin-right: 0.3em; }

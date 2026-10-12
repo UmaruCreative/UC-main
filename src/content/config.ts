@@ -13,6 +13,8 @@ const articles = defineCollection({
     translations: z.record(z.string()).optional(),
     // Drafts stay in the project but are never published
     draft: z.boolean().optional(),
+    // Shown before the title on the page and blog cards, not in the tab title or search results
+    emoji: z.string().optional(),
   }),
 });
 
