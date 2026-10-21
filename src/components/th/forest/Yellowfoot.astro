@@ -1,0 +1,16 @@
+---
+// A funnel chanterelle (suppilovahvero). About 74 tall at s = 1.
+import { yellowfoot } from "./geo";
+
+interface Props { x: number; y: number; s?: number; tilt?: number; bend?: number; seed?: number }
+const { x, y, s = 1, tilt = 0, bend = 0, seed = 0 } = Astro.props;
+const yf = yellowfoot({ bend, seed });
+---
+
+<g transform={`translate(${x} ${y}) rotate(${tilt}) scale(${s})`}>
+  <path d={yf.stem} fill="url(#y-stem)" stroke="#3d2a1a" stroke-width="1.1" stroke-opacity=".7" />
+  <path d={yf.under} fill="#bfae84" />
+  <path d={yf.cap} fill="url(#y-cap)" stroke="#3d2a1a" stroke-width="1.2" stroke-opacity=".75" />
+  <ellipse cx={yf.hole.cx} cy={yf.hole.cy} rx={yf.hole.rx} ry={yf.hole.ry} fill="#2e2218" />
+  <path d={yf.lip} stroke="#b9a27c" stroke-width="1.6" fill="none" opacity=".8" />
+</g>

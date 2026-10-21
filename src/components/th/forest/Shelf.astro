@@ -1,0 +1,29 @@
+---
+// A shelf (bracket) mushroom growing out of a tree trunk.
+// x, y is where its top surface meets the bark. dir: which way it grows.
+import { colors } from "../../../season";
+
+interface Props {
+  x: number;
+  y: number;
+  w: number;
+  dir?: 1 | -1;
+}
+
+const { x, y, w, dir = 1 } = Astro.props;
+const t = w * 0.16; // thickness
+const dome = w * 0.12;
+// Drawn growing to the right, then mirrored when dir is -1
+const top = `M0 ${-2} C ${w * 0.25} ${-dome - 2}, ${w * 0.7} ${-dome}, ${w * 0.96} ${-dome * 0.25} C ${w * 1.02} 0, ${w * 1.01} ${t * 0.5}, ${w * 0.93} ${t * 0.75} C ${w * 0.6} ${t * 1.05}, ${w * 0.25} ${t * 1.1}, 0 ${t} Z`;
+const under = `M0 ${t * 0.55} C ${w * 0.3} ${t * 0.7}, ${w * 0.65} ${t * 0.62}, ${w * 0.93} ${t * 0.75} C ${w * 0.6} ${t * 1.05}, ${w * 0.25} ${t * 1.1}, 0 ${t} Z`;
+const band = `M${w * 0.08} ${-dome * 0.55} C ${w * 0.35} ${-dome * 1.1}, ${w * 0.68} ${-dome * 0.95}, ${w * 0.9} ${-dome * 0.3}`;
+const snow = `M${-2} ${-3} C ${w * 0.25} ${-dome - 9}, ${w * 0.7} ${-dome - 7}, ${w * 0.97} ${-dome * 0.25 - 2} C ${w * 0.99} ${-dome * 0.1 + 3}, ${w * 0.8} ${-dome * 0.3 + 3}, ${w * 0.7} ${-dome * 0.45 + 4} C ${w * 0.45} ${-dome * 0.7 + 3}, ${w * 0.2} ${-dome * 0.6 + 2}, 0 ${2} Z`;
+---
+
+<g class="shelf" transform={`translate(${x} ${y}) scale(${dir} 1)`}>
+  <path d={top} fill={colors.shelfTop} stroke={colors.shelfEdge} stroke-width="2" stroke-linejoin="round" />
+  <path d={band} fill="none" stroke={colors.shelfLight} stroke-width={Math.max(3, w * 0.05)} stroke-linecap="round" opacity="0.8" />
+  <path d={under} fill={colors.shelfUnder} />
+  <path d={`M${w * 0.12} ${t * 0.8} H ${w * 0.8}`} stroke={colors.shelfEdge} stroke-width="1.2" stroke-dasharray="2 5" opacity="0.5" />
+  {colors.snow && <path d={snow} fill="#f7fbff" />}
+</g>

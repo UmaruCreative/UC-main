@@ -1,0 +1,42 @@
+---
+// A Finnish birch: white trunk, round crown coloured by the season.
+import { colors, SEASON } from "../../../season";
+
+interface Props {
+  x: number;
+  y: number;
+  h: number;
+  hue?: number; // which crown colour to lead with
+  rowan?: boolean;
+  delay?: number;
+}
+
+const { x, y, h, hue = 0, rowan = false, delay = 0 } = Astro.props;
+const c = colors.birch;
+const lead = rowan ? colors.rowan : c[hue % c.length];
+const second = rowan ? "#d8693a" : c[(hue + 1) % c.length];
+const cw = h * 0.36;
+const trunkW = Math.max(4, h * 0.045);
+const marks = [0.22, 0.38, 0.52, 0.66].map((p) => ({ y: -h * p, w: trunkW * (0.5 + ((p * 7) % 1) * 0.5) }));
+const bare = SEASON === "winter";
+---
+
+<g class="birch" transform={`translate(${x} ${y})`} style={`--d:${delay}s`}>
+  <rect x={-trunkW / 2} y={-h * 0.82} width={trunkW} height={h * 0.82} rx={trunkW / 2} fill={rowan ? "#6b5a4a" : "#f2efe6"} />
+  {!rowan && marks.map((m) => <rect x={-trunkW / 2} y={m.y} width={m.w} height="2.2" fill="#2b2b2b" opacity="0.75" />)}
+  {
+    bare && (
+      <g stroke="#d9d4cc" stroke-width="1.6" fill="none" stroke-linecap="round">
+        <path d={`M0 ${-h * 0.55} L ${-cw * 0.6} ${-h * 0.9}`} />
+        <path d={`M0 ${-h * 0.62} L ${cw * 0.55} ${-h * 0.95}`} />
+        <path d={`M0 ${-h * 0.75} L ${-cw * 0.2} ${-h}`} />
+      </g>
+    )
+  }
+  <g class="birch__crown" opacity={bare ? 0.55 : 1}>
+    <ellipse cx={-cw * 0.32} cy={-h * 0.72} rx={cw * 0.5} ry={cw * 0.46} fill={second} />
+    <ellipse cx={cw * 0.34} cy={-h * 0.7} rx={cw * 0.48} ry={cw * 0.44} fill={second} />
+    <ellipse cx="0" cy={-h * 0.86} rx={cw * 0.58} ry={cw * 0.54} fill={lead} />
+    <ellipse cx={-cw * 0.12} cy={-h * 0.92} rx={cw * 0.22} ry={cw * 0.16} fill="#fff" opacity="0.18" />
+  </g>
+</g>

@@ -1,6 +1,7 @@
 ---
 import "../styles/treehouse.css";
 import Header from "../components/th/Header.astro";
+import ForestDefs from "../components/th/forest/ForestDefs.astro";
 import Footer from "../components/th/Footer.astro";
 import LadderRail from "../components/th/LadderRail.astro";
 import { useI18n, switchPath, langs, type Lang } from "../i18n";
@@ -26,7 +27,7 @@ const alternates = given
 ---
 
 <!doctype html>
-<html lang={htmlLang} class="th" data-palette="dango-cyan-logo">
+<html lang={htmlLang} class="th" data-palette="forest-gold">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -65,6 +66,7 @@ const alternates = given
     <slot name="head" />
   </head>
   <body class="th-body">
+    <ForestDefs />
     <a class="skip-link" href="#main">{t.common.skip}</a>
     <Header alternates={given} />
     {rail ? <LadderRail /> : <div class="scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>}

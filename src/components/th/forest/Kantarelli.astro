@@ -1,0 +1,27 @@
+---
+// A chanterelle (kantarelli). x, y: where the stem meets the ground. s: scale (1 is about 138 tall).
+import { chanterelle } from "./geo";
+
+interface Props { x: number; y: number; s?: number; flip?: boolean; lean?: number; tall?: number; seed?: number; light?: 1 | -1 }
+const { x, y, s = 1, flip = false, lean = 1, tall = 1, seed = 0, light = 1 } = Astro.props;
+const k = chanterelle({ lean, tall, seed });
+const id = `k${Math.round(x * 7 + y * 13 + seed * 101 + s * 1000)}`;
+// When mirrored, the light comes from the other side in local space
+const lit = (flip ? -light : light) > 0 ? "r" : "l";
+---
+
+<g transform={`translate(${x} ${y}) scale(${flip ? -s : s} ${s})`}>
+  <ellipse cx="0" cy="2" rx="30" ry="4.5" fill="rgba(20,35,20,.28)" />
+  <clipPath id={id}><path d={k.body} /></clipPath>
+  <path d={k.body} fill="url(#k-under)" stroke="#6a3e12" stroke-width="1.5" stroke-opacity=".75" stroke-linejoin="round" />
+  <path d={k.body} fill={`url(#k-shade-${lit})`} />
+  <g clip-path={`url(#${id})`} fill="none" stroke="#c27412">
+    {k.ridges.map((d, i) => <path d={d} stroke-width={i % 3 === 2 ? 1 : 1.2} opacity={i % 3 === 2 ? 0.45 : 0.55} />)}
+    {k.folds.map((d) => <path d={d} stroke="#b06512" stroke-width="1" opacity=".55" />)}
+  </g>
+  <path d={k.cap} fill={`url(#k-cap-${lit})`} stroke="#6a3e12" stroke-width="1.5" stroke-opacity=".75" stroke-linejoin="round" />
+  <path d={k.dip} stroke="#d98b24" stroke-width="3.2" fill="none" stroke-linecap="round" opacity=".4" />
+  <path d={k.rim} stroke="#b56b14" stroke-width="4.2" fill="none" stroke-linecap="round" opacity=".5" transform="translate(0 1.6)" />
+  <path d={k.rim} stroke="#fdd877" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".95" />
+  {lit === "r" && <path d={k.sheen} stroke="#fff1c4" stroke-width="2.2" fill="none" opacity=".45" stroke-linecap="round" />}
+</g>

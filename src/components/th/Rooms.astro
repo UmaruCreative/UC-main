@@ -1,4 +1,5 @@
 ---
+import HiddenDango from "./forest/HiddenDango.astro";
 import { useI18n } from "../../i18n";
 const { t, l } = useI18n(Astro.url);
 const meta = [
@@ -14,6 +15,7 @@ const rooms = meta.map((m, i) => ({ ...m, ...t.rooms.items[i] }));
 <section id="rooms" class="section rooms" data-rooms data-floor={t.rooms.floor} aria-labelledby="rooms-title">
   <div class="wrap">
     <div class="section-head section-head--split">
+      <HiddenDango id="rooms" prop="paint" side="right" />
       <div>
         <p class="eyebrow">{t.rooms.eyebrow}</p>
         <h2 id="rooms-title" class="h2" data-split set:html={t.rooms.title} />
@@ -24,7 +26,7 @@ const rooms = meta.map((m, i) => ({ ...m, ...t.rooms.items[i] }));
     <div class="rooms__grid">
       <figure class="rooms__figure" aria-hidden="true">
         <div class="rooms__sticky">
-          <svg viewBox="0 0 520 640">
+          <svg class="rooms__plan" viewBox="0 0 520 640" aria-hidden="true">
             <defs>
               <radialGradient id="halo" r="0.5">
                 <stop offset="0" stop-color="#ffd27a" stop-opacity="0.85" />
@@ -141,7 +143,7 @@ const rooms = meta.map((m, i) => ({ ...m, ...t.rooms.items[i] }));
   .rooms__figure { margin: 0; display: none; }
   @media (min-width: 960px) { .rooms__figure { display: block; } }
   .rooms__sticky { position: sticky; top: calc(50vh - 290px); }
-  .rooms__sticky svg { width: 100%; max-height: 560px; display: block; overflow: visible; }
+  .rooms__plan { width: 100%; max-height: 560px; display: block; overflow: visible; }
   .rooms__caption { color: var(--muted); font-size: 11px; text-align: center; margin-top: 14px; }
 
   .zone .lamp { fill: var(--c-lamp-off); transition: fill 0.6s var(--ease-out); }
@@ -189,4 +191,6 @@ const rooms = meta.map((m, i) => ({ ...m, ...t.rooms.items[i] }));
   }
   .room__price { font-family: var(--font-display); font-size: 20px; }
   .room .link-arrow { color: var(--moss); }
+
 </style>
+

@@ -12,21 +12,29 @@ import Founder from "../../components/th/Founder.astro";
 import Faq from "../../components/th/Faq.astro";
 import FieldNotes from "../../components/th/FieldNotes.astro";
 import Contact from "../../components/th/Contact.astro";
+import TwoReaders from "../../components/th/TwoReaders.astro";
+import Doors from "../../components/th/Doors.astro";
+import GuideLeaf from "../../components/th/forest/GuideLeaf.astro";
 import { getStaticLangPaths, useI18n } from "../../i18n";
 
 export const getStaticPaths = getStaticLangPaths;
 const { t, lang, abs } = useI18n(Astro.url);
+// The new homepage (product brands, four rooms) is written in English first.
+// The other languages keep their previous homepage until they are translated.
+const fresh = Boolean(t.readers && t.doors);
 
 const schema = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": fresh ? "ProfessionalService" : "LocalBusiness",
   name: "Umaru Creative",
   description: t.meta.schema,
   url: abs("/"),
   email: "umaru.creative@gmail.com",
   inLanguage: lang,
   address: { "@type": "PostalAddress", addressLocality: "Jyväskylä", addressRegion: "Central Finland", addressCountry: "FI" },
-  serviceType: [
+  serviceType: fresh
+    ? ["Product Knowledge", "Product Content", "Product Websites", "AI Search Visibility", "Market Watch", "AI for Teams"]
+    : [
     "Web Design",
     "Website Development",
     "Digital Content",
@@ -34,6 +42,7 @@ const schema = {
     "Weekly Market Research Reports",
     "Web Analytics Reports",
   ],
+  ...(fresh ? { knowsLanguage: ["en", "fr", "zh"] } : {}),
   priceRange: "€€",
   foundingDate: "2025",
   sameAs: ["https://techbehemoths.com/company/umaru-creative"],
@@ -44,15 +53,30 @@ const schema = {
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
 
   <Hero />
-  <RentOwn />
-  <Rooms />
-  <Lookout />
-  <Security />
-  <Build />
-  <Neighbours />
-  <Portfolio />
-  <Founder />
-  <Faq />
-  <FieldNotes />
+  {fresh ? (
+    <>
+      <TwoReaders />
+      <Doors />
+      <RentOwn />
+      <Security />
+      <Build />
+      <Portfolio />
+      <Founder />
+    </>
+  ) : (
+    <>
+      <RentOwn />
+      <Rooms />
+      <Lookout />
+      <Security />
+      <Build />
+      <Neighbours />
+      <Portfolio />
+      <Founder />
+      <Faq />
+      <FieldNotes />
+    </>
+  )}
   <Contact />
+  <GuideLeaf />
 </TreehouseLayout>

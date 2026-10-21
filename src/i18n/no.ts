@@ -130,6 +130,7 @@ const no: Dict = {
     title: "Fem rom, <em>én</em> trehytte.",
     lede: "Alt du trenger for å bli funnet, stolt på og valgt, bygget på et fundament du eier. Velg ett rom, eller flytt inn i alle.",
     caption: "Hold musepekeren over eller rull til et rom for å tenne lyset",
+    diorama: { caption: "Rull, eller trykk på et sted i skogen for å besøke det.", sun: "Dra solen", sunLabel: "Tid på døgnet i skogen", back: "Vis hele skogen" },
     enter: "Gå inn",
     labels: { lookout: "03 · Utkikken", cabin: "01 · Hytta", window: "02 · Vinduet", shed: "05 · Verktøyboden", sign: "04 · Veiskiltet" },
     items: [

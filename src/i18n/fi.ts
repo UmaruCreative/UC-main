@@ -130,6 +130,7 @@ const fi: Dict = {
     title: "Viisi huonetta, <em>yksi</em> puumaja.",
     lede: "Kaikki mitä tarvitset tullaksesi löydetyksi, luotetuksi ja valituksi, rakennettuna perustalle, jonka omistat. Valitse yksi huone tai muuta kaikkiin.",
     caption: "Vie hiiri tai vieritä huoneen kohdalle sytyttääksesi valon",
+    diorama: { caption: "Vieritä tai napauta paikkaa metsässä vieraillaksesi siellä.", sun: "Vedä aurinkoa", sunLabel: "Vuorokaudenaika metsässä", back: "Näytä koko metsä" },
     enter: "Astu sisään",
     labels: { lookout: "03 · Näköala", cabin: "01 · Maja", window: "02 · Ikkuna", shed: "05 · Työkaluvaja", sign: "04 · Tienviitta" },
     items: [

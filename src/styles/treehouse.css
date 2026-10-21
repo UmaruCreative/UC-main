@@ -804,3 +804,161 @@ body.th-body {
 
 /* Emoji in front of an article title */
 .title-emoji { margin-right: 0.3em; }
+
+/* ==========================================================================
+   Forest gold: the palette and texture of the painted forest hero.
+   Warm parchment, birch, moss and spruce by day; deep spruce teal by night.
+   Dango blue is kept for things you can press: buttons and links.
+   ========================================================================== */
+
+[data-palette="forest-gold"] {
+  --paper: #f5ecda; --paper-2: #ebdfc5; --birch: #fbf6ea;
+  --ink: #1f2a1e; --ink-soft: #45503e; --muted: #6e705c; --line: rgba(55, 42, 26, 0.14);
+  --moss: #2f4a2c; --fern: #5d7536; --lichen: #c6c98f; --sage: #ece5c6;
+  --bark: #5a3e2b; --bark-dark: #37261a; --wood: #9c6e48; --plank: #c9996a;
+  --lamp: #f7c56b; --lamp-glow: #ffd27a; --lamp-deep: #f3a738;
+  --lake: #1f6fcf; --lake-soft: #d6e7f8;
+  --night: #0f1b1c; --night-2: #172726; --dusk: #24352f; --night-ink: #f0e8d6; --night-muted: #a9ae9b;
+  --ember: #d4622e;
+  --card-lit: #fffaf0;
+
+  /* Dango blue on light pages, Dango glass on dark ones */
+  --lantern: #1a6dd0; --lantern-soft: #dbe9f9; --lantern-ink: #ffffff;
+  --lantern-night: #8fd0ff; --lantern-night-ink: #0f1b1c;
+  --lantern-hover: #8fd0ff; --lantern-hover-ink: #0f1b1c;
+  /* the warm sunlight that falls on cards */
+  --glow: #f2c25e;
+  --sun: #f2c25e;
+  --gold-ink: #94571a;
+}
+
+/* Sunlight is gold on dark sections too */
+[data-palette="forest-gold"] :is(.section--night, .th-footer, .th-mobile, .phero--dusk, .th-header.is-night, .rail.is-night) { --glow: #f2c25e; }
+
+/* --- paper grain over everything, very light, like a printed storybook --- */
+[data-palette="forest-gold"] body.th-body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  pointer-events: none;
+  background: url("/forest/grain.png") repeat;
+  background-size: 256px 256px;
+  opacity: 0.55;
+}
+
+/* --- headings: italic words are written in gold ink over a watercolour stroke --- */
+[data-palette="forest-gold"] :is(.display, .h2, .phero__title) em {
+  color: var(--gold-ink);
+  background-image: url("/forest/brush.svg");
+  background-repeat: no-repeat;
+  background-position: 0 86%;
+  background-size: 100% 0.42em;
+  padding-inline: 0.04em;
+}
+.motion[data-palette="forest-gold"] :is(.display, .h2, .phero__title) em { background-size: 0% 0.42em; transition: background-size 1.4s var(--ease-out) 0.4s; }
+.motion[data-palette="forest-gold"] :is(.display, .h2, .phero__title) em.is-in { background-size: 100% 0.42em; }
+[data-palette="forest-gold"] :is(.section--night, .th-footer, .phero--dusk, .fh) :is(.display, .h2, .phero__title) em { color: #ffd27a; background-image: none; }
+.motion[data-palette="forest-gold"] .fh .display em { background-size: 0; }
+
+/* --- eyebrows: moss ink with a small leaf on the rung --- */
+[data-palette="forest-gold"] .eyebrow { color: var(--fern); }
+[data-palette="forest-gold"] .section--night .eyebrow { color: #f2d9a0; }
+
+/* --- cards: parchment with a soft painted shadow --- */
+[data-palette="forest-gold"] .card {
+  background: linear-gradient(180deg, #fffaf0 0%, #fbf3e3 100%);
+  border-color: rgba(90, 62, 43, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 22px 44px -32px rgba(55, 38, 26, 0.45);
+}
+[data-palette="forest-gold"] .section--night .card {
+  background: linear-gradient(180deg, rgba(240, 232, 214, 0.07), rgba(240, 232, 214, 0.03));
+  border-color: rgba(240, 232, 214, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+[data-palette="forest-gold"] .chip { background: rgba(255, 250, 240, 0.7); border-color: rgba(90, 62, 43, 0.16); }
+[data-palette="forest-gold"] .chip--new { background: var(--sun); color: #3a2410; }
+@media (hover: hover) {
+  [data-palette="forest-gold"] [data-spotlight]:hover { box-shadow: 0 34px 60px -40px rgba(80, 52, 20, 0.55); }
+}
+
+/* --- buttons: the main button is Dango blue; it glows like Dango's glass on hover --- */
+[data-palette="forest-gold"] .btn { --btn-bg: var(--lantern); --btn-fg: #ffffff; box-shadow: 0 10px 24px -14px rgba(26, 109, 208, 0.7); }
+[data-palette="forest-gold"] .btn--ghost { --btn-bg: transparent; --btn-fg: var(--ink); box-shadow: none; }
+[data-palette="forest-gold"] .section--night .btn--ghost { --btn-fg: var(--night-ink); }
+[data-palette="forest-gold"] .section--night .btn:not(.btn--ghost) { --btn-bg: var(--lantern-night); --btn-fg: var(--lantern-night-ink); }
+[data-palette="forest-gold"] .link-arrow { color: var(--lantern); }
+[data-palette="forest-gold"] .section--night .link-arrow { color: var(--lantern-night); }
+
+/* --- ticks and price notes in forest colours --- */
+[data-palette="forest-gold"] .ticks li::before { background: var(--moss); color: #fbf6ea; }
+[data-palette="forest-gold"] .price-note { background: #f6e6c4; color: var(--bark-dark); }
+
+/* --- night sections: lantern light pooling in a spruce dark --- */
+[data-palette="forest-gold"] .section--night {
+  background:
+    radial-gradient(900px 520px at 18% 0%, rgba(242, 194, 94, 0.08), transparent 70%),
+    radial-gradient(800px 600px at 90% 100%, rgba(143, 208, 255, 0.06), transparent 70%),
+    var(--night);
+}
+
+/* --------------------------------------------------------------------------
+   Page edges: every section starts like the next page of a storybook.
+   Light sections get a deckled paper edge, night sections a spruce treeline.
+   -------------------------------------------------------------------------- */
+
+[data-palette="forest-gold"] :is(.section, .rent, .th-footer) { --sec-bg: var(--paper); }
+[data-palette="forest-gold"] :is(.rooms, .neighbours, .founder, .notes, .section--birch) { --sec-bg: var(--birch); }
+[data-palette="forest-gold"] :is(.lookout, .section--sage) { --sec-bg: var(--sage); }
+[data-palette="forest-gold"] :is(.section--night, .th-footer) { --sec-bg: var(--night); }
+
+[data-palette="forest-gold"] :is(.section, .rent, .th-footer)::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 1px;
+  height: 34px;
+  transform: translateY(-100%);
+  z-index: 2;
+  pointer-events: none;
+  background: var(--sec-bg);
+  -webkit-mask: url("/forest/edge-deckle.svg") repeat-x 0 100% / 640px 100%;
+  mask: url("/forest/edge-deckle.svg") repeat-x 0 100% / 640px 100%;
+  filter: drop-shadow(0 -1px 1.5px rgba(70, 48, 24, 0.12));
+}
+[data-palette="forest-gold"] :is(.section--night, .th-footer)::before {
+  height: clamp(64px, 8vw, 110px);
+  -webkit-mask: url("/forest/edge-spruce.svg") repeat-x 0 100% / auto 100%;
+  mask: url("/forest/edge-spruce.svg") repeat-x 0 100% / auto 100%;
+  filter: none;
+}
+/* the section right after the hero sits on the painting like a page laid on a picture */
+[data-palette="forest-gold"] .fh + :is(.section, .rent)::before { height: 46px; filter: drop-shadow(0 -6px 10px rgba(20, 14, 6, 0.35)); }
+/* inner page patterns that sit back to back without a gap keep a plain edge */
+[data-palette="forest-gold"] .phero + .section::before { display: none; }
+
+/* on dark sections the main button lights up gold when you point at it */
+[data-palette="forest-gold"] .section--night .btn:not(.btn--ghost)::before { background: #ffd27a; }
+[data-palette="forest-gold"] .section--night .btn:not(.btn--ghost):is(:hover, :focus-visible) { color: #2a1a08; }
+/* sections that clip their sides still let their top edge show */
+html[data-palette="forest-gold"] body :is(.lookout, .neighbours, .contact, .security, .th-footer, .portfolio, .cta) { overflow-x: clip; overflow-y: visible; }
+/* two dark sections in a row share one night, no treeline between them */
+[data-palette="forest-gold"] :is(.section--night, [data-night]) + :is(.section--night, .th-footer)::before { display: none; }
+/* the light that follows your pointer in dark sections is lantern gold, and it fades out under the treeline */
+html[data-palette="forest-gold"] [data-lantern-field] > [class$="__glow"] {
+  background: radial-gradient(circle 440px at calc(var(--lx) * 1px) calc(var(--ly) * 1px), rgba(242, 194, 94, 0.11), transparent 70%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 140px);
+  mask-image: linear-gradient(180deg, transparent 0, #000 140px);
+}
+[data-palette="forest-gold"] .section--night {
+  background:
+    radial-gradient(900px 520px at 18% 30%, rgba(242, 194, 94, 0.06), transparent 70%),
+    radial-gradient(800px 600px at 90% 100%, rgba(143, 208, 255, 0.05), transparent 70%),
+    var(--sec-bg, var(--night));
+}
+
+/* the footer opens straight into its own night sky, which already has a treeline */
+[data-palette="forest-gold"] .th-footer::before { display: none; }

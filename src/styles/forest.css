@@ -1,0 +1,169 @@
+/* ==========================================================================
+   Forest floor: Dangos, mushrooms, birches, falling leaves and snow.
+   Every movement only runs when <html> has the .motion class, so visitors
+   who ask for reduced motion see a calm, still scene.
+   ========================================================================== */
+
+.dango__shadow { fill: rgba(12, 18, 30, 0.32); }
+/* Dango's own soft glow: grows with dusk in the hero, always on at night */
+.dango__halo--dusk { opacity: calc(var(--dusk, 0) * 0.85); }
+.dango__halo--night { opacity: 0.3; }
+.dango__caustic { mix-blend-mode: screen; }
+.dango__anim,
+.dango__boing,
+.birch__crown,
+.birch,
+.shroom {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+.dango__sparks { opacity: 0; fill: #ffd27a; pointer-events: none; }
+
+/* Dangos can be poked: hover on a computer, tap on a phone */
+[data-dango] { pointer-events: auto; cursor: pointer; }
+[data-dango] image { -webkit-user-drag: none; user-select: none; }
+
+html.motion .dango__anim--bounce { animation: dango-bounce calc(2.6s / var(--s, 1)) ease-in-out var(--d, 0s) infinite; }
+html.motion .dango__anim--sway { animation: dango-sway calc(3.4s / var(--s, 1)) ease-in-out var(--d, 0s) infinite; }
+html.motion .dango__anim--hop { animation: dango-hop calc(7s / var(--s, 1)) ease-in-out var(--d, 0s) infinite; }
+html.motion .dango__anim--climb { animation: dango-climb calc(12s / var(--s, 1)) ease-in-out var(--d, 0s) infinite; }
+html.motion .dango__anim--peek { animation: dango-peek calc(8s / var(--s, 1)) ease-in-out var(--d, 0s) infinite; }
+html.motion .dango__anim--sleep { animation: dango-sleep calc(4.5s / var(--s, 1)) ease-in-out var(--d, 0s) infinite; }
+
+@keyframes dango-bounce {
+  0%, 46%, 100% { transform: translateY(0) scale(1, 1); }
+  52% { transform: translateY(0) scale(1.1, 0.88); }
+  62% { transform: translateY(-16px) scale(0.94, 1.07); }
+  72% { transform: translateY(0) scale(1.08, 0.92); }
+  80% { transform: translateY(0) scale(1, 1); }
+}
+@keyframes dango-sway {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+/* Down from one mushroom shelf to the one below, then back up */
+@keyframes dango-hop {
+  0%, 28% { transform: translate(0, 0) scale(1, 1); }
+  32% { transform: translate(0, 0) scale(1.12, 0.86); }
+  39% { transform: translate(calc(var(--hx, 13px) * 0.55), -26px) scale(0.92, 1.1); }
+  46% { transform: translate(var(--hx, 13px), var(--hy, 75px)) scale(1.14, 0.84); }
+  50%, 78% { transform: translate(var(--hx, 13px), var(--hy, 75px)) scale(1, 1); }
+  82% { transform: translate(var(--hx, 13px), var(--hy, 75px)) scale(1.14, 0.84); }
+  90% { transform: translate(calc(var(--hx, 13px) * 0.45), -44px) scale(0.9, 1.12); }
+  96% { transform: translate(0, 0) scale(1.1, 0.9); }
+}
+/* Rung by rung down the rope ladder, then back up */
+@keyframes dango-climb {
+  0%, 6% { transform: translateY(0) rotate(0); }
+  11% { transform: translateY(27px) rotate(-6deg); }
+  16% { transform: translateY(27px) rotate(0); }
+  21% { transform: translateY(54px) rotate(6deg); }
+  26% { transform: translateY(54px) rotate(0); }
+  31% { transform: translateY(81px) rotate(-6deg); }
+  36%, 50% { transform: translateY(81px) rotate(0); }
+  56% { transform: translateY(54px) rotate(6deg); }
+  62% { transform: translateY(54px) rotate(0); }
+  68% { transform: translateY(27px) rotate(-6deg); }
+  74% { transform: translateY(27px) rotate(0); }
+  80% { transform: translateY(0) rotate(6deg); }
+  86%, 100% { transform: translateY(0) rotate(0); }
+}
+/* Slides out from behind the trunk, leans, looks around, hides again */
+@keyframes dango-peek {
+  0%, 30% { transform: translateX(0) rotate(0); }
+  40% { transform: translateX(36px) rotate(12deg); }
+  50% { transform: translateX(36px) rotate(4deg); }
+  58% { transform: translateX(36px) rotate(14deg); }
+  68% { transform: translateX(36px) rotate(10deg); }
+  78%, 100% { transform: translateX(0) rotate(0); }
+}
+@keyframes dango-sleep {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.04, 0.96); }
+}
+
+/* Poke reaction */
+.dango.is-boing .dango__boing { animation: dango-boing 0.9s cubic-bezier(0.3, 0.7, 0.3, 1); }
+.dango.is-boing .dango__sparks { animation: dango-sparks 0.9s ease-out; }
+@keyframes dango-boing {
+  0% { transform: translateY(0) scale(1, 1) rotate(0); }
+  14% { transform: translateY(0) scale(1.16, 0.8) rotate(0); }
+  45% { transform: translateY(-42px) scale(0.92, 1.1) rotate(-12deg); }
+  70% { transform: translateY(0) scale(1.12, 0.86) rotate(6deg); }
+  85% { transform: translateY(-6px) scale(0.98, 1.03) rotate(0); }
+  100% { transform: translateY(0) scale(1, 1) rotate(0); }
+}
+@keyframes dango-sparks {
+  0% { opacity: 0; transform: translateY(6px); }
+  35% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-14px); }
+}
+
+/* Birch crowns move in the wind */
+html.motion .birch__crown { transform-origin: 50% 100%; animation: birch-sway 6s ease-in-out var(--d, 0s) infinite; }
+@keyframes birch-sway {
+  0%, 100% { transform: rotate(-1.6deg); }
+  50% { transform: rotate(1.6deg); }
+}
+
+/* Small mushrooms wobble a little, one after another */
+html.motion .shroom { animation: shroom-wobble 5s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -1.3s); }
+@keyframes shroom-wobble {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(-3deg); }
+  40% { transform: rotate(2deg); }
+  60% { transform: rotate(0); }
+}
+
+/* Glowing mushrooms on the dark forest floor */
+.shroom__glow { fill: rgba(127, 231, 242, 0.16); }
+html.motion .shrooms--glow .shroom__glow { animation: shroom-glow 3.6s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -0.9s); }
+@keyframes shroom-glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Canvas for falling leaves or snow */
+.season-fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+/* Coffee friend: leans over to the cups on the stump, then wiggles happily */
+html.motion .dango__anim--sip { animation: dango-sip calc(6s / var(--s, 1)) ease-in-out var(--d, 0s) infinite; }
+@keyframes dango-sip {
+  0%, 28% { transform: rotate(0) scale(1, 1); }
+  38%, 54% { transform: rotate(10deg) scale(1, 1); }
+  64% { transform: rotate(0) scale(1, 1); }
+  70% { transform: rotate(0) scale(1.07, 0.93); }
+  76% { transform: rotate(-4deg) scale(1, 1); }
+  82% { transform: rotate(4deg) scale(1, 1); }
+  88%, 100% { transform: rotate(0) scale(1, 1); }
+}
+
+/* The guide's arrival at the stage, and the coffee friend jumping for joy */
+html.motion .stage.is-landed #sd-guide .dango__boing { animation: dango-land 1s cubic-bezier(0.25, 0.8, 0.3, 1); }
+@keyframes dango-land {
+  0% { transform: translateY(-140px) rotate(-14deg) scale(0.92, 1.08); }
+  55% { transform: translateY(0) rotate(4deg) scale(1.18, 0.8); }
+  75% { transform: translateY(-10px) rotate(-2deg) scale(0.96, 1.05); }
+  100% { transform: translateY(0) rotate(0) scale(1, 1); }
+}
+html.motion .stage.is-landed .stage__coffee .dango__boing { animation: dango-boing 0.9s cubic-bezier(0.3, 0.7, 0.3, 1) 0.55s; }
+html.motion .stage.is-landed .stage__coffee .dango__sparks { animation: dango-sparks 0.9s ease-out 0.55s; }
+
+/* Dangos hiding on the floors of the homepage */
+.section-head:has(.hidden-dango) { position: relative; }
+.hidden-dango { position: absolute; top: -78px; width: 120px; height: 76px; pointer-events: none; z-index: 2; }
+.hidden-dango--right { right: 0; }
+.hidden-dango--left { left: -10px; }
+.hidden-dango svg { display: block; overflow: visible; }
+.hidden-dango .dango__boing, .hidden-dango__peek { transform-box: fill-box; transform-origin: 50% 100%; }
+html.motion .hidden-dango__peek { animation: hd-peek 6s ease-in-out infinite; }
+@keyframes hd-peek {
+  0%, 62%, 100% { transform: translateY(0) rotate(0); }
+  70% { transform: translateY(-7px) rotate(-7deg); }
+  78% { transform: translateY(0) rotate(5deg); }
+  86% { transform: translateY(0) rotate(0); }
+}
+.hidden-dango.is-found .hidden-dango__who { filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.75)); }
+.hidden-dango.is-found .hidden-dango__who .dango__boing { animation: dango-boing 0.9s cubic-bezier(0.3, 0.7, 0.3, 1); }
+.hidden-dango.is-found .hidden-dango__who .dango__sparks { animation: dango-sparks 0.9s ease-out; }
+@media (max-width: 760px) { .hidden-dango { top: -70px; transform: scale(0.85); transform-origin: top right; } .hidden-dango--left { transform-origin: top left; } }

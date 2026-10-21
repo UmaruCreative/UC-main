@@ -1,5 +1,6 @@
 ---
 import { useI18n, langs } from "../../i18n";
+import ForestFloor from "./forest/ForestFloor.astro";
 const { t, l, blog } = useI18n(Astro.url);
 const year = new Date().getFullYear();
 
@@ -10,6 +11,7 @@ const linkedInUrl = "https://www.linkedin.com/";
 ---
 
 <footer class="th-footer" data-night data-floor={t.footer.floor} data-altitude="0">
+  <ForestFloor />
   <svg class="th-footer__roots" viewBox="0 0 1440 260" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
     <g fill="none" stroke="#5a3e2b" stroke-linecap="round" data-roots data-draw>
       <path d="M720 0 C 716 60, 690 90, 640 120 S 520 170, 430 230" stroke-width="7" />

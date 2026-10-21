@@ -117,6 +117,13 @@ const langLinks = langs.map((code) => ({ code: code.toUpperCase(), lang: code, h
     box-shadow: 0 10px 40px -20px color-mix(in srgb, var(--ink) 35%, transparent);
   }
   .th-header.is-night .th-header__inner { color: var(--night-ink); }
+  /* Over the forest hero the pill is frosted from the start so the menu reads on any part of the painting */
+  .th-header.is-night:not(.is-scrolled) .th-header__inner {
+    background: color-mix(in srgb, var(--night-2) 34%, transparent);
+    backdrop-filter: blur(12px) saturate(1.15);
+    -webkit-backdrop-filter: blur(12px) saturate(1.15);
+    border-color: color-mix(in srgb, var(--night-ink) 14%, transparent);
+  }
   .th-header.is-night.is-scrolled .th-header__inner {
     background: color-mix(in srgb, var(--night-2) 80%, transparent);
     border-color: color-mix(in srgb, var(--night-ink) 10%, transparent);

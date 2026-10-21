@@ -1,4 +1,5 @@
 ---
+import HiddenDango from "./forest/HiddenDango.astro";
 import SampleReport from "./SampleReport.astro";
 import TreeRings from "./TreeRings.astro";
 import { useI18n } from "../../i18n";
@@ -15,6 +16,7 @@ const reports = t.lookout.reports;
 <section id="lookout" class="section lookout" data-floor={t.lookout.floor} aria-labelledby="lookout-title">
   <div class="wrap">
     <div class="section-head section-head--split">
+      <HiddenDango id="lookout" prop="telescope" side="left" />
       <div>
         <p class="eyebrow">{t.lookout.eyebrow} <span class="chip chip--new">{t.common.newBadge}</span></p>
         <h2 id="lookout-title" class="h2" data-split set:html={t.lookout.title} />

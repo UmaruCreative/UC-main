@@ -1,4 +1,5 @@
 ---
+import HiddenDango from "./forest/HiddenDango.astro";
 import { useI18n } from "../../i18n";
 const { t } = useI18n(Astro.url);
 const steps = t.build.steps.map((s, i) => ({ ...s, no: String(i + 1).padStart(2, "0") }));
@@ -7,6 +8,7 @@ const steps = t.build.steps.map((s, i) => ({ ...s, no: String(i + 1).padStart(2,
 <section id="process" class="section build" data-build data-floor={t.build.floor} aria-labelledby="build-title">
   <div class="wrap">
     <div class="section-head section-head--split">
+      <HiddenDango id="workshop" prop="blueprint" side="right" />
       <div>
         <p class="eyebrow">{t.build.eyebrow}</p>
         <h2 id="build-title" class="h2" data-split set:html={t.build.title} />

@@ -1,0 +1,14 @@
+---
+// One fly agaric (punakärpässieni), kept small and far away as an easter egg.
+interface Props { x: number; y: number; w?: number }
+const { x, y, w = 40 } = Astro.props;
+const h = w * 0.34, sh = w * 0.62, sw = w * 0.16, rimY = -sh + h * 0.08, top = rimY - h;
+const warts = [[-0.25, 0.55], [0.1, 0.8], [0.32, 0.5], [-0.05, 0.4], [-0.38, 0.3], [0.4, 0.25]];
+---
+
+<g transform={`translate(${x} ${y})`}>
+  <path d={`M${-sw * 0.6} 0 C ${-sw * 0.75} ${-sh * 0.4}, ${-sw * 0.48} ${-sh * 0.8}, ${-sw * 0.42} ${-sh} L ${sw * 0.42} ${-sh} C ${sw * 0.48} ${-sh * 0.8}, ${sw * 0.75} ${-sh * 0.4}, ${sw * 0.6} 0 Z`} fill="url(#a-stem)" stroke="#4a2a1c" stroke-width="1" stroke-opacity=".6" />
+  <ellipse cx="0" cy={rimY - h * 0.04} rx={w * 0.46} ry={h * 0.2} fill="#efe3cc" />
+  <path d={`M${-w / 2} ${rimY} C ${-w * 0.53} ${rimY - h * 0.72}, ${-w * 0.3} ${top}, 0 ${top} C ${w * 0.3} ${top}, ${w * 0.53} ${rimY - h * 0.72}, ${w / 2} ${rimY} C ${w * 0.3} ${rimY - h * 0.3}, ${-w * 0.3} ${rimY - h * 0.3}, ${-w / 2} ${rimY} Z`} fill="url(#a-cap)" stroke="#4a2a1c" stroke-width="1.2" stroke-opacity=".8" />
+  {warts.map(([u, v]) => <ellipse cx={u * w} cy={rimY - h * v} rx={w * 0.035} ry={w * 0.022} fill="#fffaf0" />)}
+</g>

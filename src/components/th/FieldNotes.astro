@@ -1,4 +1,5 @@
 ---
+import HiddenDango from "./forest/HiddenDango.astro";
 import { getCollection } from "astro:content";
 import { useI18n, articlePath } from "../../i18n";
 const { t, blog, lang } = useI18n(Astro.url);
@@ -14,6 +15,7 @@ const fmt = (d: Date) => d.toLocaleDateString(t.locale, { day: "numeric", month:
 <section id="blog" class="section notes" data-floor={t.notes.floor} aria-labelledby="notes-title">
   <div class="wrap">
     <div class="section-head section-head--split">
+      <HiddenDango id="notes" prop="book" side="left" />
       <div>
         <p class="eyebrow">{t.notes.eyebrow}</p>
         <h2 id="notes-title" class="h2" data-split set:html={t.notes.title} />

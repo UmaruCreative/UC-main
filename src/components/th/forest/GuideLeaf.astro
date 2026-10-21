@@ -1,0 +1,78 @@
+---
+// The guide: a Dango riding a falling leaf down the edge of the homepage,
+// from the treehouse to the campfire at the bottom. Decorative only.
+import { DANGO, SEASON } from "../../../season";
+
+const H = 64; // Dango height inside the 100 x 110 drawing
+const W = Math.round(H * DANGO.ratio * 10) / 10;
+const img = `<image href="${DANGO.src}" x="${-W / 2}" y="${-H}" width="${W}" height="${H}" />`;
+const winter = SEASON === "winter";
+---
+
+<div class="guide" data-guide data-dango-h={H} aria-hidden="true">
+  <div class="guide__body" data-guide-body>
+    <svg viewBox="-52 -76 104 100" width="104" height="100">
+      <g class="guide__leaf">
+        {
+          winter ? (
+            <g stroke="#eaf4fb" stroke-width="3" stroke-linecap="round">
+              <path d="M-40 6 H40 M-20 -10 L20 22 M20 -10 L-20 22" />
+              <circle cx="0" cy="6" r="6" fill="#eaf4fb" />
+            </g>
+          ) : (
+            <>
+              <path d="M-44 6 C -30 -10, 26 -12, 46 2 C 30 18, -26 20, -44 6 Z" fill="#e8963a" stroke="#9c4e1a" stroke-width="1.6" />
+              <path d="M-40 6 C -14 2, 18 2, 44 2" stroke="#b8642a" stroke-width="1.6" fill="none" />
+              <path d="M-20 5 l-8 -8 M-4 4 l-6 -9 M12 3 l-4 -9 M-20 6 l-7 7 M-4 5 l-5 8 M12 4 l-3 8" stroke="#b8642a" stroke-width="1.1" fill="none" opacity=".7" />
+              <path d="M46 2 q 8 -2 10 -8" stroke="#7a3d14" stroke-width="2" fill="none" stroke-linecap="round" />
+            </>
+          )
+        }
+      </g>
+      <ellipse cx="0" cy="2" rx="12" ry="2.6" fill="rgba(60,30,10,.25)" />
+      <g class="guide__dango"><Fragment set:html={img} /></g>
+    </svg>
+  </div>
+  <span class="guide__count" data-guide-count></span>
+</div>
+
+<style>
+  .guide {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 80;
+    width: 104px;
+    height: 100px;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    --gs: 0.62;
+  }
+  @media (min-width: 760px) { .guide { --gs: 0.72; } }
+  @media (min-width: 1320px) { .guide { --gs: 0.9; } }
+  .guide.is-on { visibility: visible; }
+  .guide__body { position: absolute; inset: 0; will-change: transform; }
+  .guide svg { display: block; overflow: visible; }
+  .guide__count {
+    position: absolute;
+    left: 50%;
+    top: -6px;
+    transform: translateX(-50%);
+    padding: 2px 8px;
+    border-radius: 999px;
+    font: 600 11px/1.4 var(--font-mono, monospace);
+    letter-spacing: 0.04em;
+    background: var(--night);
+    color: var(--glow);
+    opacity: 0;
+    transition: opacity 0.4s;
+    white-space: nowrap;
+  }
+  .guide__count.is-on { opacity: 1; }
+</style>
+
+<script>
+  import { initGuide } from "../../../scripts/guide";
+  initGuide();
+</script>

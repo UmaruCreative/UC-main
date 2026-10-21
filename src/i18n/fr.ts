@@ -130,6 +130,7 @@ const fr: Dict = {
     title: "Cinq pièces, <em>une</em> cabane.",
     lede: "Tout ce qu’il faut pour être trouvé, choisi et digne de confiance, bâti sur des fondations qui vous appartiennent. Choisissez une pièce, ou installez-vous dans toutes.",
     caption: "Survolez ou faites défiler une pièce pour l’éclairer",
+    diorama: { caption: "Faites défiler ou touchez un lieu de la forêt pour le visiter.", sun: "Faites glisser le soleil", sunLabel: "Heure du jour dans la forêt", back: "Voir toute la forêt" },
     enter: "Entrer",
     labels: { lookout: "03 · Vigie", cabin: "01 · Cabane", window: "02 · Fenêtre", shed: "05 · Atelier", sign: "04 · Panneau" },
     items: [

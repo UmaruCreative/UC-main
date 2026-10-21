@@ -81,6 +81,9 @@ const rungs = Array.from({ length: 34 }, (_, i) => 20 + i * 28);
 
 <style>
   .security { overflow: hidden; isolation: isolate; }
+  /* On the homepage the day is still bright here: this floor sits in the deep
+     shade under the canopy instead of in the night */
+  :global(html.daylight) .security { --sec-bg: #1b3128; background: linear-gradient(180deg, #1b3128 0%, #13251f 100%); }
   .security__field {
     position: absolute;
     inset: 0;

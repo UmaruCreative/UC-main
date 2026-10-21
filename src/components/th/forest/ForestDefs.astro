@@ -1,0 +1,50 @@
+---
+// Shared gradients and filters for every forest drawing on the page (hero and stage).
+// Rendered once, near the top of <body>; other inline SVGs point at these ids.
+---
+
+<svg class="forest-defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- paper grain for mushrooms and bark -->
+    <filter id="fx-grain" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="4" result="t" />
+      <feColorMatrix in="t" type="saturate" values="0" result="g" />
+      <feComponentTransfer in="g" result="g2"><feFuncR type="linear" slope=".38" intercept=".72" /><feFuncG type="linear" slope=".38" intercept=".72" /><feFuncB type="linear" slope=".38" intercept=".72" /></feComponentTransfer>
+      <feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="2" seed="9" result="m" />
+      <feColorMatrix in="m" type="saturate" values="0" result="mg" />
+      <feComponentTransfer in="mg" result="m2"><feFuncR type="linear" slope=".3" intercept=".82" /><feFuncG type="linear" slope=".3" intercept=".82" /><feFuncB type="linear" slope=".3" intercept=".82" /></feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="g2" mode="multiply" result="b1" />
+      <feBlend in="b1" in2="m2" mode="multiply" result="b2" />
+      <feComposite in="b2" in2="SourceGraphic" operator="in" />
+    </filter>
+    <!-- Dango helpers: a white silhouette (for masks) and a soft blue halo -->
+    <filter id="fx-whiten"><feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0" /></filter>
+    <filter id="fx-halo" x="-60%" y="-40%" width="220%" height="180%"><feColorMatrix type="matrix" values="0 0 0 0 0.62  0 0 0 0 0.86  0 0 0 0 1  0 0 0 1 0" /><feGaussianBlur stdDeviation="9" /></filter>
+    <radialGradient id="fx-caustic" r=".5"><stop offset="0" stop-color="#d4f1ff" stop-opacity=".8" /><stop offset=".55" stop-color="#8fd6ff" stop-opacity=".28" /><stop offset="1" stop-color="#8fd6ff" stop-opacity="0" /></radialGradient>
+    <radialGradient id="fx-warm" r=".5"><stop offset="0" stop-color="#ffcf73" stop-opacity=".7" /><stop offset=".45" stop-color="#ffb04a" stop-opacity=".22" /><stop offset="1" stop-color="#ffb04a" stop-opacity="0" /></radialGradient>
+    <linearGradient id="fx-fire-l" x1="0" x2="1"><stop offset="0" stop-color="#ffb35a" stop-opacity=".55" /><stop offset=".45" stop-color="#ffb35a" stop-opacity=".1" /><stop offset=".7" stop-color="#ffb35a" stop-opacity="0" /></linearGradient>
+    <linearGradient id="fx-cool-r" x1="0" x2="1"><stop offset=".55" stop-color="#1c2b66" stop-opacity="0" /><stop offset="1" stop-color="#1c2b66" stop-opacity=".2" /></linearGradient>
+
+    <!-- chanterelle -->
+    <linearGradient id="k-under" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d48420" /><stop offset=".3" stop-color="#eaa13a" /><stop offset="1" stop-color="#f5c462" /></linearGradient>
+    <linearGradient id="k-shade-r" x1="0" x2="1"><stop offset="0" stop-color="#6e370a" stop-opacity=".24" /><stop offset=".55" stop-color="#6e370a" stop-opacity="0" /><stop offset="1" stop-color="#fff0c8" stop-opacity=".2" /></linearGradient>
+    <linearGradient id="k-shade-l" x1="0" x2="1"><stop offset="0" stop-color="#fff0c8" stop-opacity=".2" /><stop offset=".45" stop-color="#6e370a" stop-opacity="0" /><stop offset="1" stop-color="#6e370a" stop-opacity=".24" /></linearGradient>
+    <linearGradient id="k-cap-r" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fcc84e" /><stop offset="1" stop-color="#eda22c" /></linearGradient>
+    <linearGradient id="k-cap-l" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fcc84e" /><stop offset="1" stop-color="#eda22c" /></linearGradient>
+
+    <!-- funnel chanterelle -->
+    <linearGradient id="y-stem" x1="0" x2="1"><stop offset="0" stop-color="#d9922c" /><stop offset=".6" stop-color="#efb04a" /><stop offset="1" stop-color="#f3c068" /></linearGradient>
+    <linearGradient id="y-cap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a7558" /><stop offset="1" stop-color="#5f4c38" /></linearGradient>
+
+    <!-- red-belted conk: dark by the bark, rusty band, cream growing edge -->
+    <linearGradient id="c-top" x1="0" x2="1"><stop offset="0" stop-color="#5a3a26" /><stop offset=".45" stop-color="#7c4a2c" /><stop offset=".72" stop-color="#a8452a" /><stop offset=".86" stop-color="#d9a46a" /><stop offset="1" stop-color="#f1e3c2" /></linearGradient>
+
+    <!-- fly agaric -->
+    <radialGradient id="a-cap" cx=".62" cy=".22" r=".85"><stop offset="0" stop-color="#ff7a4a" /><stop offset=".5" stop-color="#dc3423" /><stop offset="1" stop-color="#a1201c" /></radialGradient>
+    <linearGradient id="a-stem" x1="0" x2="1"><stop offset="0" stop-color="#d9cfbf" /><stop offset=".6" stop-color="#f4ecdd" /><stop offset="1" stop-color="#fffaf2" /></linearGradient>
+  </defs>
+</svg>
+
+<style>
+  .forest-defs { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
+</style>

@@ -130,6 +130,7 @@ const sv: Dict = {
     title: "Fem rum, <em>en</em> trädkoja.",
     lede: "Allt du behöver för att bli hittad, betrodd och vald, byggt på en grund du äger. Välj ett rum eller flytta in i alla.",
     caption: "Håll muspekaren över eller skrolla till ett rum för att tända det",
+    diorama: { caption: "Skrolla, eller tryck på en plats i skogen för att besöka den.", sun: "Dra solen", sunLabel: "Tid på dygnet i skogen", back: "Visa hela skogen" },
     enter: "Kliv in",
     labels: { lookout: "03 · Utkiken", cabin: "01 · Stugan", window: "02 · Fönstret", shed: "05 · Verktygsboden", sign: "04 · Vägvisaren" },
     items: [

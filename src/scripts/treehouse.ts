@@ -23,6 +23,13 @@ export function initMotion() {
 
   if (motion) initSmoothScroll();
   initAnchors();
+  // Other scripts (the pop-up book) can ask for a smooth scroll to an element
+  window.addEventListener("th:goto", (e) => {
+    const { el, offset = -20 } = (e as CustomEvent<{ el: HTMLElement; offset?: number }>).detail ?? {};
+    if (!el) return;
+    if (lenis) lenis.scrollTo(el, { offset, duration: 1.4 });
+    else window.scrollTo({ top: el.getBoundingClientRect().top + scrollY + offset });
+  });
   initRail();
   initScrollProgress();
 
@@ -335,138 +342,19 @@ function initTilt() {
 }
 
 /* --------------------------------------------------------------------------
-   Hero: layered forest, intro, fireflies
+   Hero: the headline rises in; the forest itself lives in forest.ts
    -------------------------------------------------------------------------- */
 
 function initHero() {
   const hero = document.querySelector<HTMLElement>("[data-hero]");
   if (!hero) return;
-
   const heading = hero.querySelector<HTMLElement>("[data-split]");
   const words = heading ? splitWords(heading) : [];
-  const layers = $$("[data-depth]", hero);
-  const intro = gsap.timeline({ defaults: { ease: "expo.out" } });
-
   gsap.set(words, { yPercent: 115, rotate: 5 });
-  intro
-    .from(layers, { y: (i, el) => 80 + parseFloat((el as HTMLElement).dataset.depth ?? "0") * 260, opacity: 0, duration: 2, stagger: 0.08 }, 0)
-    .from("[data-hero-sky]", { opacity: 0, duration: 1.6, ease: "power2.out" }, 0)
+  gsap
+    .timeline({ defaults: { ease: "expo.out" } })
     .to(words, { yPercent: 0, rotate: 0, duration: 1.3, stagger: 0.06 }, 0.35)
-    .from($$("[data-hero-in]", hero), { y: 24, opacity: 0, duration: 1.1, stagger: 0.08 }, 0.8)
-    .from("[data-hero-window]", { opacity: 0, duration: 0.4, ease: "steps(3)" }, 1.4);
-
-  // Scroll: layers slide at different speeds, the scene dims into dusk
-  layers.forEach((layer) => {
-    const d = parseFloat(layer.dataset.depth ?? "0");
-    gsap.to(layer, {
-      yPercent: d * 38,
-      ease: "none",
-      scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true },
-    });
-  });
-  gsap.to("[data-hero-copy]", {
-    yPercent: -30,
-    opacity: 0.2,
-    ease: "none",
-    scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true },
-  });
-  gsap.to("[data-hero-dusk]", {
-    opacity: 1,
-    ease: "none",
-    scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true },
-  });
-
-  // Pointer parallax on the scene
-  if (canHover()) {
-    const movers = layers.map((l) => ({
-      d: parseFloat(l.dataset.depth ?? "0"),
-      x: gsap.quickTo(l, "x", { duration: 1.2, ease: "power3.out" }),
-    }));
-    hero.addEventListener("pointermove", (e) => {
-      const px = e.clientX / innerWidth - 0.5;
-      movers.forEach((m) => m.x(-px * m.d * 60));
-    });
-  }
-
-  const canvas = hero.querySelector<HTMLCanvasElement>("[data-fireflies]");
-  if (canvas) fireflies(canvas, hero);
-}
-
-function fireflies(canvas: HTMLCanvasElement, host: HTMLElement) {
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return;
-  let w = 0,
-    h = 0,
-    dpr = 1,
-    running = false,
-    raf = 0;
-  const count = innerWidth < 700 ? 22 : 46;
-  type Fly = { x: number; y: number; vx: number; vy: number; r: number; p: number; s: number };
-  let flies: Fly[] = [];
-
-  const resize = () => {
-    dpr = Math.min(2, devicePixelRatio || 1);
-    w = canvas.clientWidth;
-    h = canvas.clientHeight;
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    // Wide screens: fireflies live on the treehouse side. Narrow: below the text.
-    const wide = w >= 760;
-    flies = Array.from({ length: count }, () => ({
-      x: wide ? w * 0.5 + Math.random() * w * 0.5 : Math.random() * w,
-      y: wide ? h * 0.35 + Math.random() * h * 0.65 : h * 0.72 + Math.random() * h * 0.28,
-      vx: (Math.random() - 0.5) * 0.25,
-      vy: (Math.random() - 0.5) * 0.2,
-      r: 1 + Math.random() * 1.8,
-      p: Math.random() * Math.PI * 2,
-      s: 0.01 + Math.random() * 0.025,
-    }));
-  };
-
-  const tick = () => {
-    ctx.clearRect(0, 0, w, h);
-    for (const f of flies) {
-      f.p += f.s;
-      f.vx += (Math.random() - 0.5) * 0.02;
-      f.vy += (Math.random() - 0.5) * 0.02;
-      f.vx *= 0.98;
-      f.vy *= 0.98;
-      f.x += f.vx;
-      f.y += f.vy;
-      const minX = w >= 760 ? w * 0.48 : -10;
-      const minY = w >= 760 ? h * 0.25 : h * 0.68;
-      if (f.x < minX) f.x = w + 10;
-      if (f.x > w + 10) f.x = minX;
-      if (f.y < minY) f.vy += 0.01;
-      if (f.y > h + 10) f.y = h * 0.4;
-      const a = 0.35 + Math.sin(f.p) * 0.35;
-      const g = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.r * 7);
-      g.addColorStop(0, `rgba(255, 214, 130, ${a})`);
-      g.addColorStop(1, "rgba(255, 214, 130, 0)");
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(f.x, f.y, f.r * 7, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = `rgba(255, 240, 200, ${Math.min(1, a + 0.3)})`;
-      ctx.beginPath();
-      ctx.arc(f.x, f.y, f.r * 0.7, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    raf = requestAnimationFrame(tick);
-  };
-
-  resize();
-  window.addEventListener("resize", resize);
-  new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting && !running) {
-      running = true;
-      tick();
-    } else if (!entry.isIntersecting && running) {
-      running = false;
-      cancelAnimationFrame(raf);
-    }
-  }).observe(host);
+    .from($$("[data-hero-in]", hero), { y: 24, opacity: 0, duration: 1.1, stagger: 0.08, clearProps: "opacity,transform" }, 0.8);
 }
 
 /* --------------------------------------------------------------------------

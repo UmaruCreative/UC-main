@@ -1,0 +1,31 @@
+---
+// A small cluster of forest mushrooms. Each item: x offset, height, cap width, colour key.
+import { colors } from "../../../season";
+
+interface Props {
+  x: number;
+  y: number;
+  items: { dx: number; h: number; cap: number; c?: "A" | "B"; tilt?: number }[];
+  glow?: boolean;
+}
+
+const { x, y, items, glow = false } = Astro.props;
+---
+
+<g class:list={["shrooms", { "shrooms--glow": glow }]} transform={`translate(${x} ${y})`}>
+  {
+    items.map((m, i) => {
+      const cap = m.c === "B" ? colors.capB : colors.capA;
+      const r = m.cap / 2;
+      return (
+        <g transform={`translate(${m.dx} 0) rotate(${m.tilt ?? 0})`}><g class="shroom" style={`--i:${i}`}>
+          {glow && <circle class="shroom__glow" cx="0" cy={-m.h} r={r * 2.4} />}
+          <path d={`M${-r * 0.22} 0 C ${-r * 0.3} ${-m.h * 0.5}, ${-r * 0.18} ${-m.h * 0.8}, ${-r * 0.16} ${-m.h} H ${r * 0.16} C ${r * 0.18} ${-m.h * 0.8}, ${r * 0.3} ${-m.h * 0.5}, ${r * 0.22} 0 Z`} fill={colors.stem} />
+          <path d={`M${-r} ${-m.h + 1} C ${-r} ${-m.h - r * 0.9}, ${r} ${-m.h - r * 0.9}, ${r} ${-m.h + 1} Q 0 ${-m.h + r * 0.25} ${-r} ${-m.h + 1} Z`} fill={cap} />
+          <ellipse cx={-r * 0.3} cy={-m.h - r * 0.42} rx={r * 0.18} ry={r * 0.11} fill="#fff" opacity="0.55" />
+          {colors.snow && <path d={`M${-r * 0.85} ${-m.h - r * 0.3} C ${-r * 0.6} ${-m.h - r * 0.95}, ${r * 0.6} ${-m.h - r * 0.95}, ${r * 0.85} ${-m.h - r * 0.3} Q 0 ${-m.h - r * 0.45} ${-r * 0.85} ${-m.h - r * 0.3} Z`} fill="#f7fbff" />}
+        </g></g>
+      );
+    })
+  }
+</g>
