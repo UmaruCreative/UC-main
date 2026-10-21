@@ -1,0 +1,31 @@
+---
+// "Page not found". Cloudflare Pages and GitHub Pages both serve 404.html with a 404 status.
+import TreehouseLayout from "../layouts/TreehouseLayout.astro";
+import PageHero from "../components/th/PageHero.astro";
+---
+
+<TreehouseLayout
+  title="Page not found | Umaru Creative"
+  description="This page does not exist. Find your way back to Umaru Creative."
+  alternates={{ en: "/", fi: "/fi/", sv: "/sv/", fr: "/fr/", no: "/no/" }}
+>
+  <meta slot="head" name="robots" content="noindex" />
+  <PageHero
+    eyebrow="404 · Off the path"
+    title="This branch <em>doesn’t exist.</em>"
+    lede="The page you were looking for has moved or never grew here. The way home is just below."
+    primary={{ label: "Back to the treehouse", href: "/" }}
+    secondary={{ label: "Read the blog", href: "/articles/" }}
+  />
+  <section class="section section--birch">
+    <div class="wrap">
+      <p class="eyebrow">Other languages</p>
+      <p class="lede">
+        <a class="link-arrow" href="/fi/" lang="fi">Suomi</a> ·
+        <a class="link-arrow" href="/sv/" lang="sv">Svenska</a> ·
+        <a class="link-arrow" href="/fr/" lang="fr">Français</a> ·
+        <a class="link-arrow" href="/no/" lang="nb">Norsk</a>
+      </p>
+    </div>
+  </section>
+</TreehouseLayout>
